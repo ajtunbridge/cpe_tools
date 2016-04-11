@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FC835749-347C-4835-949E-80D12D8C15F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CPE.Data.EntityFramework</RootNamespace>
+    <AssemblyName>CPE.Data.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\CalibrationMethod.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CalibrationResult.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ClientSetting.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CPEDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPEDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CPEDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CPEDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CPEDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Customer.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CustomerExt.cs" />
+    <Compile Include="Model\Document.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Employee.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EmployeeGroup.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EmployeeWorkCentre.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Gauge.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GaugeType.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Holder.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HolderGroup.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\HolderTool.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MachineGroup.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Method.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NonConformance.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NonConformanceType.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Operation.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\OperationTool.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Part.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PartVersion.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Photo.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RecentPart.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RejectReason.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tool.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ToolGroup.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TricornTool.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CPE.Domain\CPE.Domain.csproj">
+      <Project>{c87ca17e-5131-4293-9611-f0f3a8e7516e}</Project>
+      <Name>CPE.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model\CPEDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CPEDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\CPEDataModel.edmx.diagram">
+      <DependentUpon>CPEDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\CPEDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CPEDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>CPEDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\CPEDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CPEDataModel.edmx</DependentUpon>
+      <LastGenOutput>CPEDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
