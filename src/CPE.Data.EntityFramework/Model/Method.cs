@@ -23,6 +23,7 @@ namespace CPE.Data.EntityFramework.Model
         public int Id { get; set; }
         public string Description { get; set; }
         public bool IsPreferred { get; set; }
+        public int PartVersionId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     

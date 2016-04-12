@@ -23,6 +23,7 @@ namespace CPE.Data.EntityFramework.Model
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public Nullable<int> ParentGroupId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToolGroup> ToolGroups1 { get; set; }

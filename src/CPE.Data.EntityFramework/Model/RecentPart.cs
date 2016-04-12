@@ -15,6 +15,8 @@ namespace CPE.Data.EntityFramework.Model
     public partial class RecentPart
     {
         public int Id { get; set; }
+        public int EmployeeId { get; set; }
+        public int PartId { get; set; }
         public System.DateTime ViewedOn { get; set; }
     
         public virtual Employee Employee { get; set; }

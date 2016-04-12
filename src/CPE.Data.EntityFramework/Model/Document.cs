@@ -18,6 +18,9 @@ namespace CPE.Data.EntityFramework.Model
         public string FileName { get; set; }
         public bool IsLocked { get; set; }
         public bool IsApproved { get; set; }
+        public Nullable<int> PartId { get; set; }
+        public Nullable<int> PartVersionId { get; set; }
+        public Nullable<int> OperationId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     

@@ -15,6 +15,7 @@ namespace CPE.Data.EntityFramework.Model
     public partial class TricornTool
     {
         public int Id { get; set; }
+        public int ToolId { get; set; }
         public int TricornReference { get; set; }
     
         public virtual Tool Tool { get; set; }

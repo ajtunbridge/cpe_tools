@@ -15,6 +15,7 @@ namespace CPE.Data.EntityFramework.Model
     public partial class EmployeeWorkCentre
     {
         public int Id { get; set; }
+        public int EmployeeId { get; set; }
         public int WCentreId { get; set; }
     
         public virtual Employee Employee { get; set; }

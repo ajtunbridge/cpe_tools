@@ -15,6 +15,8 @@ namespace CPE.Data.EntityFramework.Model
     public partial class HolderTool
     {
         public int Id { get; set; }
+        public int HolderId { get; set; }
+        public int ToolId { get; set; }
     
         public virtual Holder Holder { get; set; }
         public virtual Tool Tool { get; set; }

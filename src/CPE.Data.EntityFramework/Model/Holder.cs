@@ -23,6 +23,7 @@ namespace CPE.Data.EntityFramework.Model
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public int HolderGroupId { get; set; }
     
         public virtual HolderGroup HolderGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

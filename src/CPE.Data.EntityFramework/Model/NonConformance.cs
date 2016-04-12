@@ -15,6 +15,8 @@ namespace CPE.Data.EntityFramework.Model
     public partial class NonConformance
     {
         public int Id { get; set; }
+        public int NonConformanceTypeId { get; set; }
+        public int RejectReasonId { get; set; }
         public Nullable<int> CustomerId { get; set; }
         public Nullable<int> SupplierId { get; set; }
         public Nullable<int> PartId { get; set; }
@@ -24,6 +26,7 @@ namespace CPE.Data.EntityFramework.Model
         public string CustomerReturnNumber { get; set; }
         public Nullable<System.DateTime> CustomerReturnDate { get; set; }
         public string ContactName { get; set; }
+        public int RaisedBy { get; set; }
         public System.DateTime RaisedOn { get; set; }
         public int QuantityAffected { get; set; }
         public string Description { get; set; }

@@ -15,6 +15,7 @@ namespace CPE.Data.EntityFramework.Model
     public partial class CalibrationResult
     {
         public int Id { get; set; }
+        public int GaugeId { get; set; }
         public System.DateTime CalibratedOn { get; set; }
         public string ExternalReference { get; set; }
         public double ExpectedResult1 { get; set; }

@@ -127,6 +127,7 @@
     <Compile Include="Model\Part.cs">
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PartExt.cs" />
     <Compile Include="Model\PartVersion.cs">
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>

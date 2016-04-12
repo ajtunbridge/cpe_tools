@@ -5,60 +5,60 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e8060086d4e44b0eb2c0d7e14c8a7839" Name="Diagram1">
-        <EntityTypeShape EntityType="CPEModel.CalibrationMethod" Width="1.5" PointX="5.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.CalibrationResult" Width="1.5" PointX="12.5" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.ClientSetting" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Customer" Width="1.5" PointX="1.5" PointY="36.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Document" Width="1.5" PointX="3.75" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.EmployeeGroup" Width="1.5" PointX="5.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Employee" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.EmployeeWorkCentre" Width="1.5" PointX="10.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Gauge" Width="1.5" PointX="10.25" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.GaugeType" Width="1.5" PointX="8" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.HolderGroup" Width="1.5" PointX="1.5" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Holder" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.HolderTool" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.MachineGroup" Width="1.5" PointX="1.5" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Method" Width="1.5" PointX="1.5" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.NonConformance" Width="1.5" PointX="13.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.NonConformanceType" Width="1.5" PointX="11" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Operation" Width="1.5" PointX="0.75" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.OperationTool" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Part" Width="1.5" PointX="1.5" PointY="32" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.PartVersion" Width="1.5" PointX="1.5" PointY="28.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Photo" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.RecentPart" Width="1.5" PointX="10.25" PointY="19.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.RejectReason" Width="1.5" PointX="11" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.ToolGroup" Width="1.5" PointX="1.5" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.Tool" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPEModel.TricornTool" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
-        <AssociationConnector Association="CPEModel.FK_GaugeTypes_CalibrationMethods" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_CalibrationResults_Gauges" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Parts_Customers" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Documents_Operations" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Documents_Parts" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Documents_PartVersions" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Employees_EmployeeGroups" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_EmployeeWorkCentres_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_NonConformances_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_RecentParts_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Gauges_GaugeTypes" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Holders_HolderGroups" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_HolderTools_Holders" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_OperationTools_Holders" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_HolderTools_Tools" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Operations_MachineGroups" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Methods_PartVersions" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Operations_Methods" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_NonConformances_NonConformanceTypes" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_NonConformances_RejectReasons" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_OperationTools_Operations" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_OperationTools_Tools" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_PartVersions_Parts" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_RecentParts_Parts" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_ToolGroups_ToolGroups" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_Tools_ToolGroups" ManuallyRouted="false" />
-        <AssociationConnector Association="CPEModel.FK_TricornTools_Tools" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CPEModel.CalibrationMethod" Width="1.5" PointX="15.75" PointY="2.625" />
+        <EntityTypeShape EntityType="CPEModel.CalibrationResult" Width="1.5" PointX="22.5" PointY="1.375" />
+        <EntityTypeShape EntityType="CPEModel.ClientSetting" Width="1.5" PointX="3.75" PointY="1.125" />
+        <EntityTypeShape EntityType="CPEModel.Customer" Width="1.5" PointX="1.5" PointY="30.375" />
+        <EntityTypeShape EntityType="CPEModel.Document" Width="1.5" PointX="6" PointY="22.375" />
+        <EntityTypeShape EntityType="CPEModel.EmployeeGroup" Width="1.5" PointX="8.75" PointY="6.625" />
+        <EntityTypeShape EntityType="CPEModel.Employee" Width="1.5" PointX="11" PointY="5.625" />
+        <EntityTypeShape EntityType="CPEModel.EmployeeWorkCentre" Width="1.5" PointX="13.25" PointY="13.375" />
+        <EntityTypeShape EntityType="CPEModel.Gauge" Width="1.5" PointX="20.25" PointY="2.5" />
+        <EntityTypeShape EntityType="CPEModel.GaugeType" Width="1.5" PointX="18" PointY="2.375" />
+        <EntityTypeShape EntityType="CPEModel.HolderGroup" Width="1.5" PointX="1.5" PointY="15" />
+        <EntityTypeShape EntityType="CPEModel.Holder" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CPEModel.HolderTool" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="CPEModel.MachineGroup" Width="1.5" PointX="1.5" PointY="33.875" />
+        <EntityTypeShape EntityType="CPEModel.Method" Width="1.5" PointX="1.5" PointY="18.25" />
+        <EntityTypeShape EntityType="CPEModel.NonConformance" Width="1.5" PointX="13.25" PointY="4.5" />
+        <EntityTypeShape EntityType="CPEModel.NonConformanceType" Width="1.5" PointX="11" PointY="11" />
+        <EntityTypeShape EntityType="CPEModel.Operation" Width="1.5" PointX="3.75" PointY="19" />
+        <EntityTypeShape EntityType="CPEModel.OperationTool" Width="1.5" PointX="6" PointY="4.25" />
+        <EntityTypeShape EntityType="CPEModel.Part" Width="1.5" PointX="1.5" PointY="26" />
+        <EntityTypeShape EntityType="CPEModel.PartVersion" Width="1.5" PointX="1.5" PointY="22.25" />
+        <EntityTypeShape EntityType="CPEModel.Photo" Width="1.5" PointX="5.75" PointY="1.125" />
+        <EntityTypeShape EntityType="CPEModel.RecentPart" Width="1.5" PointX="13.25" PointY="16.375" />
+        <EntityTypeShape EntityType="CPEModel.RejectReason" Width="1.5" PointX="11" PointY="2.5" />
+        <EntityTypeShape EntityType="CPEModel.ToolGroup" Width="1.5" PointX="1.5" PointY="0.75" />
+        <EntityTypeShape EntityType="CPEModel.Tool" Width="1.5" PointX="0.75" PointY="4.5" />
+        <EntityTypeShape EntityType="CPEModel.TricornTool" Width="1.5" PointX="3" PointY="11.5" />
+        <AssociationConnector Association="CPEModel.FK_GaugeTypes_CalibrationMethods" />
+        <AssociationConnector Association="CPEModel.FK_CalibrationResults_Gauges" />
+        <AssociationConnector Association="CPEModel.FK_Parts_Customers" />
+        <AssociationConnector Association="CPEModel.FK_Documents_Operations" />
+        <AssociationConnector Association="CPEModel.FK_Documents_Parts" />
+        <AssociationConnector Association="CPEModel.FK_Documents_PartVersions" />
+        <AssociationConnector Association="CPEModel.FK_Employees_EmployeeGroups" />
+        <AssociationConnector Association="CPEModel.FK_EmployeeWorkCentres_Employees" />
+        <AssociationConnector Association="CPEModel.FK_NonConformances_Employees" />
+        <AssociationConnector Association="CPEModel.FK_RecentParts_Employees" />
+        <AssociationConnector Association="CPEModel.FK_Gauges_GaugeTypes" />
+        <AssociationConnector Association="CPEModel.FK_Holders_HolderGroups" />
+        <AssociationConnector Association="CPEModel.FK_HolderTools_Holders" />
+        <AssociationConnector Association="CPEModel.FK_OperationTools_Holders" />
+        <AssociationConnector Association="CPEModel.FK_HolderTools_Tools" />
+        <AssociationConnector Association="CPEModel.FK_Operations_MachineGroups" />
+        <AssociationConnector Association="CPEModel.FK_Methods_PartVersions" />
+        <AssociationConnector Association="CPEModel.FK_Operations_Methods" />
+        <AssociationConnector Association="CPEModel.FK_NonConformances_NonConformanceTypes" />
+        <AssociationConnector Association="CPEModel.FK_NonConformances_RejectReasons" />
+        <AssociationConnector Association="CPEModel.FK_OperationTools_Operations" />
+        <AssociationConnector Association="CPEModel.FK_OperationTools_Tools" />
+        <AssociationConnector Association="CPEModel.FK_PartVersions_Parts" />
+        <AssociationConnector Association="CPEModel.FK_RecentParts_Parts" />
+        <AssociationConnector Association="CPEModel.FK_ToolGroups_ToolGroups" />
+        <AssociationConnector Association="CPEModel.FK_Tools_ToolGroups" />
+        <AssociationConnector Association="CPEModel.FK_TricornTools_Tools" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

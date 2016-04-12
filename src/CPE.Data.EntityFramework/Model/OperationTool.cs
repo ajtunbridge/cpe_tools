@@ -19,6 +19,9 @@ namespace CPE.Data.EntityFramework.Model
         public int Offset { get; set; }
         public int UseOnePer { get; set; }
         public string Notes { get; set; }
+        public int OperationId { get; set; }
+        public Nullable<int> HolderId { get; set; }
+        public int ToolId { get; set; }
     
         public virtual Holder Holder { get; set; }
         public virtual Operation Operation { get; set; }

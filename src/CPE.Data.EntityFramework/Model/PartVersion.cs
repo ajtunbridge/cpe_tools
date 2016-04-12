@@ -23,6 +23,7 @@ namespace CPE.Data.EntityFramework.Model
     
         public int Id { get; set; }
         public string VersionNumber { get; set; }
+        public int PartId { get; set; }
         public Nullable<int> DrawingDocumentId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }

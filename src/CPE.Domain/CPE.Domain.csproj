@@ -41,7 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ICustomer.cs" />
+    <Compile Include="Model\IEntity.cs" />
+    <Compile Include="Model\IPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Services\IServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Security\" />

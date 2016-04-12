@@ -27,6 +27,8 @@ namespace CPE.Data.EntityFramework.Model
         public byte[] Notes { get; set; }
         public Nullable<int> SetupTime { get; set; }
         public Nullable<double> CycleTime { get; set; }
+        public int MethodId { get; set; }
+        public int MachineGroupId { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
     

@@ -2,6 +2,7 @@
 using System.Linq;
 using CPE.Data.EntityFramework.Model;
 using CPE.Data.EntityFramework.Repositories;
+using CPE.Domain.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CPE.Data.EntityFramework.Tests
@@ -10,6 +11,7 @@ namespace CPE.Data.EntityFramework.Tests
     public class CustomerRepositoryTests
     {
         private CustomerRepository _repository;
+        private Customer _customer;
 
         [TestInitialize]
         public void Setup()
@@ -31,6 +33,35 @@ namespace CPE.Data.EntityFramework.Tests
             var customers = _repository.GetAllAsync();
 
             Assert.IsTrue(customers.Result.Any());
+        }
+
+        [TestMethod]
+        public void Can_Insert_Customer()
+        {
+            _customer = new Customer
+            {
+                Name="Unit Test Customer",
+                CreatedBy=8,
+                ModifiedBy=8
+            };
+
+            _repository.Insert(_customer);
+            _repository.Commit();
+
+            Assert.IsTrue(_customer.Id > 0);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (_customer == null)
+            {
+                return;
+            }
+
+            _repository.Delete(_customer);
+            
+            _repository.Commit();
         }
     }
 }

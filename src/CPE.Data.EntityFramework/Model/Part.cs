@@ -23,6 +23,7 @@ namespace CPE.Data.EntityFramework.Model
         }
     
         public int Id { get; set; }
+        public int CustomerId { get; set; }
         public string DrawingNumber { get; set; }
         public string Name { get; set; }
         public string ToolingLocation { get; set; }

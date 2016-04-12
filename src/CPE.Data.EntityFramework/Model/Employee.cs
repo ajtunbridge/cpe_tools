@@ -28,6 +28,7 @@ namespace CPE.Data.EntityFramework.Model
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
+        public int EmployeeGroupId { get; set; }
         public Nullable<int> LastViewedPartId { get; set; }
         public Nullable<int> PreferredMachineGroup { get; set; }
         public bool IsEnabled { get; set; }
