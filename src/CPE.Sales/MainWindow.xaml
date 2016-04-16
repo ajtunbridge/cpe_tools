@@ -4,20 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPE.Sales"
+        xmlns:views="clr-namespace:CPE.Sales.Views"
         mc:Ignorable="d"
         Loaded="MainWindow_OnLoaded"
-        Title="CPE --> Sales" Height="300" Width="300"
+        Title="CPE --> Sales" Height="850" Width="1280"
         DataContext="{Binding MainModel, Source={StaticResource BootstrapLocator}}">
     <Grid>
-        <ListBox ItemsSource="{Binding SalesOrders}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Sender}"/>
-                        <TextBlock Text="{Binding Attachments}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <views:CustomerSalesOrderParserSettingsView x:Name="ParserSettingsView" Margin="15"></views:CustomerSalesOrderParserSettingsView>
     </Grid>
 </Window>

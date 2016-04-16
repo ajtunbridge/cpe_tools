@@ -38,24 +38,11 @@ namespace CPE.Sales
 
         private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var salesOrders = MSOutlookService.GetSalesOrderMail();
+            var customers = Bootstrapper.Customers.GetSalesOrderParseable();
+            
+            var model = ParserSettingsView.DataContext as CustomerSalesOrderParserSettingsViewModel;
 
-            var reportParser = new OpenOrderReportParserService();
-            var orderParser = new SalesOrderParserService(new CustomerRepository(new CPEEntities()));
-
-            foreach (var so in salesOrders)
-            {
-                var orderNumber = await orderParser.ParseOrderNumberAsync(so);
-
-                DateTime rescheduleDate = DateTime.MinValue;
-
-                var isRescheduled = reportParser.HasBeenRescheduled(orderNumber, orderNumber, out rescheduleDate);
-
-                if (isRescheduled)
-                {
-                    MessageBox.Show(string.Format("{0} has been rescheduled out to {1:d}", orderNumber, rescheduleDate));
-                }
-            }
+            model.CurrentCustomer = customers.Skip(1).First();
         }
     }
 }

@@ -5,9 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:CPE.Sales.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              StartupUri="MainWindow.xaml"
              mc:Ignorable="d">
     <Application.Resources>
         <local:Bootstrapper x:Key="BootstrapLocator" d:IsDataSource="true"/>
+        <!-- Styles -->
+        <Style x:Key="SfTextEditorStyle" TargetType="syncfusion:SfTextBoxExt">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="ComboBoxStyle" TargetType="syncfusion:ComboBoxAdv">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>
