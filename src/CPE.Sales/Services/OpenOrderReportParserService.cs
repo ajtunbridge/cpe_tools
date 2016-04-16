@@ -1,0 +1,80 @@
+﻿using System;
+using System.Data;
+using System.IO;
+using System.Linq;
+using Excel;
+
+namespace CPE.Sales.Services
+{
+    public sealed class OpenOrderReportParserService
+    {
+        private DataSet _dataSet;
+
+        public bool HasBeenRescheduled(string drawingNumber, string orderNumber, out DateTime rescheduledDate)
+        {
+            const int orderNumberColumnIndex = 7;
+            const int drawingNumberColumnIndex = 2;
+            const int rescheduleDateColumnIndex = 10;
+
+            rescheduledDate = DateTime.MinValue;
+
+            // read the excel file into a DataSet, if it hasn't been done already
+            if (_dataSet == null)
+            {
+                var lastReport = MSOutlookService.GetMostRecentOpenOrderReport();
+
+                using (var fs = new FileStream(lastReport.Attachments.First(), FileMode.Open))
+                {
+                    var reader = ExcelReaderFactory.CreateBinaryReader(fs);
+                    _dataSet = reader.AsDataSet();
+                }
+            }
+
+            // convert supplied order number to a double to match the excel data type
+            var doubleOrderNumber = double.Parse(orderNumber);
+
+            foreach (DataRow row in _dataSet.Tables[0].Rows)
+            {
+                // retrieve the order number and drawing number for the current row
+                var rawOrderNumber = row[orderNumberColumnIndex];
+
+                if (rawOrderNumber is DBNull || !(rawOrderNumber is double))
+                {
+                    continue;
+                }
+
+                var retrievedOrderNumber = (double) rawOrderNumber;
+                var retrievedDrawingNumber = (string) row[drawingNumberColumnIndex];
+
+                // check if the values match the supplied one and continue loop if they don't
+                if (!retrievedOrderNumber.Equals(doubleOrderNumber))
+                {
+                    continue;
+                }
+
+                if (!retrievedDrawingNumber.Equals(drawingNumber))
+                {
+                    continue;
+                }
+
+                // retrieve the reschedule date for the current row
+                var rawRescheduleDate = row[rescheduleDateColumnIndex];
+
+                // value will be DBNull if the date hasn't changed
+                if (rawRescheduleDate is DBNull)
+                {
+                    return false;
+                }
+
+                // convert the value to a DateTime object as it is a double in the excel file
+                var oaDate = (double) rawRescheduleDate;
+
+                rescheduledDate = DateTime.FromOADate(oaDate);
+
+                break;
+            }
+
+            return rescheduledDate != DateTime.MinValue;
+        }
+    }
+}

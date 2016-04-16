@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,16 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\ByteArrayExtensions.cs" />
+    <Compile Include="ExtensionMethods\EnumExtensions.cs" />
+    <Compile Include="ExtensionMethods\Int64Extensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
+    <Compile Include="IO\GZip.cs" />
     <Compile Include="Model\ICustomer.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\IPart.cs" />
+    <Compile Include="Model\SalesOrderParserSettingsBlob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\Credentials\IPasswordService.cs" />
+    <Compile Include="Security\Credentials\PBKDF2PasswordService.cs" />
+    <Compile Include="Security\Credentials\SecuredPassword.cs" />
+    <Compile Include="Security\Cryptography\IHashProvider.cs" />
+    <Compile Include="Security\Cryptography\Murmur3HashProvider.cs" />
+    <Compile Include="Security\Cryptography\SymmetricCryptoAlgorithm.cs" />
+    <Compile Include="Security\Cryptography\SymmetricCryptoProvider.cs" />
     <Compile Include="Services\ICustomerService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Security\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

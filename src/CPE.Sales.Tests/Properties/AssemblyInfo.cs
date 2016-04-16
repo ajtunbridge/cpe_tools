@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CPE.Data.Services")]
+[assembly: AssemblyTitle("CPE.Sales.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CPE.Data.Services")]
+[assembly: AssemblyProduct("CPE.Sales.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a521d085-21de-414a-b989-35323dc65df1")]
+[assembly: Guid("c0a126d4-0b50-4d7b-ac58-361fd2c0e154")]
 
 // Version information for an assembly consists of the following four values:
 //

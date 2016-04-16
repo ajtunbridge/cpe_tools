@@ -20,18 +20,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GaugeId" Type="int" Nullable="false" />
           <Property Name="CalibratedOn" Type="datetime" Nullable="false" />
-          <Property Name="ExternalReference" Type="varchar" MaxLength="50" />
-          <Property Name="ExpectedResult1" Type="float" Nullable="false" />
-          <Property Name="ActualResult1" Type="float" Nullable="false" />
-          <Property Name="ExpectedResult2" Type="float" />
-          <Property Name="ActualResult2" Type="float" />
-          <Property Name="ExpectedResult3" Type="float" />
-          <Property Name="ActualResult3" Type="float" />
-          <Property Name="ExpectedResult4" Type="float" />
-          <Property Name="ActualResult4" Type="float" />
-          <Property Name="ExpectedResult5" Type="float" />
-          <Property Name="ActualResult5" Type="float" />
-          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="CalibratedBy" Type="int" Nullable="false" />
+          <Property Name="ExternalDeviationM1" Type="float" Nullable="false" />
+          <Property Name="ExternalDeviationM2" Type="float" />
+          <Property Name="ExternalDeviationM3" Type="float" />
+          <Property Name="ExternalDeviationM4" Type="float" />
+          <Property Name="InternalDeviationM1" Type="float" />
+          <Property Name="InternalDeviationM2" Type="float" />
+          <Property Name="InternalDeviationM3" Type="float" />
+          <Property Name="InternalDeviationM4" Type="float" />
         </EntityType>
         <EntityType Name="ClientSettings">
           <Key>
@@ -48,6 +45,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TricornReference" Type="int" />
+          <Property Name="SalesOrderParserSettings" Type="varbinary(max)" />
           <Property Name="LogoBlob" Type="varbinary(max)" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -63,6 +61,7 @@
           <Property Name="PartId" Type="int" />
           <Property Name="PartVersionId" Type="int" />
           <Property Name="OperationId" Type="int" />
+          <Property Name="ExternalCalibrationRecordId" Type="int" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
         </EntityType>
@@ -97,13 +96,28 @@
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="WCentreId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExternalCalibrationRecords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GaugeId" Type="int" Nullable="false" />
+          <Property Name="CalibratedOn" Type="datetime" Nullable="false" />
+          <Property Name="SupplierName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Passed" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gauges">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reference" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="GaugeTypeId" Type="int" Nullable="false" />
+          <Property Name="HeldBy" Type="int" Nullable="false" />
+          <Property Name="SizeRangeMin" Type="float" />
+          <Property Name="SizeRangeMax" Type="float" />
+          <Property Name="IsReferenceOnly" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="GaugeTypes">
           <Key>
@@ -111,7 +125,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="CalibrationMethodId" Type="int" />
+          <Property Name="CalibrationMethodId" Type="int" Nullable="false" />
           <Property Name="DefaultCalibrationPeriod" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="HolderGroups">
@@ -292,15 +306,27 @@
           <Property Name="ToolId" Type="int" Nullable="false" />
           <Property Name="TricornReference" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_CalibrationResults_Gauges">
-          <End Role="Gauges" Type="Self.Gauges" Multiplicity="1" />
+        <Association Name="FK_CalibrationResults_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="CalibrationResults" Type="Self.CalibrationResults" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gauges">
+            <Principal Role="Employees">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CalibrationResults">
-              <PropertyRef Name="GaugeId" />
+              <PropertyRef Name="CalibratedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_CalibrationResults">
+          <End Role="CalibrationResults" Type="Self.CalibrationResults" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalibrationResults">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ExternalCalibrationRecordId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -364,6 +390,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ExternalCalibrationRecords_Gauges">
+          <End Role="Gauges" Type="Self.Gauges" Multiplicity="1" />
+          <End Role="ExternalCalibrationRecords" Type="Self.ExternalCalibrationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gauges">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalCalibrationRecords">
+              <PropertyRef Name="GaugeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gauges_GaugeTypes">
           <End Role="GaugeTypes" Type="Self.GaugeTypes" Multiplicity="1" />
           <End Role="Gauges" Type="Self.Gauges" Multiplicity="*" />
@@ -377,7 +415,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GaugeTypes_CalibrationMethods">
-          <End Role="CalibrationMethods" Type="Self.CalibrationMethods" Multiplicity="0..1" />
+          <End Role="CalibrationMethods" Type="Self.CalibrationMethods" Multiplicity="1" />
           <End Role="GaugeTypes" Type="Self.GaugeTypes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CalibrationMethods">
@@ -635,6 +673,7 @@
           <EntitySet Name="EmployeeGroups" EntityType="Self.EmployeeGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeWorkCentres" EntityType="Self.EmployeeWorkCentres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalCalibrationRecords" EntityType="Self.ExternalCalibrationRecords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gauges" EntityType="Self.Gauges" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GaugeTypes" EntityType="Self.GaugeTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HolderGroups" EntityType="Self.HolderGroups" Schema="dbo" store:Type="Tables" />
@@ -654,9 +693,13 @@
           <EntitySet Name="ToolGroups" EntityType="Self.ToolGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tools" EntityType="Self.Tools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TricornTools" EntityType="Self.TricornTools" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CalibrationResults_Gauges" Association="Self.FK_CalibrationResults_Gauges">
-            <End Role="Gauges" EntitySet="Gauges" />
+          <AssociationSet Name="FK_CalibrationResults_Employees" Association="Self.FK_CalibrationResults_Employees">
+            <End Role="Employees" EntitySet="Employees" />
             <End Role="CalibrationResults" EntitySet="CalibrationResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_CalibrationResults" Association="Self.FK_Documents_CalibrationResults">
+            <End Role="CalibrationResults" EntitySet="CalibrationResults" />
+            <End Role="Documents" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Documents_Operations" Association="Self.FK_Documents_Operations">
             <End Role="Operations" EntitySet="Operations" />
@@ -677,6 +720,10 @@
           <AssociationSet Name="FK_EmployeeWorkCentres_Employees" Association="Self.FK_EmployeeWorkCentres_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="EmployeeWorkCentres" EntitySet="EmployeeWorkCentres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExternalCalibrationRecords_Gauges" Association="Self.FK_ExternalCalibrationRecords_Gauges">
+            <End Role="Gauges" EntitySet="Gauges" />
+            <End Role="ExternalCalibrationRecords" EntitySet="ExternalCalibrationRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_Gauges_GaugeTypes" Association="Self.FK_Gauges_GaugeTypes">
             <End Role="GaugeTypes" EntitySet="GaugeTypes" />
@@ -771,11 +818,11 @@
           <EntitySet Name="CalibrationMethods" EntityType="CPEModel.CalibrationMethod" />
           <EntitySet Name="CalibrationResults" EntityType="CPEModel.CalibrationResult" />
           <EntitySet Name="ClientSettings" EntityType="CPEModel.ClientSetting" />
-          <EntitySet Name="Customers" EntityType="CPEModel.Customer" />
           <EntitySet Name="Documents" EntityType="CPEModel.Document" />
           <EntitySet Name="EmployeeGroups" EntityType="CPEModel.EmployeeGroup" />
           <EntitySet Name="Employees" EntityType="CPEModel.Employee" />
           <EntitySet Name="EmployeeWorkCentres" EntityType="CPEModel.EmployeeWorkCentre" />
+          <EntitySet Name="ExternalCalibrationRecords" EntityType="CPEModel.ExternalCalibrationRecord" />
           <EntitySet Name="Gauges" EntityType="CPEModel.Gauge" />
           <EntitySet Name="GaugeTypes" EntityType="CPEModel.GaugeType" />
           <EntitySet Name="HolderGroups" EntityType="CPEModel.HolderGroup" />
@@ -799,13 +846,13 @@
             <End Role="CalibrationMethod" EntitySet="CalibrationMethods" />
             <End Role="GaugeType" EntitySet="GaugeTypes" />
           </AssociationSet>
-          <AssociationSet Name="FK_CalibrationResults_Gauges" Association="CPEModel.FK_CalibrationResults_Gauges">
-            <End Role="Gauge" EntitySet="Gauges" />
+          <AssociationSet Name="FK_CalibrationResults_Employees" Association="CPEModel.FK_CalibrationResults_Employees">
+            <End Role="Employee" EntitySet="Employees" />
             <End Role="CalibrationResult" EntitySet="CalibrationResults" />
           </AssociationSet>
-          <AssociationSet Name="FK_Parts_Customers" Association="CPEModel.FK_Parts_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Part" EntitySet="Parts" />
+          <AssociationSet Name="FK_Documents_CalibrationResults" Association="CPEModel.FK_Documents_CalibrationResults">
+            <End Role="CalibrationResult" EntitySet="CalibrationResults" />
+            <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_Documents_Operations" Association="CPEModel.FK_Documents_Operations">
             <End Role="Operation" EntitySet="Operations" />
@@ -834,6 +881,10 @@
           <AssociationSet Name="FK_RecentParts_Employees" Association="CPEModel.FK_RecentParts_Employees">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="RecentPart" EntitySet="RecentParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExternalCalibrationRecords_Gauges" Association="CPEModel.FK_ExternalCalibrationRecords_Gauges">
+            <End Role="Gauge" EntitySet="Gauges" />
+            <End Role="ExternalCalibrationRecord" EntitySet="ExternalCalibrationRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_Gauges_GaugeTypes" Association="CPEModel.FK_Gauges_GaugeTypes">
             <End Role="GaugeType" EntitySet="GaugeTypes" />
@@ -903,6 +954,11 @@
             <End Role="Tool" EntitySet="Tools" />
             <End Role="TricornTool" EntitySet="TricornTools" />
           </AssociationSet>
+          <EntitySet Name="Customers" EntityType="CPEModel.Customer" />
+          <AssociationSet Name="FK_Parts_Customers" Association="CPEModel.FK_Parts_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Part" EntitySet="Parts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CalibrationMethod">
           <Key>
@@ -920,19 +976,17 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GaugeId" Type="Int32" Nullable="false" />
           <Property Name="CalibratedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExternalReference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpectedResult1" Type="Double" Nullable="false" />
-          <Property Name="ActualResult1" Type="Double" Nullable="false" />
-          <Property Name="ExpectedResult2" Type="Double" />
-          <Property Name="ActualResult2" Type="Double" />
-          <Property Name="ExpectedResult3" Type="Double" />
-          <Property Name="ActualResult3" Type="Double" />
-          <Property Name="ExpectedResult4" Type="Double" />
-          <Property Name="ActualResult4" Type="Double" />
-          <Property Name="ExpectedResult5" Type="Double" />
-          <Property Name="ActualResult5" Type="Double" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Gauge" Relationship="CPEModel.FK_CalibrationResults_Gauges" FromRole="CalibrationResult" ToRole="Gauge" />
+          <Property Name="CalibratedBy" Type="Int32" Nullable="false" />
+          <Property Name="ExternalDeviationM1" Type="Double" Nullable="false" />
+          <Property Name="ExternalDeviationM2" Type="Double" />
+          <Property Name="ExternalDeviationM3" Type="Double" />
+          <Property Name="ExternalDeviationM4" Type="Double" />
+          <Property Name="InternalDeviationM1" Type="Double" />
+          <Property Name="InternalDeviationM2" Type="Double" />
+          <Property Name="InternalDeviationM3" Type="Double" />
+          <Property Name="InternalDeviationM4" Type="Double" />
+          <NavigationProperty Name="Employee" Relationship="CPEModel.FK_CalibrationResults_Employees" FromRole="CalibrationResult" ToRole="Employee" />
+          <NavigationProperty Name="Documents" Relationship="CPEModel.FK_Documents_CalibrationResults" FromRole="CalibrationResult" ToRole="Document" />
         </EntityType>
         <EntityType Name="ClientSetting">
           <Key>
@@ -941,18 +995,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WindowsDataDirectory" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TargetTurnoverAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TricornReference" Type="Int32" />
-          <Property Name="LogoBlob" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Parts" Relationship="CPEModel.FK_Parts_Customers" FromRole="Customer" ToRole="Part" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -965,8 +1007,10 @@
           <Property Name="PartId" Type="Int32" />
           <Property Name="PartVersionId" Type="Int32" />
           <Property Name="OperationId" Type="Int32" />
+          <Property Name="ExternalCalibrationRecordId" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CalibrationResult" Relationship="CPEModel.FK_Documents_CalibrationResults" FromRole="Document" ToRole="CalibrationResult" />
           <NavigationProperty Name="Operation" Relationship="CPEModel.FK_Documents_Operations" FromRole="Document" ToRole="Operation" />
           <NavigationProperty Name="Part" Relationship="CPEModel.FK_Documents_Parts" FromRole="Document" ToRole="Part" />
           <NavigationProperty Name="PartVersion" Relationship="CPEModel.FK_Documents_PartVersions" FromRole="Document" ToRole="PartVersion" />
@@ -994,6 +1038,7 @@
           <Property Name="LastViewedPartId" Type="Int32" />
           <Property Name="PreferredMachineGroup" Type="Int32" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CalibrationResults" Relationship="CPEModel.FK_CalibrationResults_Employees" FromRole="Employee" ToRole="CalibrationResult" />
           <NavigationProperty Name="EmployeeGroup" Relationship="CPEModel.FK_Employees_EmployeeGroups" FromRole="Employee" ToRole="EmployeeGroup" />
           <NavigationProperty Name="EmployeeWorkCentres" Relationship="CPEModel.FK_EmployeeWorkCentres_Employees" FromRole="Employee" ToRole="EmployeeWorkCentre" />
           <NavigationProperty Name="NonConformances" Relationship="CPEModel.FK_NonConformances_Employees" FromRole="Employee" ToRole="NonConformance" />
@@ -1008,14 +1053,30 @@
           <Property Name="WCentreId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="CPEModel.FK_EmployeeWorkCentres_Employees" FromRole="EmployeeWorkCentre" ToRole="Employee" />
         </EntityType>
+        <EntityType Name="ExternalCalibrationRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GaugeId" Type="Int32" Nullable="false" />
+          <Property Name="CalibratedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SupplierName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Passed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Gauge" Relationship="CPEModel.FK_ExternalCalibrationRecords_Gauges" FromRole="ExternalCalibrationRecord" ToRole="Gauge" />
+        </EntityType>
         <EntityType Name="Gauge">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reference" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="GaugeTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CalibrationResults" Relationship="CPEModel.FK_CalibrationResults_Gauges" FromRole="Gauge" ToRole="CalibrationResult" />
+          <Property Name="HeldBy" Type="Int32" Nullable="false" />
+          <Property Name="SizeRangeMin" Type="Double" />
+          <Property Name="SizeRangeMax" Type="Double" />
+          <Property Name="IsReferenceOnly" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ExternalCalibrationRecords" Relationship="CPEModel.FK_ExternalCalibrationRecords_Gauges" FromRole="Gauge" ToRole="ExternalCalibrationRecord" />
           <NavigationProperty Name="GaugeType" Relationship="CPEModel.FK_Gauges_GaugeTypes" FromRole="Gauge" ToRole="GaugeType" />
         </EntityType>
         <EntityType Name="GaugeType">
@@ -1024,7 +1085,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CalibrationMethodId" Type="Int32" />
+          <Property Name="CalibrationMethodId" Type="Int32" Nullable="false" />
           <Property Name="DefaultCalibrationPeriod" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalibrationMethod" Relationship="CPEModel.FK_GaugeTypes_CalibrationMethods" FromRole="GaugeType" ToRole="CalibrationMethod" />
           <NavigationProperty Name="Gauges" Relationship="CPEModel.FK_Gauges_GaugeTypes" FromRole="GaugeType" ToRole="Gauge" />
@@ -1165,10 +1226,10 @@
           <Property Name="ToolingLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="CPEModel.FK_Parts_Customers" FromRole="Part" ToRole="Customer" />
           <NavigationProperty Name="Documents" Relationship="CPEModel.FK_Documents_Parts" FromRole="Part" ToRole="Document" />
           <NavigationProperty Name="PartVersions" Relationship="CPEModel.FK_PartVersions_Parts" FromRole="Part" ToRole="PartVersion" />
           <NavigationProperty Name="RecentParts" Relationship="CPEModel.FK_RecentParts_Parts" FromRole="Part" ToRole="RecentPart" />
+          <NavigationProperty Name="Customer" Relationship="CPEModel.FK_Parts_Customers" FromRole="Part" ToRole="Customer" />
         </EntityType>
         <EntityType Name="PartVersion">
           <Key>
@@ -1246,7 +1307,7 @@
           <NavigationProperty Name="Tool" Relationship="CPEModel.FK_TricornTools_Tools" FromRole="TricornTool" ToRole="Tool" />
         </EntityType>
         <Association Name="FK_GaugeTypes_CalibrationMethods">
-          <End Type="CPEModel.CalibrationMethod" Role="CalibrationMethod" Multiplicity="0..1" />
+          <End Type="CPEModel.CalibrationMethod" Role="CalibrationMethod" Multiplicity="1" />
           <End Type="CPEModel.GaugeType" Role="GaugeType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CalibrationMethod">
@@ -1257,27 +1318,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CalibrationResults_Gauges">
-          <End Type="CPEModel.Gauge" Role="Gauge" Multiplicity="1" />
+        <Association Name="FK_CalibrationResults_Employees">
+          <End Type="CPEModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="CPEModel.CalibrationResult" Role="CalibrationResult" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gauge">
+            <Principal Role="Employee">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CalibrationResult">
-              <PropertyRef Name="GaugeId" />
+              <PropertyRef Name="CalibratedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Parts_Customers">
-          <End Type="CPEModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="CPEModel.Part" Role="Part" Multiplicity="*" />
+        <Association Name="FK_Documents_CalibrationResults">
+          <End Type="CPEModel.CalibrationResult" Role="CalibrationResult" Multiplicity="0..1" />
+          <End Type="CPEModel.Document" Role="Document" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="CalibrationResult">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Part">
-              <PropertyRef Name="CustomerId" />
+            <Dependent Role="Document">
+              <PropertyRef Name="ExternalCalibrationRecordId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1362,6 +1423,18 @@
             </Principal>
             <Dependent Role="RecentPart">
               <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExternalCalibrationRecords_Gauges">
+          <End Type="CPEModel.Gauge" Role="Gauge" Multiplicity="1" />
+          <End Type="CPEModel.ExternalCalibrationRecord" Role="ExternalCalibrationRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gauge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalCalibrationRecord">
+              <PropertyRef Name="GaugeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1579,7 +1652,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TricornReference" Type="Int32" />
+          <Property Name="SalesOrderParserSettings" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LogoBlob" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Parts" Relationship="CPEModel.FK_Parts_Customers" FromRole="Customer" ToRole="Part" />
+        </EntityType>
+        <Association Name="FK_Parts_Customers">
+          <End Type="CPEModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="CPEModel.Part" Role="Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Part">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1597,18 +1695,15 @@
           <EntitySetMapping Name="CalibrationResults">
             <EntityTypeMapping TypeName="CPEModel.CalibrationResult">
               <MappingFragment StoreEntitySet="CalibrationResults">
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="ActualResult5" ColumnName="ActualResult5" />
-                <ScalarProperty Name="ExpectedResult5" ColumnName="ExpectedResult5" />
-                <ScalarProperty Name="ActualResult4" ColumnName="ActualResult4" />
-                <ScalarProperty Name="ExpectedResult4" ColumnName="ExpectedResult4" />
-                <ScalarProperty Name="ActualResult3" ColumnName="ActualResult3" />
-                <ScalarProperty Name="ExpectedResult3" ColumnName="ExpectedResult3" />
-                <ScalarProperty Name="ActualResult2" ColumnName="ActualResult2" />
-                <ScalarProperty Name="ExpectedResult2" ColumnName="ExpectedResult2" />
-                <ScalarProperty Name="ActualResult1" ColumnName="ActualResult1" />
-                <ScalarProperty Name="ExpectedResult1" ColumnName="ExpectedResult1" />
-                <ScalarProperty Name="ExternalReference" ColumnName="ExternalReference" />
+                <ScalarProperty Name="InternalDeviationM4" ColumnName="InternalDeviationM4" />
+                <ScalarProperty Name="InternalDeviationM3" ColumnName="InternalDeviationM3" />
+                <ScalarProperty Name="InternalDeviationM2" ColumnName="InternalDeviationM2" />
+                <ScalarProperty Name="InternalDeviationM1" ColumnName="InternalDeviationM1" />
+                <ScalarProperty Name="ExternalDeviationM4" ColumnName="ExternalDeviationM4" />
+                <ScalarProperty Name="ExternalDeviationM3" ColumnName="ExternalDeviationM3" />
+                <ScalarProperty Name="ExternalDeviationM2" ColumnName="ExternalDeviationM2" />
+                <ScalarProperty Name="ExternalDeviationM1" ColumnName="ExternalDeviationM1" />
+                <ScalarProperty Name="CalibratedBy" ColumnName="CalibratedBy" />
                 <ScalarProperty Name="CalibratedOn" ColumnName="CalibratedOn" />
                 <ScalarProperty Name="GaugeId" ColumnName="GaugeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1624,23 +1719,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="CPEModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="LogoBlob" ColumnName="LogoBlob" />
-                <ScalarProperty Name="TricornReference" ColumnName="TricornReference" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="CPEModel.Document">
               <MappingFragment StoreEntitySet="Documents">
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ExternalCalibrationRecordId" ColumnName="ExternalCalibrationRecordId" />
                 <ScalarProperty Name="OperationId" ColumnName="OperationId" />
                 <ScalarProperty Name="PartVersionId" ColumnName="PartVersionId" />
                 <ScalarProperty Name="PartId" ColumnName="PartId" />
@@ -1685,11 +1769,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ExternalCalibrationRecords">
+            <EntityTypeMapping TypeName="CPEModel.ExternalCalibrationRecord">
+              <MappingFragment StoreEntitySet="ExternalCalibrationRecords">
+                <ScalarProperty Name="Passed" ColumnName="Passed" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="CalibratedOn" ColumnName="CalibratedOn" />
+                <ScalarProperty Name="GaugeId" ColumnName="GaugeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Gauges">
             <EntityTypeMapping TypeName="CPEModel.Gauge">
               <MappingFragment StoreEntitySet="Gauges">
+                <ScalarProperty Name="IsReferenceOnly" ColumnName="IsReferenceOnly" />
+                <ScalarProperty Name="SizeRangeMax" ColumnName="SizeRangeMax" />
+                <ScalarProperty Name="SizeRangeMin" ColumnName="SizeRangeMin" />
+                <ScalarProperty Name="HeldBy" ColumnName="HeldBy" />
                 <ScalarProperty Name="GaugeTypeId" ColumnName="GaugeTypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1895,6 +1995,19 @@
               <MappingFragment StoreEntitySet="TricornTools">
                 <ScalarProperty Name="TricornReference" ColumnName="TricornReference" />
                 <ScalarProperty Name="ToolId" ColumnName="ToolId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CPEModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LogoBlob" ColumnName="LogoBlob" />
+                <ScalarProperty Name="SalesOrderParserSettings" ColumnName="SalesOrderParserSettings" />
+                <ScalarProperty Name="TricornReference" ColumnName="TricornReference" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

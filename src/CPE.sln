@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Workshop", "CPE.Workshop\CPE.Workshop.csproj", "{6BEE52B4-9D36-4789-8221-707B928C1FF9}"
 EndProject
@@ -11,11 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Domain", "CPE.Domain\CP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Data.EntityFramework", "CPE.Data.EntityFramework\CPE.Data.EntityFramework.csproj", "{FC835749-347C-4835-949E-80D12D8C15F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Data.Services", "CPE.Data.Services\CPE.Data.Services.csproj", "{A521D085-21DE-414A-B989-35323DC65DF1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6339157B-19A7-450D-ABF4-E9514384FDF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Data.EntityFramework.Tests", "CPE.Data.EntityFramework.Tests\CPE.Data.EntityFramework.Tests.csproj", "{55B6D5C7-ACD3-4769-AAB4-117ED90081F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Quality", "CPE.Quality\CPE.Quality.csproj", "{8BEFF14E-7F14-4540-A0DA-583526E1FAAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Sales", "CPE.Sales\CPE.Sales.csproj", "{99765675-98D9-41AA-A2BC-2575102FAB19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPE.Sales.Tests", "CPE.Sales.Tests\CPE.Sales.Tests.csproj", "{C0A126D4-0B50-4D7B-AC58-361FD2C0E154}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,19 +43,28 @@ Global
 		{FC835749-347C-4835-949E-80D12D8C15F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC835749-347C-4835-949E-80D12D8C15F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC835749-347C-4835-949E-80D12D8C15F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A521D085-21DE-414A-B989-35323DC65DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A521D085-21DE-414A-B989-35323DC65DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A521D085-21DE-414A-B989-35323DC65DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A521D085-21DE-414A-B989-35323DC65DF1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55B6D5C7-ACD3-4769-AAB4-117ED90081F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55B6D5C7-ACD3-4769-AAB4-117ED90081F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55B6D5C7-ACD3-4769-AAB4-117ED90081F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55B6D5C7-ACD3-4769-AAB4-117ED90081F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BEFF14E-7F14-4540-A0DA-583526E1FAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BEFF14E-7F14-4540-A0DA-583526E1FAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BEFF14E-7F14-4540-A0DA-583526E1FAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BEFF14E-7F14-4540-A0DA-583526E1FAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99765675-98D9-41AA-A2BC-2575102FAB19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99765675-98D9-41AA-A2BC-2575102FAB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99765675-98D9-41AA-A2BC-2575102FAB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99765675-98D9-41AA-A2BC-2575102FAB19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A126D4-0B50-4D7B-AC58-361FD2C0E154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A126D4-0B50-4D7B-AC58-361FD2C0E154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A126D4-0B50-4D7B-AC58-361FD2C0E154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A126D4-0B50-4D7B-AC58-361FD2C0E154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{55B6D5C7-ACD3-4769-AAB4-117ED90081F5} = {6339157B-19A7-450D-ABF4-E9514384FDF6}
+		{C0A126D4-0B50-4D7B-AC58-361FD2C0E154} = {6339157B-19A7-450D-ABF4-E9514384FDF6}
 	EndGlobalSection
 EndGlobal

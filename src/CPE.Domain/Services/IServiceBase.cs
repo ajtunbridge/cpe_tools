@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CPE.Domain.Model;
 
 namespace CPE.Domain.Services
 {
-    public interface IServiceBase<T>
+    public interface IServiceBase<T> : IDisposable
     {
+        void Commit();
+
         T GetById(int id);
 
         Task<T> GetByIdAsync(int id);

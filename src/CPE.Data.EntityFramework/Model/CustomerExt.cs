@@ -1,10 +1,42 @@
 ﻿using System;
+using System.Runtime.Caching;
 using CPE.Domain.Model;
 
 namespace CPE.Data.EntityFramework.Model
 {
     public partial class Customer : ICustomer, IEquatable<Customer>
     {
+        private readonly MemoryCache _cache = new MemoryCache("BlobCache");
+
+        public SalesOrderParserSettingsBlob GetSalesOrderParserSettings()
+        {
+            if (SalesOrderParserSettings == null)
+            {
+                return null;
+            }
+
+            if (_cache.Contains("ParserBlob"))
+            {
+                return _cache["ParserBlob"] as SalesOrderParserSettingsBlob;
+            }
+
+            var settings = BlobHandler.Decompress<SalesOrderParserSettingsBlob>(SalesOrderParserSettings);
+
+            _cache.Add("ParserBlob", settings, DateTime.Now.AddSeconds(30));
+
+            return settings;
+        }
+
+        public void SetSalesOrderParserSettings(SalesOrderParserSettingsBlob settings)
+        {
+            SalesOrderParserSettings = BlobHandler.Compress(settings);
+
+            if (_cache.Contains("ParserBlob"))
+            {
+                _cache.Remove("ParserBlob");
+            }
+        }
+
         public bool Equals(Customer other)
         {
             if (ReferenceEquals(null, other)) return false;

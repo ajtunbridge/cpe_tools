@@ -17,6 +17,7 @@ namespace CPE.Data.EntityFramework.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
+            this.CalibrationResults = new HashSet<CalibrationResult>();
             this.EmployeeWorkCentres = new HashSet<EmployeeWorkCentre>();
             this.NonConformances = new HashSet<NonConformance>();
             this.RecentParts = new HashSet<RecentPart>();
@@ -33,6 +34,8 @@ namespace CPE.Data.EntityFramework.Model
         public Nullable<int> PreferredMachineGroup { get; set; }
         public bool IsEnabled { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CalibrationResult> CalibrationResults { get; set; }
         public virtual EmployeeGroup EmployeeGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }

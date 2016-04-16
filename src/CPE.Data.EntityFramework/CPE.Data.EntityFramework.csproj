@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\BlobHandler.cs" />
     <Compile Include="Model\CalibrationMethod.cs">
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>
@@ -89,6 +91,9 @@
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\EmployeeWorkCentre.cs">
+      <DependentUpon>CPEDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ExternalCalibrationRecord.cs">
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Gauge.cs">

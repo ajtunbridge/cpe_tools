@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using CPE.Data.EntityFramework.Model;
 using CPE.Domain.Model;
@@ -10,6 +12,16 @@ namespace CPE.Data.EntityFramework.Repositories
     {
         public CustomerRepository(CPEEntities entities) : base(entities)
         {
+        }
+
+        public IEnumerable<ICustomer> GetSalesOrderParseable()
+        {
+            return GetSet().Where(c => c.SalesOrderParserSettings != null);
+        }
+
+        public async Task<IEnumerable<ICustomer>> GetSalesOrderParseableAsync()
+        {
+            return await GetSet().Where(c => c.SalesOrderParserSettings != null).ToListAsync();
         }
 
         public new ICustomer GetById(int id)

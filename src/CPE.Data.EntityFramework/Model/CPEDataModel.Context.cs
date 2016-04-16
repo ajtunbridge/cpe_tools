@@ -28,11 +28,11 @@ namespace CPE.Data.EntityFramework.Model
         public virtual DbSet<CalibrationMethod> CalibrationMethods { get; set; }
         public virtual DbSet<CalibrationResult> CalibrationResults { get; set; }
         public virtual DbSet<ClientSetting> ClientSettings { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<EmployeeGroup> EmployeeGroups { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeWorkCentre> EmployeeWorkCentres { get; set; }
+        public virtual DbSet<ExternalCalibrationRecord> ExternalCalibrationRecords { get; set; }
         public virtual DbSet<Gauge> Gauges { get; set; }
         public virtual DbSet<GaugeType> GaugeTypes { get; set; }
         public virtual DbSet<HolderGroup> HolderGroups { get; set; }
@@ -52,5 +52,6 @@ namespace CPE.Data.EntityFramework.Model
         public virtual DbSet<ToolGroup> ToolGroups { get; set; }
         public virtual DbSet<Tool> Tools { get; set; }
         public virtual DbSet<TricornTool> TricornTools { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
     }
 }

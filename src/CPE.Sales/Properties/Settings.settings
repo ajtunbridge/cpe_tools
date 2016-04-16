@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CPE.Sales.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NewOrdersFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SO - New</Value>
+    </Setting>
+    <Setting Name="LaunchedOrdersFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SO - Launched</Value>
+    </Setting>
+    <Setting Name="NewOpenOrderReportsFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OOR - New</Value>
+    </Setting>
+    <Setting Name="CompleteOpenOrderReportsFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OOR - Complete</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

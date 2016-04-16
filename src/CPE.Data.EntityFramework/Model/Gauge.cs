@@ -17,15 +17,20 @@ namespace CPE.Data.EntityFramework.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Gauge()
         {
-            this.CalibrationResults = new HashSet<CalibrationResult>();
+            this.ExternalCalibrationRecords = new HashSet<ExternalCalibrationRecord>();
         }
     
         public int Id { get; set; }
+        public string Reference { get; set; }
         public string Name { get; set; }
         public int GaugeTypeId { get; set; }
+        public int HeldBy { get; set; }
+        public Nullable<double> SizeRangeMin { get; set; }
+        public Nullable<double> SizeRangeMax { get; set; }
+        public bool IsReferenceOnly { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CalibrationResult> CalibrationResults { get; set; }
+        public virtual ICollection<ExternalCalibrationRecord> ExternalCalibrationRecords { get; set; }
         public virtual GaugeType GaugeType { get; set; }
     }
 }

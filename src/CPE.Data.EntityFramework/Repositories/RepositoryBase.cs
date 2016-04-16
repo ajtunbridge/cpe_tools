@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using CPE.Data.EntityFramework.Model;
@@ -30,22 +31,22 @@ namespace CPE.Data.EntityFramework.Repositories
 
         protected T GetById(int id)
         {
-            return _entities.Set<T>().SingleOrDefault(e => e.Id == id);
+            return GetSet().SingleOrDefault(e => e.Id == id);
         }
 
         protected async Task<T> GetByIdAsync(int id)
         {
-            return await _entities.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
+            return await GetSet().SingleOrDefaultAsync(e => e.Id == id);
         }
 
         protected IEnumerable<T> GetAll()
         {
-            return _entities.Set<T>().ToList();
+            return GetSet().ToList();
         }
 
         protected async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _entities.Set<T>().ToListAsync();
+            return await GetSet().ToListAsync();
         }
 
         protected void Insert(T entity)
@@ -61,6 +62,11 @@ namespace CPE.Data.EntityFramework.Repositories
         protected void Update(T entity)
         {
             AttachInState(entity, EntityState.Modified);
+        }
+
+        protected DbQuery<T> GetSet()
+        {
+            return _entities.Set<T>().AsNoTracking();
         }
 
         private void AttachInState(T entity, EntityState state)

@@ -14,22 +14,27 @@ namespace CPE.Data.EntityFramework.Model
     
     public partial class CalibrationResult
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CalibrationResult()
+        {
+            this.Documents = new HashSet<Document>();
+        }
+    
         public int Id { get; set; }
         public int GaugeId { get; set; }
         public System.DateTime CalibratedOn { get; set; }
-        public string ExternalReference { get; set; }
-        public double ExpectedResult1 { get; set; }
-        public double ActualResult1 { get; set; }
-        public Nullable<double> ExpectedResult2 { get; set; }
-        public Nullable<double> ActualResult2 { get; set; }
-        public Nullable<double> ExpectedResult3 { get; set; }
-        public Nullable<double> ActualResult3 { get; set; }
-        public Nullable<double> ExpectedResult4 { get; set; }
-        public Nullable<double> ActualResult4 { get; set; }
-        public Nullable<double> ExpectedResult5 { get; set; }
-        public Nullable<double> ActualResult5 { get; set; }
-        public string Notes { get; set; }
+        public int CalibratedBy { get; set; }
+        public double ExternalDeviationM1 { get; set; }
+        public Nullable<double> ExternalDeviationM2 { get; set; }
+        public Nullable<double> ExternalDeviationM3 { get; set; }
+        public Nullable<double> ExternalDeviationM4 { get; set; }
+        public Nullable<double> InternalDeviationM1 { get; set; }
+        public Nullable<double> InternalDeviationM2 { get; set; }
+        public Nullable<double> InternalDeviationM3 { get; set; }
+        public Nullable<double> InternalDeviationM4 { get; set; }
     
-        public virtual Gauge Gauge { get; set; }
+        public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }
