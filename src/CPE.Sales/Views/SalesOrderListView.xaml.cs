@@ -12,17 +12,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CPE.Sales.ViewModels;
 
 namespace CPE.Sales.Views
 {
     /// <summary>
     /// Interaction logic for SalesOrderMailListView.xaml
     /// </summary>
-    public partial class SalesOrderMailListView : UserControl
+    public partial class SalesOrdersListView : ViewBase
     {
-        public SalesOrderMailListView()
+        public SalesOrdersListView()
         {
             InitializeComponent();
+        }
+
+        private async void SalesOrderMailListView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (IsInDesignMode)
+            {
+                return;
+            }
+
+            var model = DataContext as SalesOrderListViewModel;
+
+            await model.GetSalesOrdersAsync();
+
+            HeaderLabel.Text = "Sales orders to launch";
         }
     }
 }

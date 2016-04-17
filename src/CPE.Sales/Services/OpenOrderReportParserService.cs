@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Excel;
 
 namespace CPE.Sales.Services
@@ -10,25 +11,15 @@ namespace CPE.Sales.Services
     {
         private DataSet _dataSet;
 
-        public bool HasBeenRescheduled(string drawingNumber, string orderNumber, out DateTime rescheduledDate)
+        public async Task<RescheduleResult> CheckIfHasBeenRescheduled(string drawingNumber, string orderNumber)
         {
             const int orderNumberColumnIndex = 7;
             const int drawingNumberColumnIndex = 2;
             const int rescheduleDateColumnIndex = 10;
 
-            rescheduledDate = DateTime.MinValue;
+            var result = new RescheduleResult {HasBeenRescheduled = false, RescheduledDate = null};
 
-            // read the excel file into a DataSet, if it hasn't been done already
-            if (_dataSet == null)
-            {
-                var lastReport = MSOutlookService.GetMostRecentOpenOrderReport();
-
-                using (var fs = new FileStream(lastReport.Attachments.First(), FileMode.Open))
-                {
-                    var reader = ExcelReaderFactory.CreateBinaryReader(fs);
-                    _dataSet = reader.AsDataSet();
-                }
-            }
+            await ReadExcelFileIntoDataSet();
 
             // convert supplied order number to a double to match the excel data type
             var doubleOrderNumber = double.Parse(orderNumber);
@@ -36,7 +27,7 @@ namespace CPE.Sales.Services
             foreach (DataRow row in _dataSet.Tables[0].Rows)
             {
                 // retrieve the order number and drawing number for the current row
-                var rawOrderNumber = row[orderNumberColumnIndex];
+                var rawOrderNumber = row.ItemArray[orderNumberColumnIndex];
 
                 if (rawOrderNumber is DBNull || !(rawOrderNumber is double))
                 {
@@ -44,7 +35,7 @@ namespace CPE.Sales.Services
                 }
 
                 var retrievedOrderNumber = (double) rawOrderNumber;
-                var retrievedDrawingNumber = (string) row[drawingNumberColumnIndex];
+                var retrievedDrawingNumber = (string) row.ItemArray[drawingNumberColumnIndex];
 
                 // check if the values match the supplied one and continue loop if they don't
                 if (!retrievedOrderNumber.Equals(doubleOrderNumber))
@@ -58,23 +49,46 @@ namespace CPE.Sales.Services
                 }
 
                 // retrieve the reschedule date for the current row
-                var rawRescheduleDate = row[rescheduleDateColumnIndex];
+                var rawRescheduleDate = row.ItemArray[rescheduleDateColumnIndex];
 
                 // value will be DBNull if the date hasn't changed
                 if (rawRescheduleDate is DBNull)
                 {
-                    return false;
+                    break;
                 }
 
                 // convert the value to a DateTime object as it is a double in the excel file
                 var oaDate = (double) rawRescheduleDate;
 
-                rescheduledDate = DateTime.FromOADate(oaDate);
+                result.RescheduledDate = DateTime.FromOADate(oaDate);
+                result.HasBeenRescheduled = true;
 
                 break;
             }
 
-            return rescheduledDate != DateTime.MinValue;
+            return result;
+        }
+
+        private async Task ReadExcelFileIntoDataSet()
+        {
+            if (_dataSet != null)
+            {
+                return;
+            }
+
+            await Task.Factory.StartNew(() =>
+            {
+                if (_dataSet == null)
+                {
+                    var lastReport = MSOutlookService.GetMostRecentOpenOrderReport();
+
+                    using (var fs = new FileStream(lastReport.Attachments.First(), FileMode.Open))
+                    {
+                        var reader = ExcelReaderFactory.CreateBinaryReader(fs);
+                        _dataSet = reader.AsDataSet();
+                    }
+                }
+            });
         }
     }
 }

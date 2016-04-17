@@ -25,6 +25,7 @@ namespace CPE.Sales
 
             Kernel.Bind<SalesOrderListViewModel>().ToSelf();
             Kernel.Bind<CustomerSalesOrderParserSettingsViewModel>().ToSelf();
+            Kernel.Bind<PathSettingsViewModel>().ToSelf();
 
             Kernel.Bind<ICustomerService>().To<CustomerRepository>();
 
@@ -36,13 +37,11 @@ namespace CPE.Sales
         public CustomerSalesOrderParserSettingsViewModel ParserSettingsViewModel
             => Kernel.Get<CustomerSalesOrderParserSettingsViewModel>();
 
+        public PathSettingsViewModel PathSettingsViewModel
+            => Kernel.Get<PathSettingsViewModel>();
 
         public MainViewModel MainModel => Kernel.Get<MainViewModel>();
-
-        public static SalesOrderParserService Parser => Kernel.Get<SalesOrderParserService>();
-
-        public static ICustomerService Customers => Kernel.Get<ICustomerService>();
-
+        
         public static void Cleanup()
         {
             

@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="CPE.Sales.Views.Settings.CustomerSalesOrderParserSettingsView"
+﻿<views:ViewBase x:Class="CPE.Sales.Views.Settings.CustomerSalesOrderParserSettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:views="clr-namespace:CPE.Sales.Views"
              Loaded="CustomerSalesOrderParserSettingsView_OnLoaded"
              DataContext="{Binding ParserSettingsViewModel, Source={StaticResource BootstrapLocator}}">
-	<Grid>
-		<Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
-			<ColumnDefinition MinWidth="200" />
+			<ColumnDefinition MinWidth="200" MaxWidth="600"/>
 			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -21,10 +22,10 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
         <TextBlock Text="SALES ORDER PARSER SETTINGS" Grid.ColumnSpan="2" Style="{StaticResource SettingsHeaderStyle}"/>
-		<syncfusion:ComboBoxAdv x:Name="CustomerSelector" Grid.Column="0" Grid.Row="1" Margin="3,15" Grid.ColumnSpan="2"
+		<syncfusion:ComboBoxAdv x:Name="CustomerSelector" Grid.Column="0" Grid.Row="1" Margin="3,3,3,15" Height="30" Grid.ColumnSpan="2"
 		                        ItemsSource="{Binding ParseableCustomers}"
 		                        SelectionChanged="CustomerSelector_SelectionChanged" />
-		<Button Grid.Column="2" Grid.Row="1" Margin="3, 15" Height="35" Content="Save changes" Click="ButtonBase_OnClick"
+		<Button Grid.Column="2" Grid.Row="1" Margin="3, 3,3, 15" Height="30" Content="Save changes" Click="ButtonBase_OnClick"
 		        IsEnabled="{Binding ChangesMade}" />
 		<TextBlock Grid.Column="0" Grid.Row="2" Text="Identifier expression: " Style="{StaticResource LabelStyle}" />
 		<TextBlock Grid.Column="0" Grid.Row="3" Text="Order number expression: " Style="{StaticResource LabelStyle}" />
@@ -32,17 +33,17 @@
 		<TextBlock Grid.Column="0" Grid.Row="5" Text="Drawing number expression: " Style="{StaticResource LabelStyle}" />
 		<TextBlock Grid.Column="0" Grid.Row="6" Text="Delivery expression: " Style="{StaticResource LabelStyle}" />
 		<TextBlock Grid.Column="0" Grid.Row="7" Text="MultiLine expression: " Style="{StaticResource LabelStyle}" />
-		<TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource SettingsTextBoxStyle}"
+		<TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBoxStyle}"
 		                         Text="{Binding IdentifierExpression, Mode=TwoWay}" />
-		<TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource SettingsTextBoxStyle}"
+		<TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource TextBoxStyle}"
 		                         Text="{Binding OrderNumberExpression, Mode=TwoWay}" />
-		<TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource SettingsTextBoxStyle}"
+		<TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBoxStyle}"
 		                         Text="{Binding BuyerExpression, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="5" Style="{StaticResource SettingsTextBoxStyle}"
+        <TextBox Grid.Column="1" Grid.Row="5" Style="{StaticResource TextBoxStyle}"
 		                         Text="{Binding DrawingNumberExpression, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="6" Style="{StaticResource SettingsTextBoxStyle}"
+        <TextBox Grid.Column="1" Grid.Row="6" Style="{StaticResource TextBoxStyle}"
 		                         Text="{Binding DeliveryDateExpression, Mode=TwoWay}" />
-        <TextBox Grid.Column="1" Grid.Row="7" Style="{StaticResource SettingsTextBoxStyle}"
+        <TextBox Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBoxStyle}"
 		                         Text="{Binding MultiLineOrderExpression, Mode=TwoWay}" />
 		<StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center">
 			<CheckBox Content="MultiLine" Style="{StaticResource CheckBoxStyle}"
@@ -93,4 +94,4 @@
 			          IsChecked="{Binding MultiLineOrderIsExplicitCapture, Mode=TwoWay}" />
 		</StackPanel>
 	</Grid>
-</UserControl>
+</views:ViewBase>

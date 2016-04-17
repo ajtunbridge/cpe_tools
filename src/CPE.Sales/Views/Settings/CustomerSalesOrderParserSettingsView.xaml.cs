@@ -9,7 +9,7 @@ namespace CPE.Sales.Views.Settings
     /// <summary>
     /// Interaction logic for CustomerSalesOrderParserSettingsView.xaml
     /// </summary>
-    public partial class CustomerSalesOrderParserSettingsView : UserControl
+    public partial class CustomerSalesOrderParserSettingsView : ViewBase
     {
         public CustomerSalesOrderParserSettingsView()
         {

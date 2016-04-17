@@ -6,12 +6,14 @@
              xmlns:viewModels="clr-namespace:CPE.Sales.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:converters="clr-namespace:CPE.Sales.Converters"
              StartupUri="MainWindow.xaml"
              mc:Ignorable="d">
     <Application.Resources>
+        <converters:BinaryImageConverter x:Key="BinaryImageConverter"/>
         <local:Bootstrapper x:Key="BootstrapLocator" d:IsDataSource="true"/>
         <!-- Styles -->
-        <Style x:Key="SettingsTextBoxStyle" TargetType="TextBox">
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>

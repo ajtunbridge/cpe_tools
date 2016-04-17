@@ -6,11 +6,19 @@
         xmlns:local="clr-namespace:CPE.Sales"
         xmlns:views="clr-namespace:CPE.Sales.Views"
         xmlns:settings="clr-namespace:CPE.Sales.Views.Settings"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:dataTemplates="clr-namespace:CPE.Sales.DataTemplates"
         mc:Ignorable="d"
         Loaded="MainWindow_OnLoaded"
         Title="CPE --> Sales" Height="850" Width="1280"
-        DataContext="{Binding MainModel, Source={StaticResource BootstrapLocator}}">
+        DataContext="{Binding MailListViewModel, Source={StaticResource BootstrapLocator}}">
     <Grid>
-        <settings:ApplicationSettingsView Margin="15"></settings:ApplicationSettingsView>
+        <syncfusion:TileViewControl ItemsSource="{Binding SalesOrders}" Margin="55 65 55 55" ClipToBounds="False">
+            <syncfusion:TileViewControl.ItemTemplate>
+                <DataTemplate>
+                    <dataTemplates:SalesOrderMailDataTemplate/>
+                </DataTemplate>
+            </syncfusion:TileViewControl.ItemTemplate>
+        </syncfusion:TileViewControl>
     </Grid>
 </Window>

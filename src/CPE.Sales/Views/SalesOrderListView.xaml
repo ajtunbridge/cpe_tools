@@ -1,12 +1,23 @@
-﻿<UserControl x:Class="CPE.Sales.Views.SalesOrderMailListView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CPE.Sales.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
-</UserControl>
+﻿<local:ViewBase x:Class="CPE.Sales.Views.SalesOrdersListView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:local="clr-namespace:CPE.Sales.Views"
+                xmlns:dataTemplates="clr-namespace:CPE.Sales.DataTemplates"
+                Loaded="SalesOrderMailListView_OnLoaded"
+                Width="265"
+                DataContext="{Binding MailListViewModel, Source={StaticResource BootstrapLocator}}">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<TextBlock x:Name="HeaderLabel" Text="Retrieving sales orders..." FontSize="14" FontWeight="Bold" Margin="0,3" />
+		<ListBox Grid.Row="1" ItemsSource="{Binding SalesOrders}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<dataTemplates:SalesOrderMailDataTemplate />
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</local:ViewBase>

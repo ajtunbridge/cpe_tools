@@ -18,7 +18,7 @@ namespace CPE.Sales.Views.Settings
     /// <summary>
     /// Interaction logic for PathSettingsView.xaml
     /// </summary>
-    public partial class PathSettingsView : UserControl
+    public partial class PathSettingsView : ViewBase
     {
         public PathSettingsView()
         {

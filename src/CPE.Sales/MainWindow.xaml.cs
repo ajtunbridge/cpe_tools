@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,17 +30,16 @@ namespace CPE.Sales
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SalesOrderParserService _parser;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            _parser = Bootstrapper.Parser;
         }
 
-        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            var model = DataContext as SalesOrderListViewModel;
+
+            model.GetSalesOrdersAsync();
         }
     }
 }
