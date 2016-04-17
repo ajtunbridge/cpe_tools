@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPE.Sales"
         xmlns:views="clr-namespace:CPE.Sales.Views"
+        xmlns:settings="clr-namespace:CPE.Sales.Views.Settings"
         mc:Ignorable="d"
         Loaded="MainWindow_OnLoaded"
         Title="CPE --> Sales" Height="850" Width="1280"
         DataContext="{Binding MainModel, Source={StaticResource BootstrapLocator}}">
     <Grid>
-        <views:CustomerSalesOrderParserSettingsView x:Name="ParserSettingsView" Margin="15"></views:CustomerSalesOrderParserSettingsView>
+        <settings:ApplicationSettingsView Margin="15"></settings:ApplicationSettingsView>
     </Grid>
 </Window>

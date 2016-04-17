@@ -89,14 +89,22 @@
     </Compile>
     <Compile Include="Services\OpenOrderReportParserService.cs" />
     <Compile Include="Services\SalesOrderParserService.cs" />
-    <Compile Include="ViewModels\CustomerSalesOrderParserSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\PathSettingsViewModel.cs" />
+    <Compile Include="Views\Settings\ApplicationSettingsView.xaml.cs">
+      <DependentUpon>ApplicationSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Settings\CustomerSalesOrderParserSettingsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SalesOrderListViewModel.cs" />
-    <Compile Include="Views\CustomerSalesOrderParserSettingsView.xaml.cs">
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Settings\CustomerSalesOrderParserSettingsView.xaml.cs">
       <DependentUpon>CustomerSalesOrderParserSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SalesOrderListView.xaml.cs">
       <DependentUpon>SalesOrderListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\PathSettingsView.xaml.cs">
+      <DependentUpon>PathSettingsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -178,11 +186,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CustomerSalesOrderParserSettingsView.xaml">
+    <Page Include="Views\Settings\ApplicationSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\CustomerSalesOrderParserSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SalesOrderListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\PathSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,6 +8,7 @@ using CPE.Data.EntityFramework.Repositories;
 using CPE.Domain.Services;
 using CPE.Sales.Services;
 using CPE.Sales.ViewModels;
+using CPE.Sales.ViewModels.Settings;
 using Ninject;
 
 namespace CPE.Sales

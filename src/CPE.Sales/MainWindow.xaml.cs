@@ -38,11 +38,6 @@ namespace CPE.Sales
 
         private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var customers = Bootstrapper.Customers.GetSalesOrderParseable();
-            
-            var model = ParserSettingsView.DataContext as CustomerSalesOrderParserSettingsViewModel;
-
-            model.CurrentCustomer = customers.Skip(1).First();
         }
     }
 }
