@@ -9,14 +9,33 @@
         WindowStartupLocation="CenterScreen"
         Loaded="MainWindow_OnLoaded"
         Title="CPE --> Sales" Height="1000" Width="1400">
+    <Window.Resources>
+        <Style x:Key="TabItemStyle" TargetType="TabItem">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Gray" BorderThickness="1" Margin="10,10,10,0">
-            
-        </Border>
-        <views:NewSalesOrdersGridView Grid.Row="1"  Margin="10" Height="300"/>
+        <TextBlock Grid.Row="0" Margin="10" Text="CPE --> SALES" VerticalAlignment="Center" FontSize="24"/>
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="NEW SALES ORDERS"></TextBlock>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <views:NewSalesOrdersGridView></views:NewSalesOrdersGridView>
+            </TabItem>
+            <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="OPEN ORDER REPORTS"></TextBlock>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

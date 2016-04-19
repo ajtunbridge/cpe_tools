@@ -16,19 +16,22 @@ namespace CPE.Sales.Services
     public class NewSalesOrdersService
     {
         private readonly ICustomerService _customers;
+        private readonly MemoryCache _memoryCache = new MemoryCache("NewSalesOrderServiceCache");
+        private readonly OpenOrderReportParserService _openOrderParserService;
         private readonly IPartService _parts;
         private readonly IPhotoService _photos;
-
-        private readonly MemoryCache _mailCache = new MemoryCache("ParsedMailCache");
-        private readonly OpenOrderReportParserService _openOrderParserService;
+        private readonly ITricornService _tricorn;
         private IEnumerable<ICustomer> _parseableCustomers;
 
-        public NewSalesOrdersService(ICustomerService customerService, IPhotoService photoService, IPartService partService,
+        public NewSalesOrdersService(ICustomerService customerService, IPhotoService photoService,
+            IPartService partService, ITricornService tricornService,
             OpenOrderReportParserService openOrderParserService)
         {
             _customers = customerService;
             _parts = partService;
             _photos = photoService;
+
+            _tricorn = tricornService;
 
             _openOrderParserService = openOrderParserService;
         }
@@ -66,10 +69,16 @@ namespace CPE.Sales.Services
 
                     var line = new SalesOrderLine
                     {
-                        DrawingNumber = await CleanupDrawingNumberAsync(mail, drawingNumberMatches[0].Value),
-                        DeliveryDate = rescheduleResult.HasBeenRescheduled ? rescheduleResult.RescheduledDate.Value : DateTime.Parse(dateString),
+                        DrawingNumber = await CleanDrawingNumberAsync(mail, drawingNumberMatches[0].Value),
+                        Name = await _tricorn.GetNameByDrawingNumberAsync(drawingNumberMatches[0].Value),
+                        OriginalDeliveryDate = DateTime.Parse(dateString),
                         Photo = await GetPhotoByDrawingNumber(drawingNumberMatches[0].Value)
                     };
+
+                    if (rescheduleResult.HasBeenRescheduled)
+                    {
+                        line.RescheduledDeliveryDate = rescheduleResult.RescheduledDate.Value;
+                    }
 
                     lines.Add(line);
                 }
@@ -82,28 +91,48 @@ namespace CPE.Sales.Services
                     {
                         var rescheduleResult = await
                             _openOrderParserService.CheckIfHasBeenRescheduled(match.Groups["drawing"].Value, orderNumber);
-                        
+
                         var line = new SalesOrderLine
                         {
-                            DrawingNumber = await CleanupDrawingNumberAsync(mail,match.Groups["drawing"].Value),
-                            DeliveryDate = rescheduleResult.HasBeenRescheduled ? rescheduleResult.RescheduledDate.Value : DateTime.Parse(match.Groups["delivery"].Value),
+                            DrawingNumber = await CleanDrawingNumberAsync(mail, match.Groups["drawing"].Value),
+                            Name = await _tricorn.GetNameByDrawingNumberAsync(match.Groups["drawing"].Value),
+                            OriginalDeliveryDate = DateTime.Parse(match.Groups["delivery"].Value),
                             Photo = await GetPhotoByDrawingNumber(match.Groups["drawing"].Value)
                         };
+
+                        if (rescheduleResult.HasBeenRescheduled)
+                        {
+                            line.RescheduledDeliveryDate = rescheduleResult.RescheduledDate.Value;
+                        }
 
                         lines.Add(line);
                     }
 
-                    lines = lines.OrderBy(l => l.DeliveryDate).ToList();
+                    lines = lines.OrderBy(l => l.OriginalDeliveryDate).ToList();
                 }
-                
+
                 var newOrder = new NewSalesOrder
                 {
                     Buyer = buyer,
                     CustomerName = customer.Name,
                     OrderNumber = orderNumber,
-                    Lines = lines.ToList(),
-                    EarliestDeliveryDate = lines.OrderBy(l => l.DeliveryDate).Select(l => l.DeliveryDate).First()
+                    EarliestDeliveryDate = DateTime.MaxValue,
+                    Lines = lines.ToList()
                 };
+
+                foreach (var line in lines)
+                {
+                    if (line.OriginalDeliveryDate < newOrder.EarliestDeliveryDate)
+                    {
+                        newOrder.EarliestDeliveryDate = line.OriginalDeliveryDate;
+                    }
+
+                    if (line.RescheduledDeliveryDate.HasValue &&
+                        line.RescheduledDeliveryDate.Value < newOrder.EarliestDeliveryDate)
+                    {
+                        newOrder.EarliestDeliveryDate = line.RescheduledDeliveryDate.Value;
+                    }
+                }
 
                 newSalesOrders.Add(newOrder);
             }
@@ -111,7 +140,7 @@ namespace CPE.Sales.Services
             return newSalesOrders;
         }
 
-        public async Task<ICustomer> GetCustomerAsync(MSOutlookMailItem mail)
+        private async Task<ICustomer> GetCustomerAsync(MSOutlookMailItem mail)
         {
             if (_parseableCustomers == null)
             {
@@ -135,20 +164,7 @@ namespace CPE.Sales.Services
             return null;
         }
 
-        public async Task<bool> IsMultiLineOrder(MSOutlookMailItem mail)
-        {
-            var settings = await GetCustomerParseSettingsAsync(mail);
-
-            var text = await ExtractTextAsync(mail);
-
-            var regex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
-
-            var matches = regex.Matches(text);
-
-            return matches.Count > 1;
-        }
-
-        public async Task<string> GetBuyerAsync(MSOutlookMailItem mail)
+        private async Task<string> GetBuyerAsync(MSOutlookMailItem mail)
         {
             var settings = await GetCustomerParseSettingsAsync(mail);
 
@@ -159,7 +175,7 @@ namespace CPE.Sales.Services
             return regex.Match(text).Value;
         }
 
-        public async Task<string> GetOrderNumberAsync(MSOutlookMailItem mail)
+        private async Task<string> GetOrderNumberAsync(MSOutlookMailItem mail)
         {
             var settings = await GetCustomerParseSettingsAsync(mail);
 
@@ -170,7 +186,7 @@ namespace CPE.Sales.Services
             return regex.Match(text).Value;
         }
 
-        public async Task<string> CleanupDrawingNumberAsync(MSOutlookMailItem mail, string drawingNumber)
+        private async Task<string> CleanDrawingNumberAsync(MSOutlookMailItem mail, string drawingNumber)
         {
             var settings = await GetCustomerParseSettingsAsync(mail);
 
@@ -184,112 +200,37 @@ namespace CPE.Sales.Services
             return regex.Replace(drawingNumber, settings.DrawingNumberReplacementValue);
         }
 
-        public async Task<string> GetSingleLineDrawingNumberAsync(MSOutlookMailItem mail)
-        {
-            var settings = await GetCustomerParseSettingsAsync(mail);
-
-            var text = await ExtractTextAsync(mail);
-
-            var regex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
-
-            var result = regex.Match(text).Value;
-
-            if (string.IsNullOrEmpty(settings.DrawingNumberReplacementExpr))
-            {
-                return result;
-            }
-
-            regex = new Regex(settings.DrawingNumberReplacementExpr, settings.DrawingNumberReplacementOptions);
-
-            return regex.Replace(result, settings.DrawingNumberReplacementValue);
-        }
-
-        public async Task<DateTime> GetSingleLineDeliveryDateAsync(MSOutlookMailItem mail)
-        {
-            var settings = await GetCustomerParseSettingsAsync(mail);
-
-            var text = await ExtractTextAsync(mail);
-
-            var regex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
-
-            var dateString = regex.Match(text).Value;
-
-            return DateTime.Parse(dateString);
-        }
-
-        public async Task<List<SalesOrderLine>> GetSalesOrderLinesAsync(MSOutlookMailItem mail)
-        {
-            var lines = new List<SalesOrderLine>();
-
-            var settings = await GetCustomerParseSettingsAsync(mail);
-
-            var text = await ExtractTextAsync(mail);
-
-            var drwaingNumberRegex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
-
-            var drawingNumberMatches = drwaingNumberRegex.Matches(text);
-
-            if (drawingNumberMatches.Count == 1)
-            {
-                var regex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
-
-                var dateString = regex.Match(text).Value;
-
-                var photoBytes = await GetPhotoByDrawingNumber(drawingNumberMatches[0].Value);
-
-                var line = new SalesOrderLine
-                {
-                    DrawingNumber = drawingNumberMatches[0].Value,
-                    DeliveryDate = DateTime.Parse(dateString),
-                    Photo = photoBytes
-                };
-
-                lines.Add(line);
-            }
-            else
-            {
-                var regex = new Regex(settings.MultiLineDrawingNumberAndDeliveryExpr,
-                    settings.MultiLineDrawingNumberAndDeliveryOptions);
-
-                foreach (Match match in regex.Matches(text))
-                {
-                    var photoBytes = await GetPhotoByDrawingNumber(match.Groups["drawing"].Value);
-
-                    var line = new SalesOrderLine
-                    {
-                        DrawingNumber = match.Groups["drawing"].Value,
-                        DeliveryDate = DateTime.Parse(match.Groups["delivery"].Value),
-                        Photo = photoBytes
-                    };
-
-                    lines.Add(line);
-                }
-            }
-
-            return lines;
-        }
-        
         private async Task<SalesOrderParserSettingsBlob> GetCustomerParseSettingsAsync(MSOutlookMailItem mail)
         {
+            if (_memoryCache.Contains("PARSESETTINGS:" + mail.MailId))
+            {
+                return (SalesOrderParserSettingsBlob) _memoryCache["PARSESETTINGS:" + mail.MailId];
+            }
+
             var customer = await GetCustomerAsync(mail);
+
+            var settings = customer.GetSalesOrderParserSettings();
+
+            _memoryCache.Add("PARSESETTINGS:" + mail.MailId, settings,
+                new CacheItemPolicy { SlidingExpiration = new TimeSpan(0, 0, 5, 0) });
 
             return customer.GetSalesOrderParserSettings();
         }
 
         private async Task<string> ExtractTextAsync(MSOutlookMailItem mail)
         {
-            if (_mailCache.Contains(mail.MailId))
+            if (_memoryCache.Contains(mail.MailId))
             {
-                return (string) _mailCache[mail.MailId];
+                return (string) _memoryCache[mail.MailId];
             }
 
             var parsedText = await Task.Factory.StartNew(() =>
             {
-                PdfLoadedDocument ldoc = new PdfLoadedDocument(mail.Attachments.First());
+                var ldoc = new PdfLoadedDocument(mail.Attachments.First());
 
-                PdfLoadedPageCollection loadedPages = ldoc.Pages;
+                var loadedPages = ldoc.Pages;
 
-                StringBuilder parsedTextBuilder = new StringBuilder();
+                var parsedTextBuilder = new StringBuilder();
 
                 foreach (PdfLoadedPage lpage in loadedPages)
                 {
@@ -299,13 +240,19 @@ namespace CPE.Sales.Services
                 return parsedTextBuilder.ToString();
             });
 
-            _mailCache.Add(mail.MailId, parsedText, new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, 30, 0)});
+            _memoryCache.Add(mail.MailId, parsedText,
+                new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, 5, 0)});
 
             return parsedText;
         }
 
         private async Task<byte[]> GetPhotoByDrawingNumber(string drawingNumber)
         {
+            if (_memoryCache.Contains(drawingNumber))
+            {
+                return (byte[]) _memoryCache[drawingNumber];
+            }
+
             return await Task.Factory.StartNew(() =>
             {
                 byte[] photoBytes = null;
@@ -315,15 +262,16 @@ namespace CPE.Sales.Services
                 if (part != null)
                 {
                     photoBytes = _photos.GetPhotoByPart(part);
+
+                    if (photoBytes != null)
+                    {
+                        _memoryCache.Add(drawingNumber, photoBytes,
+                            new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, 5, 0)});
+                    }
                 }
 
                 return photoBytes;
             });
-        }
-        private class ParsedMail
-        {
-            public MSOutlookMailItem Mail { get; set; }
-            public string ParsedText { get; set; }
         }
     }
 }

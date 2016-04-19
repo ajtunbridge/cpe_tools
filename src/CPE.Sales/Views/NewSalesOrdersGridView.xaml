@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CPE.Sales.Views"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:converters="clr-namespace:CPE.Sales.Converters"
              mc:Ignorable="d"
              Loaded="NewSalesOrdersGridView_OnLoaded"
              DataContext="{Binding NewSalesOrdersViewModel, Source={StaticResource ViewModelLocator}}">
+    <local:ViewBase.Resources>
+        <converters:RescheduledDateUrgencyBackgroundBrushConverter x:Key="RescheduledDateUrgencyBgBrushConverter"/>
+        <converters:RescheduledDateUrgencyForegroundBrushConverter x:Key="RescheduledDateUrgencyFgBrushConverter"/>
+    </local:ViewBase.Resources>
     <sf:SfDataGrid x:Name="DataGrid" FontSize="14" ItemsSource="{Binding NewSalesOrders}" AutoGenerateRelations="True" RowSelectionBrush="LightSkyBlue" AutoGenerateColumns="False" ColumnSizer="Star" HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row">
         <sf:SfDataGrid.HeaderStyle>
             <Style TargetType="sf:GridHeaderCellControl">
@@ -35,18 +40,36 @@
         <sf:SfDataGrid.DetailsViewDefinition>
             <sf:GridViewDefinition RelationalColumn="Lines">
                 <sf:GridViewDefinition.DataGrid>
-                    <sf:SfDataGrid x:Name="FirstLevelNestedGrid" AutoGenerateColumns="False" RowHeight="110" SelectionMode="None">
+                    <sf:SfDataGrid ColumnSizer="Star" AutoGenerateColumns="False" RowHeight="110" SelectionMode="None">
                         <sf:SfDataGrid.HeaderStyle>
                             <Style TargetType="sf:GridHeaderCellControl">
                                 <Setter Property="FontSize" Value="12"/>
                                 <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="Background" Value="Silver"/>
-                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Background" Value="CornflowerBlue"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
                             </Style>
                         </sf:SfDataGrid.HeaderStyle>
                         <sf:SfDataGrid.Columns>
                             <sf:GridTextColumn HeaderText="DRAWING NUMBER" TextAlignment="Center" MappingName="DrawingNumber" />
-                            <sf:GridTextColumn HeaderText="DELIVERY DATE" TextAlignment="Center" DisplayBinding="{Binding DeliveryDate, StringFormat=d, ConverterCulture=en-GB}" />
+                            <sf:GridTextColumn HeaderText="NAME" TextAlignment="Center" MappingName="Name" />
+                            <sf:GridTextColumn HeaderText="ORIGINAL DELIVERY DATE" TextAlignment="Center" DisplayBinding="{Binding OriginalDeliveryDate, StringFormat=d, ConverterCulture=en-GB}">
+                                <sf:GridTextColumn.CellStyle>
+                                    <Style TargetType="sf:GridCell">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                        <Setter Property="Background" Value="{Binding OriginalDeliveryDate, Converter={StaticResource UrgencyBrushConverter}}"/>
+                                    </Style>
+                                </sf:GridTextColumn.CellStyle>
+                            </sf:GridTextColumn>
+                            <sf:GridTextColumn HeaderText="RESCHEDULED DELIVERY DATE" TextAlignment="Center" DisplayBinding="{Binding RescheduledDeliveryDate, Converter={StaticResource NullableDateTimeStringConverter}}">
+                                <sf:GridTextColumn.CellStyle>
+                                    <Style TargetType="sf:GridCell">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Foreground" Value="{Binding RescheduledDeliveryDate, Converter={StaticResource RescheduledDateUrgencyFgBrushConverter}}"/>
+                                        <Setter Property="Background" Value="{Binding RescheduledDeliveryDate, Converter={StaticResource RescheduledDateUrgencyBgBrushConverter}}"/>
+                                    </Style>
+                                </sf:GridTextColumn.CellStyle>
+                            </sf:GridTextColumn>
                             <sf:GridTemplateColumn HeaderText="PHOTO" Width="187">
                                 <sf:GridTemplateColumn.CellTemplate>
                                     <DataTemplate>

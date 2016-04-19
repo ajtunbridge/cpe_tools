@@ -14,6 +14,7 @@
             <!-- Converters -->
             <converters:BinaryImageConverter x:Key="BinaryImageConverter"/>
             <converters:DeliveryUrgencyBrushConverter x:Key="UrgencyBrushConverter"/>
+            <converters:NullableDateTimeStringConverter x:Key="NullableDateTimeStringConverter"/>
             <!-- Bootstrapper -->
             <local:Bootstrapper x:Key="ViewModelLocator" d:IsDataSource="true"/>
             <!-- Styles -->

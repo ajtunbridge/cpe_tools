@@ -86,6 +86,9 @@
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DeliveryUrgencyBrushConverter.cs" />
+    <Compile Include="Converters\NullableDateTimeStringConverter.cs" />
+    <Compile Include="Converters\RescheduledDateUrgencyForegroundBrushConverter .cs" />
+    <Compile Include="Converters\RescheduledDateUrgencyBackgroundBrushConverter.cs" />
     <Compile Include="Models\NewSalesOrder.cs" />
     <Compile Include="Services\OpenOrderReportParserService.cs" />
     <Compile Include="Models\RescheduleResult.cs" />
@@ -212,10 +215,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\NoImageAvailable.png" />
+    <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Style\" />
+    <Resource Include="Images\ImageUnavailable.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

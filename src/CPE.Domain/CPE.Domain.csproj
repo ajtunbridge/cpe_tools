@@ -63,6 +63,7 @@
     <Compile Include="Services\IPartService.cs" />
     <Compile Include="Services\IPhotoService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
+    <Compile Include="Services\ITricornService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

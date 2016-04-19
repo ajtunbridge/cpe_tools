@@ -47,6 +47,11 @@ namespace CPE.Sales.Services
                 }
             }
 
+            if (orderFolder == null)
+            {
+                return results;
+            }
+
             foreach (var obj in orderFolder.Items)
             {
                 if (obj is MailItem)

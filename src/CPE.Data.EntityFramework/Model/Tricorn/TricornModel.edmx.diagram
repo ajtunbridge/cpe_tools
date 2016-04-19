@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc115a7f76b94f3084283d720af6cd82" Name="Diagram1">
+        <EntityTypeShape EntityType="TricornModel.ART_CUSTOMER" Width="1.5" PointX="17.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.ART_DELQUOTATION" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.ART_LTEXT" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.ART_PLNAME" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Audit" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.AuditItem" Width="1.5" PointX="19.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Batch" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CA_CAPACITY" Width="1.5" PointX="19.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CA_HOLIDAY" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CA_WEEKPLAN" Width="1.5" PointX="19.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CalibKeysDetail" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CalibrationEquipment" Width="1.5" PointX="21.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CalibrationHistory" Width="1.5" PointX="21.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CalibrationProcedure" Width="1.5" PointX="21.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CalibrationUsage" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Client" Width="1.5" PointX="23.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Complaint" Width="1.5" PointX="12.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Concession" Width="1.5" PointX="14.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Contact" Width="1.5" PointX="25.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Cost_Centre" Width="1.5" PointX="25.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CP_Weekly" Width="1.5" PointX="25.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_ACCOUNT" Width="1.5" PointX="25.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_BEM" Width="1.5" PointX="25.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_CNTRY" Width="1.5" PointX="25.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_COTYP" Width="1.5" PointX="16.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_INFO" Width="1.5" PointX="27.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_MAIL" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_PERS" Width="1.5" PointX="27.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CU_VERS" Width="1.5" PointX="27.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CustomCommand" Width="1.5" PointX="18.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Customer" Width="1.5" PointX="0.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Customer_Currency" Width="1.5" PointX="20.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CustomerSatisfaction" Width="1.5" PointX="29.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.CustomerSatisfactionDetail" Width="1.5" PointX="29.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DefaultWorkingHr" Width="1.5" PointX="29.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Discount" Width="1.5" PointX="29.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DItem" Width="1.5" PointX="15" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DItemBuiltPartTrace" Width="1.5" PointX="29.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DItemMatTrace" Width="1.5" PointX="17.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DItemPartTrace" Width="1.5" PointX="17.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DItemSubConTrace" Width="1.5" PointX="17.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DItemToolTrace" Width="1.5" PointX="17.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DMethod" Width="1.5" PointX="29.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DNote" Width="1.5" PointX="12.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DocNote" Width="1.5" PointX="29.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.dtproperty" Width="1.5" PointX="31.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.EAddress" Width="1.5" PointX="31.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Employee" Width="1.5" PointX="31.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Employee_Details" Width="1.5" PointX="31.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.FactoryDayPlan" Width="1.5" PointX="31.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.FAG_DETAIL" Width="1.5" PointX="31.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.FAG_SALESMAN" Width="1.5" PointX="16.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.FAG_TRANSACTIONLOCKING" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.FAG_UNILOG" Width="1.5" PointX="18.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.FI_ACCOUNT" Width="1.5" PointX="20.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.GKN_PROJECT" Width="1.5" PointX="33.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.IN_KASSE" Width="1.5" PointX="33.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.InvItem" Width="1.5" PointX="33.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Invoice" Width="1.5" PointX="33.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.IS_CAL" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.IS_NUM" Width="1.5" PointX="33.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.IS_SETUP" Width="1.5" PointX="12.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.LB_DC" Width="1.5" PointX="35.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.LB_FUNCTION" Width="1.5" PointX="7.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.License" Width="1.5" PointX="9.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Location" Width="1.5" PointX="35.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MaintenanceHistory" Width="1.5" PointX="35.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MaintenanceMachine" Width="1.5" PointX="35.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MaintenanceProcedure" Width="1.5" PointX="25.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Material" Width="1.5" PointX="27.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MDC_EVENTSTRUCT" Width="1.5" PointX="35.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MDC_FUNCTIONMAPPING" Width="1.5" PointX="35.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MDC_TERMINALID" Width="1.5" PointX="14.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MStock" Width="1.5" PointX="37.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.MWithdrawal" Width="1.5" PointX="37.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Nominal_codes" Width="1.5" PointX="37.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Nonconformancy" Width="1.5" PointX="37.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Notifier" Width="1.5" PointX="37.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OG_ORGA" Width="1.5" PointX="37.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OG_ORGADOC" Width="1.5" PointX="9.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OP_CNC" Width="1.5" PointX="20.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OP_SPC" Width="1.5" PointX="39.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_ART" Width="1.5" PointX="0.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_CALC" Width="1.5" PointX="39.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_CHARGE" Width="1.5" PointX="22.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_GRPTYP" Width="1.5" PointX="39.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_OPNAME" Width="1.5" PointX="39.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_OPTYPE" Width="1.5" PointX="39.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_PROJ" Width="1.5" PointX="14.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_SERIAL" Width="1.5" PointX="41.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Order_Events" Width="1.5" PointX="41.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_ARTGRP" Width="1.5" PointX="41.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_ARTHIS" Width="1.5" PointX="24.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_ARTLIEF" Width="1.5" PointX="41.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_ARTPOS" Width="1.5" PointX="35.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_ARTTYP" Width="1.5" PointX="43.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_DPD" Width="1.5" PointX="43.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_FIBU" Width="1.5" PointX="9.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_FIT" Width="1.5" PointX="43.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_PACKAGING" Width="1.5" PointX="43.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_PAPER" Width="1.5" PointX="43.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_POSIT" Width="1.5" PointX="37.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_STLB" Width="1.5" PointX="29.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PA_TEXTE" Width="1.5" PointX="45.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Part" Width="1.5" PointX="45.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PartTrace" Width="1.5" PointX="45.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PE_GROUP" Width="1.5" PointX="45.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PE_MAPPING" Width="1.5" PointX="20.75" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PE_WORK" Width="1.5" PointX="45.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PE_WPLACE" Width="1.5" PointX="26.75" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PItem" Width="1.5" PointX="15" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.POrder" Width="1.5" PointX="12.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_LAYOUTS" Width="1.5" PointX="45.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_OBJECTS" Width="1.5" PointX="45.75" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_PERS" Width="1.5" PointX="11.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_SIMU" Width="1.5" PointX="47.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_TRANSBOX" Width="1.5" PointX="47.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_TRANSSYS" Width="1.5" PointX="47.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_WAYCACHE" Width="1.5" PointX="47.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Procedure" Width="1.5" PointX="47.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PStock" Width="1.5" PointX="47.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PW_PASS" Width="1.5" PointX="31.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PWithdrawal" Width="1.5" PointX="47.75" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.QComponent" Width="1.5" PointX="10" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.QMaterial" Width="1.5" PointX="10" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.QPart" Width="1.5" PointX="10" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.QSubContract" Width="1.5" PointX="10" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.QTool" Width="1.5" PointX="10" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Quote" Width="1.5" PointX="7.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.QWCentre" Width="1.5" PointX="10" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.rb_field" Width="1.5" PointX="47.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.rb_folder" Width="1.5" PointX="47.75" PointY="44.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.rb_item" Width="1.5" PointX="47.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.rb_join" Width="1.5" PointX="49.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.rb_table" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.ReasonCodeType" Width="1.5" PointX="49.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.RecordKey" Width="1.5" PointX="49.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.RejectCategory" Width="1.5" PointX="7.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Reject" Width="1.5" PointX="49.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.RFQ" Width="1.5" PointX="9.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.RFQ_Item" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.RFQ_Plan" Width="1.5" PointX="11.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SatisfactionCategory" Width="1.5" PointX="49.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SFDC_CLIENT_RECENT_USERS" Width="1.5" PointX="20.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SFDC_CLIENT_WORKCENTRES" Width="1.5" PointX="49.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SFDC_CLIENTS" Width="1.5" PointX="49.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SFDC_GROUPS" Width="1.5" PointX="26.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SH_DPD" Width="1.5" PointX="49.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.ST_PLACE" Width="1.5" PointX="49.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.ST_STOCK" Width="1.5" PointX="39.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Stock_Categories" Width="1.5" PointX="49.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.STrace" Width="1.5" PointX="49.75" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SubContract" Width="1.5" PointX="49.75" PointY="49.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Supplier" Width="1.5" PointX="51.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.SupplierPerformance" Width="1.5" PointX="51.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.System_Codes" Width="1.5" PointX="51.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Training" Width="1.5" PointX="51.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Tricorn_User_Acct" Width="1.5" PointX="51.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.TricornSession" Width="1.5" PointX="51.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.TTrace" Width="1.5" PointX="51.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.UpgradeInfo" Width="1.5" PointX="45.75" PointY="51.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.VAT_Rates" Width="1.5" PointX="51.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Warning" Width="1.5" PointX="51.75" PointY="51.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WCentre" Width="1.5" PointX="0.75" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WH_INT" Width="1.5" PointX="20.75" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOComponent" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOInspection" Width="1.5" PointX="22.75" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOMaterial" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOOperAct" Width="1.5" PointX="24.75" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOPart" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOrder" Width="1.5" PointX="3" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOSubContract" Width="1.5" PointX="5.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOTool" Width="1.5" PointX="5.25" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WOWCentre" Width="1.5" PointX="5.25" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WP_GROUP" Width="1.5" PointX="26.75" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WP_MAGRP" Width="1.5" PointX="31.75" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Break_Times" Width="1.5" PointX="53.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DBVersion" Width="1.5" PointX="53.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.DiscountDetail" Width="1.5" PointX="53.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.JIS_ADRESSEN" Width="1.5" PointX="53.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.JIS_FERTIGUNG" Width="1.5" PointX="11.75" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.option" Width="1.5" PointX="53.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.OR_FRAG" Width="1.5" PointX="53.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.Param" Width="1.5" PointX="53.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.PRM_VECTORMAP" Width="1.5" PointX="53.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TricornModel.WCentreCost" Width="1.5" PointX="53.75" PointY="35.75" IsExpanded="true" />
+        <AssociationConnector Association="TricornModel.FK_Batch_WOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOrder_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_DItem_DNote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_DItemMatTrace_DItem" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_DItemPartTrace_DItem" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_DItemSubConTrace_DItem" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_DItemToolTrace_DItem" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_PItem_POrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_QComponents_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_QMaterial_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_QPart_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_QSubContract_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_QTool_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_QWCentre_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_RFQ_Item_RFQ_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOComponents_WOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOMaterial_WOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOPart_WOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOSubContract_WOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOTool_WOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="TricornModel.FK_WOWCentre_WOrder" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -17,7 +17,7 @@ namespace CPE.Sales.Converters
 
             if (bytes == null)
             {
-                bmpImg = new BitmapImage(new Uri("/Images/NoImageAvailable.png", UriKind.Relative));
+                bmpImg = new BitmapImage(new Uri("/Images/ImageUnavailable.png", UriKind.Relative));
             }
             else
             {

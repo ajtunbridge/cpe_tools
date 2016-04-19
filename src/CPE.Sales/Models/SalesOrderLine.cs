@@ -4,16 +4,14 @@ namespace CPE.Sales.Models
 {
     public class SalesOrderLine
     {
-        private byte[] test;
-
         public string DrawingNumber { get; set; }
 
-        public DateTime DeliveryDate { get; set; }
+        public string Name { get; set; }
 
-        public byte[] Photo
-        {
-            get { return test; }
-            set { test = value; }
-        }
+        public DateTime OriginalDeliveryDate { get; set; }
+
+        public DateTime? RescheduledDeliveryDate { get; set; }
+
+        public byte[] Photo { get; set; }
     }
 }
