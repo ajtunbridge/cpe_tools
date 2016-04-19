@@ -18,15 +18,15 @@ namespace CPE.Sales.Converters
 
             if (date <= DateTime.Today.AddDays(7))
             {
-                return new SolidColorBrush(Colors.Firebrick);
+                return new SolidColorBrush(Color.FromRgb(238,17,17));
             }
 
             if (date <= DateTime.Today.AddDays(31))
             {
-                return new SolidColorBrush(Colors.DarkGoldenrod);
+                return new SolidColorBrush(Color.FromRgb(255, 196, 13));
             }
 
-            return new SolidColorBrush(Colors.DarkGreen);
+            return new SolidColorBrush(Color.FromRgb(0,163,0));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

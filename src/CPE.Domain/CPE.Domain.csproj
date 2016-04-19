@@ -59,6 +59,7 @@
     <Compile Include="Security\Cryptography\SymmetricCryptoAlgorithm.cs" />
     <Compile Include="Security\Cryptography\SymmetricCryptoProvider.cs" />
     <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Services\IPartService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
   </ItemGroup>
   <ItemGroup />

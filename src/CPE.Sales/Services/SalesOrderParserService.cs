@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,8 +18,8 @@ namespace CPE.Sales.Services
         private readonly ICustomerService _customers;
         private readonly OpenOrderReportParserService _openOrderParserService;
         private IEnumerable<ICustomer> _parseableCustomers;
-        private readonly HashSet<ParsedMail> _parsedMailCache = new HashSet<ParsedMail>();
-          
+        private readonly MemoryCache _mailCache = new MemoryCache("ParsedMailCache");
+
         public SalesOrderParserService(ICustomerService customerService, OpenOrderReportParserService openOrderParserService)
         {
             _customers = customerService;
@@ -92,7 +93,16 @@ namespace CPE.Sales.Services
 
             var regex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
 
-            return regex.Match(text).Value;
+            var result = regex.Match(text).Value;
+
+            if (string.IsNullOrEmpty(settings.DrawingNumberReplacementExpr))
+            {
+                return result;
+            }
+
+            regex = new Regex(settings.DrawingNumberReplacementExpr, settings.DrawingNumberReplacementOptions);
+
+            return regex.Replace(result, settings.DrawingNumberReplacementValue);
         }
 
         public async Task<DateTime> ParseSingleLineDeliveryDateAsync(MSOutlookMailItem mail)
@@ -199,13 +209,11 @@ namespace CPE.Sales.Services
 
         private async Task<string> ExtractTextAsync(MSOutlookMailItem mail)
         {
-            var cached = _parsedMailCache.SingleOrDefault(m => m.Mail.MailId == mail.MailId);
-
-            if (cached != null)
+            if (_mailCache.Contains(mail.MailId))
             {
-                return cached.ParsedText;
+                return (string)_mailCache[mail.MailId];
             }
-
+            
             var parsedText = await Task.Factory.StartNew(() =>
             {
                 PdfLoadedDocument ldoc = new PdfLoadedDocument(mail.Attachments.First());
@@ -221,8 +229,8 @@ namespace CPE.Sales.Services
 
                 return parsedTextBuilder.ToString();
             });
-            
-            _parsedMailCache.Add(new ParsedMail {Mail = mail, ParsedText = parsedText});
+
+            _mailCache.Add(mail.MailId, parsedText, new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, 30, 0)});
 
             return parsedText;
         }

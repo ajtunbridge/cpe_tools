@@ -23,5 +23,11 @@ namespace CPE.Domain.Model
 
         public string MultiLineDrawingNumberAndDeliveryExpr { get; set; }
         public RegexOptions MultiLineDrawingNumberAndDeliveryOptions { get; set; }
+
+        public string DrawingNumberReplacementExpr { get; set; }
+
+        public RegexOptions DrawingNumberReplacementOptions { get; set; }
+
+        public string DrawingNumberReplacementValue { get; set; }
     }
 }

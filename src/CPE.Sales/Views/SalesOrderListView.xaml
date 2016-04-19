@@ -15,7 +15,7 @@
 		<ListBox Grid.Row="1" ItemsSource="{Binding SalesOrders}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<dataTemplates:SalesOrderMailDataTemplate />
+					<dataTemplates:SalesOrderListDataTemplate />
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>

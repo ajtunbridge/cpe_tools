@@ -13,12 +13,16 @@
         Title="CPE --> Sales" Height="850" Width="1280"
         DataContext="{Binding MailListViewModel, Source={StaticResource BootstrapLocator}}">
     <Grid>
-        <syncfusion:TileViewControl ItemsSource="{Binding SalesOrders}" Margin="55 65 55 55" ClipToBounds="False">
-            <syncfusion:TileViewControl.ItemTemplate>
-                <DataTemplate>
-                    <dataTemplates:SalesOrderMailDataTemplate/>
-                </DataTemplate>
-            </syncfusion:TileViewControl.ItemTemplate>
-        </syncfusion:TileViewControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <views:SalesOrderView x:Name="SalesOrderView" Margin="10"/>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <TextBlock x:Name="SalesOrderListHeader" Style="{StaticResource SettingsHeaderStyle}" Text="RETRIEVING SALES ORDERS..."></TextBlock>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="Stack"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

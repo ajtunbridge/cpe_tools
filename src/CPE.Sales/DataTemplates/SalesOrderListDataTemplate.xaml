@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="CPE.Sales.DataTemplates.SalesOrderListDataTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:CPE.Sales.Converters"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:controls="clr-namespace:Syncfusion.Windows.Controls;assembly=Syncfusion.SfShared.Wpf"
+             Loaded="SalesOrderListDataTemplate_OnLoaded"
+             Margin="10">
+    <UserControl.Resources>
+        <converters:DeliveryUrgencyBrushConverter x:Key="UrgencyBrushConverter"/>
+    </UserControl.Resources>
+    <syncfusion:SfHubTile Background="{Binding EarliestDelivery, Converter={StaticResource UrgencyBrushConverter}}"
+                          x:Name="HubTile" Width="220" Height="220" Interval="0:0:4">
+        <syncfusion:SfHubTile.HubTileTransitions>
+            <controls:SlideTransition Duration="0:0:3"/>
+        </syncfusion:SfHubTile.HubTileTransitions>
+        <syncfusion:SfHubTile.Header>
+            <StackPanel Orientation="Vertical" Margin="3">
+                <TextBlock Text="Due by: " FontSize="14" Foreground="White"/>
+                <TextBlock Text="{Binding EarliestDelivery, StringFormat=d, ConverterCulture=en-GB}" Foreground="White" FontSize="16" FontWeight="Bold"/>
+            </StackPanel>
+        </syncfusion:SfHubTile.Header>
+        <syncfusion:SfHubTile.Title>
+            <StackPanel>
+                <StackPanel Orientation="Vertical" Margin="3">
+                    <TextBlock Text="Order number" FontSize="14" Foreground="White"/>
+                    <TextBlock Text="{Binding OrderNumber}" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="3">
+                    <TextBlock Text="Sent by " FontSize="14" Foreground="White"/>
+                    <TextBlock Text="{Binding Buyer}" Foreground="White"  FontSize="16" FontWeight="Bold"/>
+                </StackPanel>
+                <TextBlock Text="{Binding MultilineTitle}" Foreground="White"  FontSize="16" FontWeight="Bold"/>
+            </StackPanel>
+        </syncfusion:SfHubTile.Title>
+        <syncfusion:SfHubTile.SecondaryContent>
+            <Image Source="{Binding Logo, Converter={StaticResource BinaryImageConverter}}" Stretch="UniformToFill"></Image>
+        </syncfusion:SfHubTile.SecondaryContent>
+    </syncfusion:SfHubTile>
+</UserControl>

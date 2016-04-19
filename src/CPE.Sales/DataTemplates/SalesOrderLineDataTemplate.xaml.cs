@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CPE.Sales.DataTemplates
 {
     /// <summary>
-    /// Interaction logic for SalesOrderMailDataTemplate.xaml
+    /// Interaction logic for SalesOrderLineDataTemplate.xaml
     /// </summary>
-    public partial class SalesOrderMailDataTemplate : UserControl
+    public partial class SalesOrderLineDataTemplate : UserControl
     {
-        public SalesOrderMailDataTemplate()
+        public SalesOrderLineDataTemplate()
         {
             InitializeComponent();
         }
