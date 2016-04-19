@@ -1,10 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using CPE.Sales.Services;
 
 namespace CPE.Sales.ViewModels
 {
     public class MainViewModel
     {
+       
     }
 }

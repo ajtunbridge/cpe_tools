@@ -17,27 +17,30 @@ using CPE.Sales.ViewModels;
 namespace CPE.Sales.Views
 {
     /// <summary>
-    /// Interaction logic for SalesOrderMailListView.xaml
+    /// Interaction logic for NewSalesOrdersGridView.xaml
     /// </summary>
-    public partial class SalesOrdersListView : ViewBase
+    public partial class NewSalesOrdersGridView : ViewBase
     {
-        public SalesOrdersListView()
+        public NewSalesOrdersGridView()
         {
             InitializeComponent();
         }
 
-        private async void SalesOrderMailListView_OnLoaded(object sender, RoutedEventArgs e)
+        private async void NewSalesOrdersGridView_OnLoaded(object sender, RoutedEventArgs e)
         {
             if (IsInDesignMode)
             {
                 return;
             }
 
-            var model = DataContext as SalesOrderListViewModel;
+            var model = DataContext as NewSalesOrdersViewModel;
 
-            await model.GetSalesOrdersAsync();
+            await model.GetNewSalesOrdersAsync();
 
-            HeaderLabel.Text = "Sales orders to launch";
+            if (model.NewSalesOrders.Count > 0)
+            {
+                DataGrid.SelectedIndex = 0;
+            }
         }
     }
 }

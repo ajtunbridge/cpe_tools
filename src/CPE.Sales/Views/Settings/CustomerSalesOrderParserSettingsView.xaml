@@ -4,7 +4,7 @@
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              xmlns:views="clr-namespace:CPE.Sales.Views"
              Loaded="CustomerSalesOrderParserSettingsView_OnLoaded"
-             DataContext="{Binding ParserSettingsViewModel, Source={StaticResource BootstrapLocator}}">
+             DataContext="{Binding ParserSettingsViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
         <Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
@@ -21,7 +21,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-        <TextBlock Text="SALES ORDER PARSER SETTINGS" Grid.ColumnSpan="2" Style="{StaticResource SettingsHeaderStyle}"/>
+        <TextBlock Text="SALES ORDER PARSER SETTINGS" Grid.ColumnSpan="2" Style="{StaticResource HeaderStyle}"/>
 		<syncfusion:ComboBoxAdv x:Name="CustomerSelector" Grid.Column="0" Grid.Row="1" Margin="3,3,3,15" Height="30" Grid.ColumnSpan="2"
 		                        ItemsSource="{Binding ParseableCustomers}"
 		                        SelectionChanged="CustomerSelector_SelectionChanged" />

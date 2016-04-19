@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Caching;
+using CPE.Domain.IO;
 using CPE.Domain.Model;
 
 namespace CPE.Data.EntityFramework.Model

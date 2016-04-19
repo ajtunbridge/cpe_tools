@@ -7,12 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using CPE.Domain.Model;
+
 namespace CPE.Data.EntityFramework.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Photo
+    public partial class Photo : IEntity
     {
         public int Id { get; set; }
         public string Address { get; set; }

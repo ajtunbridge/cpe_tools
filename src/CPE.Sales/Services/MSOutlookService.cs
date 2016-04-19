@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CPE.Sales.Models;
 using CPE.Sales.Properties;
 using Microsoft.Office.Interop.Outlook;
 

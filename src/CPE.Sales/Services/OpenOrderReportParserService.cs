@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CPE.Sales.Models;
 using Excel;
 
 namespace CPE.Sales.Services

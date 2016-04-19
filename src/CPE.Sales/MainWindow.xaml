@@ -3,26 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CPE.Sales"
-        xmlns:views="clr-namespace:CPE.Sales.Views"
-        xmlns:settings="clr-namespace:CPE.Sales.Views.Settings"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-        xmlns:dataTemplates="clr-namespace:CPE.Sales.DataTemplates"
+        xmlns:views="clr-namespace:CPE.Sales.Views"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Loaded="MainWindow_OnLoaded"
-        Title="CPE --> Sales" Height="850" Width="1280"
-        DataContext="{Binding MailListViewModel, Source={StaticResource BootstrapLocator}}">
+        Title="CPE --> Sales" Height="1000" Width="1400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <views:SalesOrderView x:Name="SalesOrderView" Margin="10"/>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <StackPanel>
-                <TextBlock x:Name="SalesOrderListHeader" Style="{StaticResource SettingsHeaderStyle}" Text="RETRIEVING SALES ORDERS..."></TextBlock>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" x:Name="Stack"/>
-            </StackPanel>
-        </ScrollViewer>
+        <Border BorderBrush="Gray" BorderThickness="1" Margin="10,10,10,0">
+            
+        </Border>
+        <views:NewSalesOrdersGridView Grid.Row="1"  Margin="10" Height="300"/>
     </Grid>
 </Window>

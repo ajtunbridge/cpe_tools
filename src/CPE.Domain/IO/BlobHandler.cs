@@ -2,12 +2,11 @@
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using CPE.Domain.IO;
 using CPE.Domain.Security.Cryptography;
 
 #endregion
 
-namespace CPE.Data.EntityFramework.Model
+namespace CPE.Domain.IO
 {
     /// <summary>
     ///     Provides methods to compress, decompress, encrypt and decrypt serializable objects to and from byte arrays

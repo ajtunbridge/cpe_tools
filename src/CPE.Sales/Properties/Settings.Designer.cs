@@ -49,7 +49,7 @@ namespace CPE.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("OOR - New")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Open Order Reports")]
         public string NewOpenOrderReportsFolderName {
             get {
                 return ((string)(this["NewOpenOrderReportsFolderName"]));

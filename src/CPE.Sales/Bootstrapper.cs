@@ -20,31 +20,27 @@ namespace CPE.Sales
         static Bootstrapper()
         {
             Kernel = new StandardKernel();
-
-            Kernel.Bind<MainViewModel>().ToSelf();
-
-            Kernel.Bind<SalesOrderListViewModel>().ToSelf();
+            
             Kernel.Bind<CustomerSalesOrderParserSettingsViewModel>().ToSelf();
             Kernel.Bind<PathSettingsViewModel>().ToSelf();
+            Kernel.Bind<NewSalesOrdersViewModel>().ToSelf();
 
             Kernel.Bind<ICustomerService>().To<CustomerRepository>();
             Kernel.Bind<IPartService>().To<PartRepository>();
+            Kernel.Bind<IPhotoService>().To<PhotoRepository>();
 
-            Kernel.Bind<SalesOrderParserService>().ToSelf().InSingletonScope();
+            Kernel.Bind<NewSalesOrdersService>().ToSelf().InSingletonScope();
             Kernel.Bind<OpenOrderReportParserService>().ToSelf().InSingletonScope();
         }
-
-        public SalesOrderListViewModel MailListViewModel => Kernel.Get<SalesOrderListViewModel>();
-
+        
         public CustomerSalesOrderParserSettingsViewModel ParserSettingsViewModel
             => Kernel.Get<CustomerSalesOrderParserSettingsViewModel>();
 
         public PathSettingsViewModel PathSettingsViewModel
             => Kernel.Get<PathSettingsViewModel>();
 
-        public MainViewModel MainModel => Kernel.Get<MainViewModel>();
-
-        public SalesOrderViewModel SalesOrderViewModel => Kernel.Get<SalesOrderViewModel>();
+        public NewSalesOrdersViewModel NewSalesOrdersViewModel
+            => Kernel.Get<NewSalesOrdersViewModel>();
 
         public static void Cleanup()
         {

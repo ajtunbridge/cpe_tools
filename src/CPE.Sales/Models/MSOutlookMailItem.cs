@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CPE.Sales.Services
+namespace CPE.Sales.Models
 {
     public sealed class MSOutlookMailItem
     {

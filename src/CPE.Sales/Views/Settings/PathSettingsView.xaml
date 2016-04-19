@@ -5,7 +5,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:views="clr-namespace:CPE.Sales.Views"
                 mc:Ignorable="d"
-                DataContext="{Binding PathSettingsViewModel, Source={StaticResource BootstrapLocator}}">
+                DataContext="{Binding PathSettingsViewModel, Source={StaticResource ViewModelLocator}}">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
@@ -18,7 +18,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<TextBlock Text="PATH SETTINGS" Style="{StaticResource SettingsHeaderStyle}" />
+		<TextBlock Text="PATH SETTINGS" Style="{StaticResource HeaderStyle}" />
 		<TextBlock Text="New sales orders folder: " Grid.Column="0" Grid.Row="1" Style="{StaticResource LabelStyle}" />
 		<TextBlock Text="Launched sales orders folder: " Grid.Column="0" Grid.Row="2" Style="{StaticResource LabelStyle}" />
 		<TextBlock Text="New open order report folder: " Grid.Column="0" Grid.Row="3" Style="{StaticResource LabelStyle}" />

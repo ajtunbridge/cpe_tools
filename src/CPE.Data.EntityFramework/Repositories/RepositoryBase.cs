@@ -12,21 +12,21 @@ namespace CPE.Data.EntityFramework.Repositories
 {
     public abstract class RepositoryBase<T> : IDisposable where T : class, IEntity
     {
-        private readonly CPEEntities _entities;
+        protected readonly CPEEntities Entities;
 
         protected RepositoryBase(CPEEntities entities)
         {
-            _entities = entities;
+            Entities = entities;
         }
 
         public void Dispose()
         {
-            _entities.Dispose();
+            Entities.Dispose();
         }
 
         public void Commit()
         {
-            _entities.SaveChanges();
+            Entities.SaveChanges();
         }
 
         protected T GetById(int id)
@@ -66,13 +66,13 @@ namespace CPE.Data.EntityFramework.Repositories
 
         protected DbQuery<T> GetSet()
         {
-            return _entities.Set<T>().AsNoTracking();
+            return Entities.Set<T>().AsNoTracking();
         }
 
         private void AttachInState(T entity, EntityState state)
         {
-            _entities.Set<T>().Attach(entity);
-            _entities.Entry(entity).State = state;
+            Entities.Set<T>().Attach(entity);
+            Entities.Entry(entity).State = state;
         }
     }
 }

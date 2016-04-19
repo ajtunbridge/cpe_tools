@@ -9,7 +9,7 @@
       <Value Profile="(Default)">SO - Launched</Value>
     </Setting>
     <Setting Name="NewOpenOrderReportsFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">OOR - New</Value>
+      <Value Profile="(Default)">Open Order Reports</Value>
     </Setting>
     <Setting Name="CompleteOpenOrderReportsFolderName" Type="System.String" Scope="User">
       <Value Profile="(Default)">OOR - Complete</Value>
