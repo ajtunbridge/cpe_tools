@@ -21,13 +21,14 @@ namespace CPE.Domain.Model
         public string OrderNumberIdentifierExpr { get; set; }
         public RegexOptions OrderNumberOptions { get; set; }
 
+        public string TotalValueExpr { get; set; }
+        public RegexOptions TotalValueOptions { get; set; }
+
         public string MultiLineDrawingNumberAndDeliveryExpr { get; set; }
         public RegexOptions MultiLineDrawingNumberAndDeliveryOptions { get; set; }
 
         public string DrawingNumberReplacementExpr { get; set; }
-
         public RegexOptions DrawingNumberReplacementOptions { get; set; }
-
         public string DrawingNumberReplacementValue { get; set; }
     }
 }

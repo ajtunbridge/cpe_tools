@@ -87,8 +87,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DeliveryUrgencyBrushConverter.cs" />
     <Compile Include="Converters\NullableDateTimeStringConverter.cs" />
-    <Compile Include="Converters\RescheduledDateUrgencyForegroundBrushConverter .cs" />
-    <Compile Include="Converters\RescheduledDateUrgencyBackgroundBrushConverter.cs" />
+    <Compile Include="Converters\RescheduledDateUrgencyBrushConverter.cs" />
     <Compile Include="Models\NewSalesOrder.cs" />
     <Compile Include="Services\OpenOrderReportParserService.cs" />
     <Compile Include="Models\RescheduleResult.cs" />
@@ -214,9 +213,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Style\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\ImageUnavailable.png" />
   </ItemGroup>

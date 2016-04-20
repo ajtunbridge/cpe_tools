@@ -47,6 +47,7 @@ namespace CPE.Sales.Services
                 var orderNumber = await GetOrderNumberAsync(mail);
                 var customer = await GetCustomerAsync(mail);
                 var buyer = await GetBuyerAsync(mail);
+                var totalValue = await GetTotalValueAsync(mail);
 
                 var lines = new List<SalesOrderLine>();
 
@@ -117,7 +118,8 @@ namespace CPE.Sales.Services
                     CustomerName = customer.Name,
                     OrderNumber = orderNumber,
                     EarliestDeliveryDate = DateTime.MaxValue,
-                    Lines = lines.ToList()
+                    Lines = lines.ToList(),
+                    TotalValue = totalValue
                 };
 
                 foreach (var line in lines)
@@ -184,6 +186,19 @@ namespace CPE.Sales.Services
             var regex = new Regex(settings.OrderNumberIdentifierExpr, settings.OrderNumberOptions);
 
             return regex.Match(text).Value;
+        }
+
+        private async Task<decimal> GetTotalValueAsync(MSOutlookMailItem mail)
+        {
+            var settings = await GetCustomerParseSettingsAsync(mail);
+
+            var text = await ExtractTextAsync(mail);
+
+            var regex = new Regex(settings.TotalValueExpr, settings.TotalValueOptions);
+
+            var stringAmount = regex.Match(text).Value;
+
+            return decimal.Parse(stringAmount);
         }
 
         private async Task<string> CleanDrawingNumberAsync(MSOutlookMailItem mail, string drawingNumber)

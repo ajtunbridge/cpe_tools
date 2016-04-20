@@ -23,6 +23,48 @@ namespace CPE.Sales
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void ExportParseSettings()
+        {
+            using (CustomerRepository customers = new CustomerRepository(new CPEEntities()))
+            {
+                var parseable = customers.GetSalesOrderParseable();
+
+                foreach (Customer customer in parseable)
+                {
+                    string fileName = $"{customer.Id}.sops";
+
+                    File.WriteAllBytes(fileName, customer.SalesOrderParserSettings);
+                }
+            }
+        }
+
+        private void ImportParseSettings()
+        {
+            using (CustomerRepository customers = new CustomerRepository(new CPEEntities()))
+            {
+                foreach (var file in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory))
+                {
+                    var ext = Path.GetExtension(file);
+
+                    if (ext != ".sops")
+                    {
+                        continue;
+                    }
+
+                    var id = int.Parse(Path.GetFileNameWithoutExtension(file));
+
+                    Customer customer = (Customer)customers.GetById(id);
+
+                    customer.SalesOrderParserSettings = File.ReadAllBytes(file);
+
+                    customers.Update(customer);
+                }
+
+                customers.Commit();
+            }
         }
     }
 }

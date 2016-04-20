@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace CPE.Sales.Converters
 {
-    public sealed class RescheduledDateUrgencyBackgroundBrushConverter : IValueConverter
+    public sealed class RescheduledDateUrgencyBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targerType, object parameter, CultureInfo culture)
         {
@@ -17,7 +17,7 @@ namespace CPE.Sales.Converters
 
             if (!nullableDateTime.HasValue)
             {
-                return Brushes.White;
+                return Brushes.Black;
             }
             
             if (nullableDateTime.Value <= DateTime.Today.AddDays(7))

@@ -13,7 +13,8 @@
         <ResourceDictionary>
             <!-- Converters -->
             <converters:BinaryImageConverter x:Key="BinaryImageConverter"/>
-            <converters:DeliveryUrgencyBrushConverter x:Key="UrgencyBrushConverter"/>
+            <converters:DeliveryUrgencyBrushConverter x:Key="OriginalDeliveryDateUrgencyBrushConverter"/>
+            <converters:RescheduledDateUrgencyBrushConverter x:Key="RescheduledDateUrgencyBrushConverter"/>
             <converters:NullableDateTimeStringConverter x:Key="NullableDateTimeStringConverter"/>
             <!-- Bootstrapper -->
             <local:Bootstrapper x:Key="ViewModelLocator" d:IsDataSource="true"/>

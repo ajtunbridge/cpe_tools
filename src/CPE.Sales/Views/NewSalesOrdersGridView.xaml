@@ -9,80 +9,95 @@
              mc:Ignorable="d"
              Loaded="NewSalesOrdersGridView_OnLoaded"
              DataContext="{Binding NewSalesOrdersViewModel, Source={StaticResource ViewModelLocator}}">
-    <local:ViewBase.Resources>
-        <converters:RescheduledDateUrgencyBackgroundBrushConverter x:Key="RescheduledDateUrgencyBgBrushConverter"/>
-        <converters:RescheduledDateUrgencyForegroundBrushConverter x:Key="RescheduledDateUrgencyFgBrushConverter"/>
-    </local:ViewBase.Resources>
-    <sf:SfDataGrid x:Name="DataGrid" FontSize="14" ItemsSource="{Binding NewSalesOrders}" AutoGenerateRelations="True" RowSelectionBrush="LightSkyBlue" AutoGenerateColumns="False" ColumnSizer="Star" HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row">
-        <sf:SfDataGrid.HeaderStyle>
-            <Style TargetType="sf:GridHeaderCellControl">
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="Background" Value="Silver"/>
-                <Setter Property="Foreground" Value="Black"/>
-            </Style>
-        </sf:SfDataGrid.HeaderStyle>
-        <sf:SfDataGrid.Columns>
-            <sf:GridTextColumn HeaderText="ORDER NUMBER" DisplayBinding="{Binding OrderNumber}" TextAlignment="Center"/>
-            <sf:GridTextColumn HeaderText="CUSTOMER" DisplayBinding="{Binding CustomerName}" TextAlignment="Center"/>
-            <sf:GridTextColumn HeaderText="BUYER" DisplayBinding="{Binding Buyer}" TextAlignment="Center"/>
-            <sf:GridTextColumn HeaderText="ITEM COUNT" DisplayBinding="{Binding NumberOfLines, StringFormat={}{0:00}}" TextAlignment="Center"/>
-            <sf:GridTextColumn HeaderText="DELIVERY" DisplayBinding="{Binding EarliestDeliveryDate, StringFormat=d, ConverterCulture=en-GB}" TextAlignment="Center">
-                <sf:GridTextColumn.CellStyle>
-                    <Style TargetType="sf:GridCell">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Background" Value="{Binding EarliestDeliveryDate, Converter={StaticResource UrgencyBrushConverter}}"/>
-                    </Style>
-                </sf:GridTextColumn.CellStyle>
-            </sf:GridTextColumn>
-        </sf:SfDataGrid.Columns>
-        <sf:SfDataGrid.DetailsViewDefinition>
-            <sf:GridViewDefinition RelationalColumn="Lines">
-                <sf:GridViewDefinition.DataGrid>
-                    <sf:SfDataGrid ColumnSizer="Star" AutoGenerateColumns="False" RowHeight="110" SelectionMode="None">
-                        <sf:SfDataGrid.HeaderStyle>
-                            <Style TargetType="sf:GridHeaderCellControl">
-                                <Setter Property="FontSize" Value="12"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="Background" Value="CornflowerBlue"/>
-                                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                            </Style>
-                        </sf:SfDataGrid.HeaderStyle>
-                        <sf:SfDataGrid.Columns>
-                            <sf:GridTextColumn HeaderText="DRAWING NUMBER" TextAlignment="Center" MappingName="DrawingNumber" />
-                            <sf:GridTextColumn HeaderText="NAME" TextAlignment="Center" MappingName="Name" />
-                            <sf:GridTextColumn HeaderText="ORIGINAL DELIVERY DATE" TextAlignment="Center" DisplayBinding="{Binding OriginalDeliveryDate, StringFormat=d, ConverterCulture=en-GB}">
-                                <sf:GridTextColumn.CellStyle>
-                                    <Style TargetType="sf:GridCell">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                                        <Setter Property="Background" Value="{Binding OriginalDeliveryDate, Converter={StaticResource UrgencyBrushConverter}}"/>
-                                    </Style>
-                                </sf:GridTextColumn.CellStyle>
-                            </sf:GridTextColumn>
-                            <sf:GridTextColumn HeaderText="RESCHEDULED DELIVERY DATE" TextAlignment="Center" DisplayBinding="{Binding RescheduledDeliveryDate, Converter={StaticResource NullableDateTimeStringConverter}}">
-                                <sf:GridTextColumn.CellStyle>
-                                    <Style TargetType="sf:GridCell">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="Foreground" Value="{Binding RescheduledDeliveryDate, Converter={StaticResource RescheduledDateUrgencyFgBrushConverter}}"/>
-                                        <Setter Property="Background" Value="{Binding RescheduledDeliveryDate, Converter={StaticResource RescheduledDateUrgencyBgBrushConverter}}"/>
-                                    </Style>
-                                </sf:GridTextColumn.CellStyle>
-                            </sf:GridTextColumn>
-                            <sf:GridTemplateColumn HeaderText="PHOTO" Width="187">
-                                <sf:GridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Gray" BorderThickness="1" Margin="5">
-                                            <Image Height="100" Width="177" Stretch="Fill" Source="{Binding Photo, Converter={StaticResource BinaryImageConverter}}"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </sf:GridTemplateColumn.CellTemplate>
-                            </sf:GridTemplateColumn>
-                        </sf:SfDataGrid.Columns>
-                    </sf:SfDataGrid>
-                </sf:GridViewDefinition.DataGrid>
-            </sf:GridViewDefinition>
-        </sf:SfDataGrid.DetailsViewDefinition>
-    </sf:SfDataGrid>
+    <UserControl.Resources>
+        <Style x:Key="OrderLineCellStyle" TargetType="sf:GridCell">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBlock Text="{Binding ViewHeader}" FontSize="26" Margin="3"/>
+            </StackPanel>
+            <CheckBox x:Name="CurrentMonthOnly" Grid.Column="1" Content="This month only?" Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+        <sf:SfDataGrid Grid.Row="1" x:Name="DataGrid" ItemsSource="{Binding FilteredSalesOrders}" AutoGenerateRelations="True" 
+                       RowSelectionBrush="LightSkyBlue" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="50" 
+                       HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row">
+            <sf:SfDataGrid.HeaderStyle>
+                <Style TargetType="sf:GridHeaderCellControl">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Background" Value="LightSlateGray"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </sf:SfDataGrid.HeaderStyle>
+            <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn HeaderText="Order Number" DisplayBinding="{Binding OrderNumber}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Customer" DisplayBinding="{Binding CustomerName}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Buyer" DisplayBinding="{Binding Buyer}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Item Count" DisplayBinding="{Binding NumberOfLines, StringFormat={}{0:00}}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Earliest Delivery" DisplayBinding="{Binding EarliestDeliveryDate, StringFormat=d, ConverterCulture=en-GB}" TextAlignment="Center">
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="sf:GridCell">
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Foreground" Value="{Binding EarliestDeliveryDate, Converter={StaticResource OriginalDeliveryDateUrgencyBrushConverter}}"/>
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridCurrencyColumn HeaderText="Total Value" DisplayBinding="{Binding TotalValue}" CurrencySymbol="£" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+            </sf:SfDataGrid.Columns>
+            <sf:SfDataGrid.DetailsViewDefinition>
+                <sf:GridViewDefinition RelationalColumn="Lines">
+                    <sf:GridViewDefinition.DataGrid>
+                        <sf:SfDataGrid ColumnSizer="Star" AutoGenerateColumns="False" RowHeight="110" SelectionMode="None" RowSelectionBrush="LightSkyBlue" >
+                            <sf:SfDataGrid.HeaderStyle>
+                                <Style TargetType="sf:GridHeaderCellControl">
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Background" Value="CornflowerBlue"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                </Style>
+                            </sf:SfDataGrid.HeaderStyle>
+                            <sf:SfDataGrid.Columns>
+                                <sf:GridTextColumn HeaderText="Drawing Number" TextAlignment="Center" MappingName="DrawingNumber" />
+                                <sf:GridTextColumn HeaderText="Name" TextAlignment="Center" MappingName="Name" />
+                                <sf:GridTextColumn HeaderText="Original Delivery Date" TextAlignment="Center" DisplayBinding="{Binding OriginalDeliveryDate, StringFormat=d, ConverterCulture=en-GB}">
+                                    <sf:GridTextColumn.CellStyle>
+                                        <Style TargetType="sf:GridCell">
+                                            <Setter Property="Foreground" Value="{Binding OriginalDeliveryDate, Converter={StaticResource OriginalDeliveryDateUrgencyBrushConverter}}"/>
+                                        </Style>
+                                    </sf:GridTextColumn.CellStyle>
+                                </sf:GridTextColumn>
+                                <sf:GridTextColumn HeaderText="Rescheduled Delivery Date" TextAlignment="Center" DisplayBinding="{Binding RescheduledDeliveryDate, Converter={StaticResource NullableDateTimeStringConverter}}">
+                                    <sf:GridTextColumn.CellStyle>
+                                        <Style TargetType="sf:GridCell">
+                                            <Setter Property="Foreground" Value="{Binding RescheduledDeliveryDate, Converter={StaticResource RescheduledDateUrgencyBrushConverter}}"/>
+                                        </Style>
+                                    </sf:GridTextColumn.CellStyle>
+                                </sf:GridTextColumn>
+                                <sf:GridTemplateColumn HeaderText="Photo" Width="187">
+                                    <sf:GridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Gray" BorderThickness="1" Margin="5">
+                                                <Image Height="100" Width="177" Stretch="Fill" Source="{Binding Photo, Converter={StaticResource BinaryImageConverter}}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </sf:GridTemplateColumn.CellTemplate>
+                                </sf:GridTemplateColumn>
+                            </sf:SfDataGrid.Columns>
+                        </sf:SfDataGrid>
+                    </sf:GridViewDefinition.DataGrid>
+                </sf:GridViewDefinition>
+            </sf:SfDataGrid.DetailsViewDefinition>
+        </sf:SfDataGrid>
+    </Grid>
 </local:ViewBase>

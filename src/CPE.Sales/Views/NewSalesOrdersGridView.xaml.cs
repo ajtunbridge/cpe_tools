@@ -36,11 +36,20 @@ namespace CPE.Sales.Views
             var model = DataContext as NewSalesOrdersViewModel;
 
             await model.GetNewSalesOrdersAsync();
+        }
 
-            if (model.NewSalesOrders.Count > 0)
-            {
-                DataGrid.SelectedIndex = 0;
-            }
+        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            var model = DataContext as NewSalesOrdersViewModel;
+
+            model.DueThisMonthOnly = true;
+        }
+
+        private void CurrentMonthOnly_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var model = DataContext as NewSalesOrdersViewModel;
+
+            model.DueThisMonthOnly = false;
         }
     }
 }
