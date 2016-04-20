@@ -55,25 +55,29 @@ namespace CPE.Sales.Services
 
                 var text = await ExtractTextAsync(mail);
 
-                var drawingNumberRegex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
+                var multiLineRegex = new Regex(settings.MultiLineDrawingNumberAndDeliveryExpr, settings.MultiLineDrawingNumberAndDeliveryOptions);
 
-                var drawingNumberMatches = drawingNumberRegex.Matches(text);
+                var multiLineMatches = multiLineRegex.Matches(text);
 
-                if (drawingNumberMatches.Count == 1)
+                if (multiLineMatches.Count == 0)
                 {
-                    var regex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
+                    var drawingRegex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
 
-                    var dateString = regex.Match(text).Value;
+                    var drawingNumber = drawingRegex.Match(text).Value;
+
+                    var deliveryRegex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
+
+                    var dateString = deliveryRegex.Match(text).Value;
 
                     var rescheduleResult = await
-                        _openOrderParserService.CheckIfHasBeenRescheduled(drawingNumberMatches[0].Value, orderNumber);
+                        _openOrderParserService.CheckIfHasBeenRescheduled(drawingNumber, orderNumber);
 
                     var line = new SalesOrderLine
                     {
-                        DrawingNumber = await CleanDrawingNumberAsync(mail, drawingNumberMatches[0].Value),
-                        Name = await _tricorn.GetNameByDrawingNumberAsync(drawingNumberMatches[0].Value),
+                        DrawingNumber = await CleanDrawingNumberAsync(mail, drawingNumber),
+                        Name = await _tricorn.GetNameByDrawingNumberAsync(drawingNumber),
                         OriginalDeliveryDate = DateTime.Parse(dateString),
-                        Photo = await GetPhotoByDrawingNumber(drawingNumberMatches[0].Value)
+                        Photo = await GetPhotoByDrawingNumber(drawingNumber)
                     };
 
                     if (rescheduleResult.HasBeenRescheduled)

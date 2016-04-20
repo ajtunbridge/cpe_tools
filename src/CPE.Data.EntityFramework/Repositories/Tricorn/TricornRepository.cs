@@ -40,5 +40,10 @@ namespace CPE.Data.EntityFramework.Repositories.Tricorn
 
             return lastWorksOrder.Description;
         }
+
+        public async Task<decimal> GetTotalValueOfJobsForPeriodAsync(DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

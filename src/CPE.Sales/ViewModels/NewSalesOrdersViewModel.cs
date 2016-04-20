@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CPE.Domain.Services;
 using CPE.Sales.Models;
 using CPE.Sales.Services;
 
@@ -10,13 +11,16 @@ namespace CPE.Sales.ViewModels
     public class NewSalesOrdersViewModel : ViewModelBase
     {
         private readonly NewSalesOrdersService _parserService;
+        private readonly ITricornService _tricorn;
+
         private List<NewSalesOrder> _allNewSaleOrders = new List<NewSalesOrder>();
 
         private bool _dueThisMonthOnly;
 
-        public NewSalesOrdersViewModel(NewSalesOrdersService parserService)
+        public NewSalesOrdersViewModel(NewSalesOrdersService parserService, ITricornService tricornService)
         {
             _parserService = parserService;
+            _tricorn = tricornService;
         }
 
         public IEnumerable<NewSalesOrder> FilteredSalesOrders
@@ -62,7 +66,7 @@ namespace CPE.Sales.ViewModels
             get
             {
                 return
-                    $"{FilteredSalesOrders.Count()} sales orders totalling {FilteredSalesOrders.Sum(so => so.TotalValue).ToString("C")}";
+                    $"Currently showing {FilteredSalesOrders.Count()} sales orders with a total value of {FilteredSalesOrders.Sum(so => so.TotalValue).ToString("C")}";
             }
         }
 

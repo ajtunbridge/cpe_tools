@@ -10,27 +10,28 @@
              Loaded="NewSalesOrdersGridView_OnLoaded"
              DataContext="{Binding NewSalesOrdersViewModel, Source={StaticResource ViewModelLocator}}">
     <UserControl.Resources>
-        <Style x:Key="OrderLineCellStyle" TargetType="sf:GridCell">
+        <Style x:Key="OrderRowCellStyle" TargetType="sf:GridCell">
             <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="LineRowCellStyle" TargetType="sf:GridCell">
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="0,0,0,10">
+        <Grid Grid.Row="0" Background="WhiteSmoke">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock Text="{Binding ViewHeader}" FontSize="26" Margin="3"/>
-            </StackPanel>
-            <CheckBox x:Name="CurrentMonthOnly" Grid.Column="1" Content="This month only?" Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock VerticalAlignment="Center" Text="{Binding ViewHeader}" FontSize="26" Margin="5"/>
+            <CheckBox x:Name="CurrentMonthOnly" VerticalContentAlignment="Center" Margin="5" FontSize="18" Grid.Column="1" Content="Show this month only?" Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         </Grid>
         <sf:SfDataGrid Grid.Row="1" x:Name="DataGrid" ItemsSource="{Binding FilteredSalesOrders}" AutoGenerateRelations="True" 
-                       RowSelectionBrush="LightSkyBlue" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="50" 
+                       RowSelectionBrush="WhiteSmoke" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="50" 
                        HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row">
             <sf:SfDataGrid.HeaderStyle>
                 <Style TargetType="sf:GridHeaderCellControl">
@@ -41,10 +42,10 @@
                 </Style>
             </sf:SfDataGrid.HeaderStyle>
             <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn HeaderText="Order Number" DisplayBinding="{Binding OrderNumber}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
-                <sf:GridTextColumn HeaderText="Customer" DisplayBinding="{Binding CustomerName}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
-                <sf:GridTextColumn HeaderText="Buyer" DisplayBinding="{Binding Buyer}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
-                <sf:GridTextColumn HeaderText="Item Count" DisplayBinding="{Binding NumberOfLines, StringFormat={}{0:00}}" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Order Number" DisplayBinding="{Binding OrderNumber}" TextAlignment="Center" CellStyle="{StaticResource OrderRowCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Customer" DisplayBinding="{Binding CustomerName}" TextAlignment="Center" CellStyle="{StaticResource OrderRowCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Buyer" DisplayBinding="{Binding Buyer}" TextAlignment="Center" CellStyle="{StaticResource OrderRowCellStyle}"/>
+                <sf:GridTextColumn HeaderText="Item Count" DisplayBinding="{Binding NumberOfLines, StringFormat={}{0:00}}" TextAlignment="Center" CellStyle="{StaticResource OrderRowCellStyle}"/>
                 <sf:GridTextColumn HeaderText="Earliest Delivery" DisplayBinding="{Binding EarliestDeliveryDate, StringFormat=d, ConverterCulture=en-GB}" TextAlignment="Center">
                     <sf:GridTextColumn.CellStyle>
                         <Style TargetType="sf:GridCell">
@@ -53,7 +54,7 @@
                         </Style>
                     </sf:GridTextColumn.CellStyle>
                 </sf:GridTextColumn>
-                <sf:GridCurrencyColumn HeaderText="Total Value" DisplayBinding="{Binding TotalValue}" CurrencySymbol="£" TextAlignment="Center" CellStyle="{StaticResource OrderLineCellStyle}"/>
+                <sf:GridCurrencyColumn HeaderText="Total Value" DisplayBinding="{Binding TotalValue}" CurrencySymbol="£" TextAlignment="Center" CellStyle="{StaticResource OrderRowCellStyle}"/>
             </sf:SfDataGrid.Columns>
             <sf:SfDataGrid.DetailsViewDefinition>
                 <sf:GridViewDefinition RelationalColumn="Lines">
@@ -63,16 +64,19 @@
                                 <Style TargetType="sf:GridHeaderCellControl">
                                     <Setter Property="FontSize" Value="12"/>
                                     <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="Background" Value="CornflowerBlue"/>
+                                    <Setter Property="Height" Value="80"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Background" Value="DarkRed"/>
                                     <Setter Property="Foreground" Value="WhiteSmoke"/>
                                 </Style>
                             </sf:SfDataGrid.HeaderStyle>
                             <sf:SfDataGrid.Columns>
-                                <sf:GridTextColumn HeaderText="Drawing Number" TextAlignment="Center" MappingName="DrawingNumber" />
-                                <sf:GridTextColumn HeaderText="Name" TextAlignment="Center" MappingName="Name" />
+                                <sf:GridTextColumn HeaderText="Drawing Number" TextAlignment="Center" MappingName="DrawingNumber" CellStyle="{StaticResource LineRowCellStyle}"/>
+                                <sf:GridTextColumn HeaderText="Name" TextAlignment="Center" MappingName="Name"  CellStyle="{StaticResource LineRowCellStyle}"/>
                                 <sf:GridTextColumn HeaderText="Original Delivery Date" TextAlignment="Center" DisplayBinding="{Binding OriginalDeliveryDate, StringFormat=d, ConverterCulture=en-GB}">
                                     <sf:GridTextColumn.CellStyle>
                                         <Style TargetType="sf:GridCell">
+                                            <Setter Property="FontSize" Value="14"/>
                                             <Setter Property="Foreground" Value="{Binding OriginalDeliveryDate, Converter={StaticResource OriginalDeliveryDateUrgencyBrushConverter}}"/>
                                         </Style>
                                     </sf:GridTextColumn.CellStyle>
@@ -80,6 +84,7 @@
                                 <sf:GridTextColumn HeaderText="Rescheduled Delivery Date" TextAlignment="Center" DisplayBinding="{Binding RescheduledDeliveryDate, Converter={StaticResource NullableDateTimeStringConverter}}">
                                     <sf:GridTextColumn.CellStyle>
                                         <Style TargetType="sf:GridCell">
+                                            <Setter Property="FontSize" Value="14"/>
                                             <Setter Property="Foreground" Value="{Binding RescheduledDeliveryDate, Converter={StaticResource RescheduledDateUrgencyBrushConverter}}"/>
                                         </Style>
                                     </sf:GridTextColumn.CellStyle>
