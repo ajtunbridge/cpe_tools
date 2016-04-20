@@ -79,12 +79,10 @@ namespace CPE.Sales.Services
 
                             var fileName = Path.Combine(Path.GetTempPath(), mail.Attachments[i].FileName);
 
-                            if (File.Exists(fileName))
+                            if (!File.Exists(fileName))
                             {
-                                File.Delete(fileName);
+                                mail.Attachments[i].SaveAsFile(fileName);
                             }
-
-                            mail.Attachments[i].SaveAsFile(fileName);
 
                             mailItem.Attachments.Add(fileName);
                         }

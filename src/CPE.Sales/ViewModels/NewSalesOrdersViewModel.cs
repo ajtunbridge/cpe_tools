@@ -72,6 +72,9 @@ namespace CPE.Sales.ViewModels
 
         public async Task GetNewSalesOrdersAsync()
         {
+            _allNewSaleOrders = new List<NewSalesOrder>();
+            OnPropertyChanged("FilteredSalesOrders");
+
             _allNewSaleOrders = await _parserService.GetNewSalesOrdersAsync();
 
             OnPropertyChanged("FilteredSalesOrders");

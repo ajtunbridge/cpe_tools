@@ -63,7 +63,7 @@ namespace CPE.Sales.Services
                 {
                     var drawingRegex = new Regex(settings.DrawingNumberExpr, settings.DrawingNumberOptions);
 
-                    var drawingNumber = drawingRegex.Match(text).Value;
+                    var drawingNumber = await CleanDrawingNumberAsync(mail, drawingRegex.Match(text).Value);
 
                     var deliveryRegex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
 
@@ -94,15 +94,17 @@ namespace CPE.Sales.Services
 
                     foreach (Match match in regex.Matches(text))
                     {
+                        var drawingNumber = await CleanDrawingNumberAsync(mail, match.Groups["drawing"].Value);
+
                         var rescheduleResult = await
-                            _openOrderParserService.CheckIfHasBeenRescheduled(match.Groups["drawing"].Value, orderNumber);
+                            _openOrderParserService.CheckIfHasBeenRescheduled(drawingNumber, orderNumber);
 
                         var line = new SalesOrderLine
                         {
-                            DrawingNumber = await CleanDrawingNumberAsync(mail, match.Groups["drawing"].Value),
-                            Name = await _tricorn.GetNameByDrawingNumberAsync(match.Groups["drawing"].Value),
+                            DrawingNumber = drawingNumber,
+                            Name = await _tricorn.GetNameByDrawingNumberAsync(drawingNumber),
                             OriginalDeliveryDate = DateTime.Parse(match.Groups["delivery"].Value),
-                            Photo = await GetPhotoByDrawingNumber(match.Groups["drawing"].Value)
+                            Photo = await GetPhotoByDrawingNumber(drawingNumber)
                         };
 
                         if (rescheduleResult.HasBeenRescheduled)

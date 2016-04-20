@@ -14,7 +14,7 @@ namespace CPE.Sales
     /// <summary>
     ///     Interaction logic for MainWindows.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : ChromelessWindow
     {
         public MainWindow()
         {

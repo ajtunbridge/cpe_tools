@@ -24,9 +24,9 @@
         <TextBlock Text="SALES ORDER PARSER SETTINGS" Grid.ColumnSpan="2" Style="{StaticResource HeaderStyle}"/>
 		<syncfusion:ComboBoxAdv x:Name="CustomerSelector" Grid.Column="0" Grid.Row="1" Margin="3,3,3,15" Height="30" Grid.ColumnSpan="2"
 		                        ItemsSource="{Binding ParseableCustomers}"
-		                        SelectionChanged="CustomerSelector_SelectionChanged" />
+		                        SelectionChanged="CustomerSelector_SelectionChanged" Style="{StaticResource ComboBoxStyle}"/>
 		<Button Grid.Column="2" Grid.Row="1" Margin="3, 3,3, 15" Height="30" Content="Save changes" Click="ButtonBase_OnClick"
-		        IsEnabled="{Binding ChangesMade}" />
+		        IsEnabled="{Binding ChangesMade}" Style="{StaticResource ButtonStyle}"/>
 		<TextBlock Grid.Column="0" Grid.Row="2" Text="Identifier expression: " Style="{StaticResource LabelStyle}" />
 		<TextBlock Grid.Column="0" Grid.Row="3" Text="Order number expression: " Style="{StaticResource LabelStyle}" />
 		<TextBlock Grid.Column="0" Grid.Row="4" Text="Buyer expression: " Style="{StaticResource LabelStyle}" />

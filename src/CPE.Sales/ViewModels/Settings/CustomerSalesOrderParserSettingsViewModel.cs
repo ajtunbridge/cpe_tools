@@ -410,6 +410,8 @@ namespace CPE.Sales.ViewModels.Settings
 
         public async Task RetrieveParseableCustomersAsync()
         {
+            ParseableCustomers.Clear();
+
             var parseableCustomers = await _customers.GetSalesOrderParseableAsync();
 
             foreach (var customer in parseableCustomers.OrderBy(c => c.Name))

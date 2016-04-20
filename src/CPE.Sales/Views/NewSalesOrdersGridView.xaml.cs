@@ -35,7 +35,12 @@ namespace CPE.Sales.Views
 
             var model = DataContext as NewSalesOrdersViewModel;
 
-            await model.GetNewSalesOrdersAsync();
+            if (model.FilteredSalesOrders.Any())
+            {
+                return;
+            }
+
+            await RefreshViewModel();
         }
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
@@ -50,6 +55,26 @@ namespace CPE.Sales.Views
             var model = DataContext as NewSalesOrdersViewModel;
 
             model.DueThisMonthOnly = false;
+        }
+
+        private async void RescanButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            await RefreshViewModel();
+        }
+
+        private async Task RefreshViewModel()
+        {
+            RescanButton.IsEnabled = false;
+            LoadingPanel.Visibility = Visibility.Visible;
+            HeaderText.Visibility = Visibility.Hidden;
+
+            var model = DataContext as NewSalesOrdersViewModel;
+
+            await model.GetNewSalesOrdersAsync();
+
+            RescanButton.IsEnabled = true;
+            LoadingPanel.Visibility = Visibility.Hidden;
+            HeaderText.Visibility = Visibility.Visible;
         }
     }
 }

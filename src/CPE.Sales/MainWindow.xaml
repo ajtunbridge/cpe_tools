@@ -1,41 +1,68 @@
-﻿<Window x:Class="CPE.Sales.MainWindow"
+﻿<shared:ChromelessWindow x:Class="CPE.Sales.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:shared="http://schemas.syncfusion.com/wpf"
         xmlns:views="clr-namespace:CPE.Sales.Views"
+        xmlns:settings="clr-namespace:CPE.Sales.Views.Settings"
+        shared:SkinStorage.VisualStyle="Metro"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Loaded="MainWindow_OnLoaded"
-        Title="CPE --> Sales" Height="1000" Width="1400">
+        Icon="/Images/CPE.Sales.ApplicationIcon.ico"
+        ShowIcon="True"
+        Title="CPE Sales Manager" Height="1000" Width="1400">
     <Window.Resources>
         <Style x:Key="TabItemStyle" TargetType="TabItem">
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"></Setter>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF8D8D8D" Offset="0.465"/>
+            <GradientStop Color="White"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Margin="10" Text="CPE --> SALES" VerticalAlignment="Center" FontSize="24"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="Images/CPE.Sales.Logo.png" Height="70" Margin="15"/>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="CPE Sales Manager" FontSize="32" Margin="10"></TextBlock>
+        </Grid>
         <TabControl Grid.Row="1" Margin="10">
-            <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
+            <TabItem Height="50" Width="250" Style="{StaticResource TabItemStyle}">
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="NEW SALES ORDERS"></TextBlock>
+                        <TextBlock Text="SALES ORDERS"></TextBlock>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
                 <views:NewSalesOrdersGridView></views:NewSalesOrdersGridView>
             </TabItem>
-            <TabItem Height="50" Width="200" Style="{StaticResource TabItemStyle}">
+            <TabItem IsEnabled="False" Height="50" Width="250" Style="{StaticResource TabItemStyle}">
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="OPEN ORDER REPORTS"></TextBlock>
+                        <TextBlock Text="OPEN ORDER REPORT"></TextBlock>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
             </TabItem>
+            <TabItem Height="50" Width="250" Style="{StaticResource TabItemStyle}">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="SETTINGS"></TextBlock>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                <settings:ApplicationSettingsView Margin="10"></settings:ApplicationSettingsView>
+            </TabItem>
         </TabControl>
     </Grid>
-</Window>
+</shared:ChromelessWindow>
