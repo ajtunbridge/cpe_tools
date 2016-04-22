@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight;
 
-namespace CPE.Sales.ViewModels.Settings
+namespace CPE.Sales.ViewModel.Settings
 {
     public class PathSettingsViewModel : ViewModelBase
     {

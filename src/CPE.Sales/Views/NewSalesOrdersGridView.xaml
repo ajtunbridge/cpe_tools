@@ -10,6 +10,57 @@
              Loaded="NewSalesOrdersGridView_OnLoaded"
              DataContext="{Binding NewSalesOrdersViewModel, Source={StaticResource ViewModelLocator}}">
     <UserControl.Resources>
+        <SolidColorBrush x:Key="ProgressBarBorderBrush" Color="Transparent" />
+        <SolidColorBrush x:Key="ProgressBarBackgroundBrush" Color="White" />
+        <SolidColorBrush x:Key="ProgressBarTrackBackgroundBrush" Color="#63D055" />
+
+        <Style x:Key="{x:Type ProgressBar}" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Border x:Name="BorderBackground" CornerRadius="3" BorderThickness="0"
+                            BorderBrush="{StaticResource ProgressBarBorderBrush}"
+                            Background="{StaticResource ProgressBarBackgroundBrush}">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Determinate" />
+                                        <VisualState x:Name="Indeterminate" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="PART_Track" Margin="0" BorderThickness="0" CornerRadius="3" />
+                                <Border x:Name="PART_Indicator" Margin="0" BorderThickness="0" CornerRadius="3" HorizontalAlignment="Left"
+                                    Background="{StaticResource ProgressBarTrackBackgroundBrush}" ClipToBounds="True">
+                                    <Border x:Name="DiagonalDecorator" Width="5000">
+                                        <Border.Background>
+                                            <DrawingBrush TileMode="Tile" Stretch="None" Viewbox="0,0,1,1" Viewport="0,0,36,34" ViewportUnits="Absolute">
+                                                <DrawingBrush.RelativeTransform>
+                                                    <TranslateTransform X="0" Y="0" />
+                                                </DrawingBrush.RelativeTransform>
+                                                <DrawingBrush.Drawing>
+                                                    <GeometryDrawing Brush="#48C739" Geometry="M0,0 18,0 36,34 18,34 Z" />
+                                                </DrawingBrush.Drawing>
+                                            </DrawingBrush>
+                                        </Border.Background>
+                                        <Border.Triggers>
+                                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                        Storyboard.TargetProperty="(Border.Background).(DrawingBrush.RelativeTransform).(TranslateTransform.X)"
+                                                        From="0" To=".36" RepeatBehavior="Forever" Duration="0:0:35" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Border.Triggers>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="OrderRowCellStyle" TargetType="sf:GridCell">
             <Setter Property="FontSize" Value="16"/>
         </Style>
@@ -28,32 +79,26 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="1" Margin="10" Padding="10">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="LightGray" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border Margin="10" Style="{StaticResource HeaderBorderStyle}">
                 <Grid>
                     <Grid x:Name="LoadingPanel">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Retrieving sales orders..." FontSize="16" VerticalAlignment="Center"/>
-                        <ProgressBar Grid.Column="1" IsIndeterminate="True" Margin="7"></ProgressBar>
+                        <TextBlock Text="Retrieving sales orders..." Style="{StaticResource HeaderTextBlockStyle}"/>
+                        <ProgressBar Width="250" Grid.Column="1" IsIndeterminate="True" Margin="7"></ProgressBar>
                     </Grid>
-                    <TextBlock x:Name="HeaderText" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ViewHeader}" FontSize="16"/>
+                    <TextBlock x:Name="HeaderText" Visibility="Hidden" HorizontalAlignment="Center" Text="{Binding ViewHeader}" Style="{StaticResource HeaderTextBlockStyle}"/>
                 </Grid>
             </Border>
             <Button x:Name="RescanButton" FontSize="12" IsEnabled="False" Click="RescanButton_OnClick" Grid.Column="1" Margin="10" Content="Scan Outlook for new orders" Padding="10"></Button>
             <CheckBox x:Name="CurrentMonthOnly" VerticalContentAlignment="Center" Margin="10" FontSize="16" Grid.Column="2" Content="Only show orders for this month" 
                       Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         </Grid>
-        <sf:SfDataGrid Grid.Row="1" Margin="5" x:Name="DataGrid" ItemsSource="{Binding FilteredSalesOrders}" AutoGenerateRelations="True" 
+        <sf:SfDataGrid Grid.Row="1" Margin="10" x:Name="DataGrid" ItemsSource="{Binding FilteredSalesOrders}" AutoGenerateRelations="True" 
                        RowSelectionBrush="LightGoldenrodYellow" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="60" 
-                       HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row">
+                       HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row" SelectionChanged="DataGrid_SelectionChanged">
             <sf:SfDataGrid.HeaderStyle>
                 <Style TargetType="sf:GridHeaderCellControl">
                     <Setter Property="FontSize" Value="14"/>

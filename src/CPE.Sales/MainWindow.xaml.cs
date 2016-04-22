@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using CPE.Data.EntityFramework.Model;
 using CPE.Data.EntityFramework.Repositories;
-using CPE.Sales.ViewModels;
 using Syncfusion.Windows.Shared;
 
 namespace CPE.Sales

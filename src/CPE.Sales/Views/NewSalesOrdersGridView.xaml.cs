@@ -12,7 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CPE.Sales.ViewModels;
+using CPE.Sales.Messages;
+using CPE.Sales.Models;
+using CPE.Sales.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CPE.Sales.Views
 {
@@ -28,18 +31,13 @@ namespace CPE.Sales.Views
 
         private async void NewSalesOrdersGridView_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (IsInDesignMode)
+            if (IsInDesignMode || AlreadyLoaded)
             {
                 return;
             }
-
-            var model = DataContext as NewSalesOrdersViewModel;
-
-            if (model.FilteredSalesOrders.Any())
-            {
-                return;
-            }
-
+            
+            AlreadyLoaded = true;
+            
             await RefreshViewModel();
         }
 
@@ -47,14 +45,14 @@ namespace CPE.Sales.Views
         {
             var model = DataContext as NewSalesOrdersViewModel;
 
-            model.DueThisMonthOnly = true;
+            model.ShowDueThisMonthOnly = true;
         }
 
         private void CurrentMonthOnly_Unchecked(object sender, RoutedEventArgs e)
         {
             var model = DataContext as NewSalesOrdersViewModel;
 
-            model.DueThisMonthOnly = false;
+            model.ShowDueThisMonthOnly = false;
         }
 
         private async void RescanButton_OnClick(object sender, RoutedEventArgs e)
@@ -75,6 +73,15 @@ namespace CPE.Sales.Views
             RescanButton.IsEnabled = true;
             LoadingPanel.Visibility = Visibility.Hidden;
             HeaderText.Visibility = Visibility.Visible;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e)
+        {
+            var selectedOrder = DataGrid.SelectedItem as Models.SalesOrder;
+            
+            var model = DataContext as NewSalesOrdersViewModel;
+
+            model.SelectedSalesOrder = selectedOrder;
         }
     }
 }

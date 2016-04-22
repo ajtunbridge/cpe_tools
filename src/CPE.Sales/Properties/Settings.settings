@@ -14,5 +14,8 @@
     <Setting Name="CompleteOpenOrderReportsFolderName" Type="System.String" Scope="User">
       <Value Profile="(Default)">OOR - Complete</Value>
     </Setting>
+    <Setting Name="DrawingFileFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Central\Documents</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

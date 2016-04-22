@@ -70,5 +70,17 @@ namespace CPE.Sales.Properties {
                 this["CompleteOpenOrderReportsFolderName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Central\\Documents")]
+        public string DrawingFileFolderName {
+            get {
+                return ((string)(this["DrawingFileFolderName"]));
+            }
+            set {
+                this["DrawingFileFolderName"] = value;
+            }
+        }
     }
 }

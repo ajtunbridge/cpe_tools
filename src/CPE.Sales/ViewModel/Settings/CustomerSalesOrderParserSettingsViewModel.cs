@@ -4,8 +4,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CPE.Domain.Model;
 using CPE.Domain.Services;
+using GalaSoft.MvvmLight;
 
-namespace CPE.Sales.ViewModels.Settings
+namespace CPE.Sales.ViewModel.Settings
 {
     public class CustomerSalesOrderParserSettingsViewModel : ViewModelBase
     {
@@ -29,35 +30,35 @@ namespace CPE.Sales.ViewModels.Settings
                 if (_parserSettings == null)
                     _parserSettings = new SalesOrderParserSettingsBlob();
 
-                OnPropertyChanged("IdentifierExpression");
-                OnPropertyChanged("IdentifierIsSingleLine");
-                OnPropertyChanged("IdentifierIsMultiLine");
-                OnPropertyChanged("IdentifierIsExplicitCapture");
+                RaisePropertyChanged("IdentifierExpression");
+                RaisePropertyChanged("IdentifierIsSingleLine");
+                RaisePropertyChanged("IdentifierIsMultiLine");
+                RaisePropertyChanged("IdentifierIsExplicitCapture");
 
-                OnPropertyChanged("BuyerExpression");
-                OnPropertyChanged("BuyerIsSingleLine");
-                OnPropertyChanged("BuyerIsMultiLine");
-                OnPropertyChanged("BuyerIsExplicitCapture");
+                RaisePropertyChanged("BuyerExpression");
+                RaisePropertyChanged("BuyerIsSingleLine");
+                RaisePropertyChanged("BuyerIsMultiLine");
+                RaisePropertyChanged("BuyerIsExplicitCapture");
 
-                OnPropertyChanged("DeliveryDateExpression");
-                OnPropertyChanged("DeliveryDateIsSingleLine");
-                OnPropertyChanged("DeliveryDateIsMultiLine");
-                OnPropertyChanged("DeliveryDateIsExplicitCapture");
+                RaisePropertyChanged("DeliveryDateExpression");
+                RaisePropertyChanged("DeliveryDateIsSingleLine");
+                RaisePropertyChanged("DeliveryDateIsMultiLine");
+                RaisePropertyChanged("DeliveryDateIsExplicitCapture");
 
-                OnPropertyChanged("DrawingNumberExpression");
-                OnPropertyChanged("DrawingNumberIsSingleLine");
-                OnPropertyChanged("DrawingNumberIsMultiLine");
-                OnPropertyChanged("DrawingNumberIsExplicitCapture");
+                RaisePropertyChanged("DrawingNumberExpression");
+                RaisePropertyChanged("DrawingNumberIsSingleLine");
+                RaisePropertyChanged("DrawingNumberIsMultiLine");
+                RaisePropertyChanged("DrawingNumberIsExplicitCapture");
 
-                OnPropertyChanged("OrderNumberExpression");
-                OnPropertyChanged("OrderNumberIsSingleLine");
-                OnPropertyChanged("OrderNumberIsMultiLine");
-                OnPropertyChanged("OrderNumberIsExplicitCapture");
+                RaisePropertyChanged("OrderNumberExpression");
+                RaisePropertyChanged("OrderNumberIsSingleLine");
+                RaisePropertyChanged("OrderNumberIsMultiLine");
+                RaisePropertyChanged("OrderNumberIsExplicitCapture");
 
-                OnPropertyChanged("MultiLineOrderExpression");
-                OnPropertyChanged("MultiLineOrderIsSingleLine");
-                OnPropertyChanged("MultiLineOrderIsMultiLine");
-                OnPropertyChanged("MultiLineOrderIsExplicitCapture");
+                RaisePropertyChanged("MultiLineOrderExpression");
+                RaisePropertyChanged("MultiLineOrderIsSingleLine");
+                RaisePropertyChanged("MultiLineOrderIsMultiLine");
+                RaisePropertyChanged("MultiLineOrderIsExplicitCapture");
 
                 _currentCustomer = value;
             }
@@ -82,7 +83,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.CustomerIdentifierOptions.Add(RegexOptions.Singleline)
                     : _parserSettings.CustomerIdentifierOptions.Remove(RegexOptions.Singleline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -97,7 +98,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.CustomerIdentifierOptions.Add(RegexOptions.Multiline)
                     : _parserSettings.CustomerIdentifierOptions.Remove(RegexOptions.Multiline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -112,7 +113,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.CustomerIdentifierOptions.Add(RegexOptions.ExplicitCapture)
                     : _parserSettings.CustomerIdentifierOptions.Remove(RegexOptions.ExplicitCapture);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -137,7 +138,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.BuyerOptions.Add(RegexOptions.Singleline)
                     : _parserSettings.BuyerOptions.Remove(RegexOptions.Singleline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -152,7 +153,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.BuyerOptions.Add(RegexOptions.Multiline)
                     : _parserSettings.BuyerOptions.Remove(RegexOptions.Multiline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -167,7 +168,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.BuyerOptions.Add(RegexOptions.ExplicitCapture)
                     : _parserSettings.BuyerOptions.Remove(RegexOptions.ExplicitCapture);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -192,7 +193,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.DeliveryDateOptions.Add(RegexOptions.Singleline)
                     : _parserSettings.DeliveryDateOptions.Remove(RegexOptions.Singleline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -207,7 +208,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.DeliveryDateOptions.Add(RegexOptions.Multiline)
                     : _parserSettings.DeliveryDateOptions.Remove(RegexOptions.Multiline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -222,7 +223,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.DeliveryDateOptions.Add(RegexOptions.ExplicitCapture)
                     : _parserSettings.DeliveryDateOptions.Remove(RegexOptions.ExplicitCapture);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -247,7 +248,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.DrawingNumberOptions.Add(RegexOptions.Singleline)
                     : _parserSettings.DrawingNumberOptions.Remove(RegexOptions.Singleline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -262,7 +263,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.DrawingNumberOptions.Add(RegexOptions.Multiline)
                     : _parserSettings.DrawingNumberOptions.Remove(RegexOptions.Multiline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -277,7 +278,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.DrawingNumberOptions.Add(RegexOptions.ExplicitCapture)
                     : _parserSettings.DrawingNumberOptions.Remove(RegexOptions.ExplicitCapture);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -302,7 +303,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.OrderNumberOptions.Add(RegexOptions.Singleline)
                     : _parserSettings.OrderNumberOptions.Remove(RegexOptions.Singleline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -317,7 +318,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.OrderNumberOptions.Add(RegexOptions.Multiline)
                     : _parserSettings.OrderNumberOptions.Remove(RegexOptions.Multiline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -332,7 +333,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.OrderNumberOptions.Add(RegexOptions.ExplicitCapture)
                     : _parserSettings.OrderNumberOptions.Remove(RegexOptions.ExplicitCapture);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -357,7 +358,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.MultiLineDrawingNumberAndDeliveryOptions.Add(RegexOptions.Singleline)
                     : _parserSettings.MultiLineDrawingNumberAndDeliveryOptions.Remove(RegexOptions.Singleline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -372,7 +373,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.MultiLineDrawingNumberAndDeliveryOptions.Add(RegexOptions.Multiline)
                     : _parserSettings.MultiLineDrawingNumberAndDeliveryOptions.Remove(RegexOptions.Multiline);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -390,7 +391,7 @@ namespace CPE.Sales.ViewModels.Settings
                     ? _parserSettings.MultiLineDrawingNumberAndDeliveryOptions.Add(RegexOptions.ExplicitCapture)
                     : _parserSettings.MultiLineDrawingNumberAndDeliveryOptions.Remove(RegexOptions.ExplicitCapture);
 
-                OnPropertyChanged();
+                RaisePropertyChanged();
 
                 ChangesMade = true;
             }
@@ -404,7 +405,7 @@ namespace CPE.Sales.ViewModels.Settings
             set
             {
                 _changesMade = value;
-                OnPropertyChanged("ChangesMade");
+                RaisePropertyChanged("ChangesMade");
             }
         }
 

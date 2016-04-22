@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 
-namespace CPE.Sales.ViewModels
+namespace CPE.Sales.ViewModel
 {
-    public class MainViewModel
+    public sealed class OpenOrderReportViewModel : ViewModelBase
     {
-       
+
     }
 }

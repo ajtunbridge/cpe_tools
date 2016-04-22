@@ -15,7 +15,7 @@ namespace CPE.Sales.Converters
         {
             var nullableDateTime = (DateTime?) value;
 
-            return nullableDateTime?.ToShortDateString() ?? "Unchanged";
+            return nullableDateTime?.ToShortDateString() ?? "N/A";
         }
 
         public object ConvertBack(object value, Type targerType, object parameter, CultureInfo culture)

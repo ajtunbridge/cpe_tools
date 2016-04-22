@@ -10,6 +10,8 @@ namespace CPE.Sales.Views
 {
     public abstract class ViewBase : UserControl
     {
+        public bool AlreadyLoaded { get; set; }
+
         public bool IsInDesignMode => DesignerProperties.GetIsInDesignMode(this);
     }
 }

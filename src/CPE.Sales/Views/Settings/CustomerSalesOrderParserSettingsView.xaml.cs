@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using CPE.Domain.Model;
-using CPE.Sales.ViewModels.Settings;
+using CPE.Sales.ViewModel.Settings;
 
 namespace CPE.Sales.Views.Settings
 {
@@ -38,10 +38,12 @@ namespace CPE.Sales.Views.Settings
 
         private async void CustomerSalesOrderParserSettingsView_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (DesignerProperties.GetIsInDesignMode(this))
+            if (AlreadyLoaded || IsInDesignMode)
             {
                 return;
             }
+
+            AlreadyLoaded = true;
 
             IsEnabled = false;
 

@@ -10,6 +10,7 @@ using CPE.Domain.Services;
 using CPE.Sales.Models;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
+using Syncfusion.Windows.Shared;
 
 namespace CPE.Sales.Services
 {
@@ -36,9 +37,9 @@ namespace CPE.Sales.Services
             _openOrderParserService = openOrderParserService;
         }
 
-        public async Task<List<NewSalesOrder>> GetNewSalesOrdersAsync()
+        public async Task<List<SalesOrder>> GetNewSalesOrdersAsync()
         {
-            var newSalesOrders = new List<NewSalesOrder>();
+            var newSalesOrders = new List<SalesOrder>();
 
             var newMail = await Task.Factory.StartNew(() => MSOutlookService.GetSalesOrderMail());
 
@@ -111,20 +112,33 @@ namespace CPE.Sales.Services
                         {
                             line.RescheduledDeliveryDate = rescheduleResult.RescheduledDate.Value;
                         }
+                        else
+                        {
+                            line.RescheduledDeliveryDate = line.OriginalDeliveryDate;
+                        }
 
                         lines.Add(line);
                     }
 
-                    lines = lines.OrderBy(l => l.OriginalDeliveryDate).ToList();
+                    lines = lines.OrderBy(l => l.RescheduledDeliveryDate).ToList();
+
+                    foreach (var l in lines)
+                    {
+                        if (l.OriginalDeliveryDate == l.RescheduledDeliveryDate)
+                        {
+                            l.RescheduledDeliveryDate = null;
+                        }
+                    }
                 }
 
-                var newOrder = new NewSalesOrder
+                var newOrder = new SalesOrder
                 {
                     Buyer = buyer,
                     CustomerName = customer.Name,
                     OrderNumber = orderNumber,
                     EarliestDeliveryDate = DateTime.MaxValue,
-                    Lines = lines.ToList(),
+                    Lines = lines,
+                    MailItem=  mail,
                     TotalValue = totalValue
                 };
 
@@ -140,6 +154,11 @@ namespace CPE.Sales.Services
                     {
                         newOrder.EarliestDeliveryDate = line.RescheduledDeliveryDate.Value;
                     }
+                }
+
+                if (newOrder.EarliestDeliveryDate == DateTime.MaxValue)
+                {
+                    newOrder.EarliestDeliveryDate = DateTime.MinValue;
                 }
 
                 newSalesOrders.Add(newOrder);

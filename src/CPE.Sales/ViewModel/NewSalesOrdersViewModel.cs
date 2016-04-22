@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CPE.Domain.Services;
+using CPE.Sales.Messages;
 using CPE.Sales.Models;
 using CPE.Sales.Services;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 
-namespace CPE.Sales.ViewModels
+namespace CPE.Sales.ViewModel
 {
     public class NewSalesOrdersViewModel : ViewModelBase
     {
         private readonly NewSalesOrdersService _parserService;
         private readonly ITricornService _tricorn;
-
-        private List<NewSalesOrder> _allNewSaleOrders = new List<NewSalesOrder>();
-
-        private bool _dueThisMonthOnly;
+        private List<SalesOrder> _allNewSaleOrders = new List<SalesOrder>();
+        private bool _showDueThisMonthOnly;
+        private SalesOrder _selectedSalesOrder;
 
         public NewSalesOrdersViewModel(NewSalesOrdersService parserService, ITricornService tricornService)
         {
@@ -23,13 +25,13 @@ namespace CPE.Sales.ViewModels
             _tricorn = tricornService;
         }
 
-        public IEnumerable<NewSalesOrder> FilteredSalesOrders
+        public IEnumerable<SalesOrder> FilteredSalesOrders
         {
             get
             {
-                var filtered = new List<NewSalesOrder>();
+                var filtered = new List<SalesOrder>();
 
-                if (DueThisMonthOnly)
+                if (ShowDueThisMonthOnly)
                 {
                     var currentMonth = DateTime.Today.Month;
                     var currentYear = DateTime.Today.Year;
@@ -50,35 +52,44 @@ namespace CPE.Sales.ViewModels
             }
         }
 
-        public bool DueThisMonthOnly
+        public bool ShowDueThisMonthOnly
         {
-            get { return _dueThisMonthOnly; }
+            get { return _showDueThisMonthOnly; }
             set
             {
-                _dueThisMonthOnly = value;
-                OnPropertyChanged("FilteredSalesOrders");
-                OnPropertyChanged("ViewHeader");
+                _showDueThisMonthOnly = value;
+                RaisePropertyChanged("FilteredSalesOrders");
+                RaisePropertyChanged("ViewHeader");
             }
         }
-        
+
         public string ViewHeader
         {
             get
             {
-                return
-                    $"Currently showing {FilteredSalesOrders.Count()} sales orders with a total value of {FilteredSalesOrders.Sum(so => so.TotalValue).ToString("C")}";
+                return $"Currently showing {FilteredSalesOrders.Count()} sales orders with a total value of {FilteredSalesOrders.Sum(so => so.TotalValue).ToString("C")}";
+            }
+        }
+
+        public SalesOrder SelectedSalesOrder
+        {
+            get { return _selectedSalesOrder; }
+            set
+            {
+                _selectedSalesOrder = value;
+                Messenger.Default.Send(new SalesOrderSelectedMessage(value));
             }
         }
 
         public async Task GetNewSalesOrdersAsync()
         {
-            _allNewSaleOrders = new List<NewSalesOrder>();
-            OnPropertyChanged("FilteredSalesOrders");
+            _allNewSaleOrders = new List<SalesOrder>();
+            RaisePropertyChanged("FilteredSalesOrders");
 
             _allNewSaleOrders = await _parserService.GetNewSalesOrdersAsync();
 
-            OnPropertyChanged("FilteredSalesOrders");
-            OnPropertyChanged("ViewHeader");
+            RaisePropertyChanged("FilteredSalesOrders");
+            RaisePropertyChanged("ViewHeader");
         }
     }
 }

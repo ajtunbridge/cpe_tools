@@ -13,7 +13,8 @@
         Loaded="MainWindow_OnLoaded"
         Icon="/Images/CPE.Sales.ApplicationIcon.ico"
         ShowIcon="True"
-        Title="CPE Sales Manager" Height="1000" Width="1400">
+        WindowState="Maximized"
+        Title="CPE.Sales" d:DesignHeight="1000" d:DesignWidth="1400">
     <Window.Resources>
         <Style x:Key="TabItemStyle" TargetType="TabItem">
             <Setter Property="FontSize" Value="16"/>
@@ -46,14 +47,22 @@
                         <TextBlock Text="SALES ORDERS"></TextBlock>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
-                <views:NewSalesOrdersGridView></views:NewSalesOrdersGridView>
+                <TabControl>
+                    <TabItem Height="50" Width="200" Header="Orders to launch">
+                        <views:NewSalesOrdersGridView/>
+                    </TabItem>
+                    <TabItem Height="50" Width="200" Header="Selected order">
+                        <views:SalesOrderView x:Name="SalesOrderView"/>
+                    </TabItem>
+                </TabControl>
             </TabItem>
-            <TabItem IsEnabled="False" Height="50" Width="250" Style="{StaticResource TabItemStyle}">
+            <TabItem Height="50" Width="250" Style="{StaticResource TabItemStyle}">
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock Text="OPEN ORDER REPORT"></TextBlock>
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
+                <views:OpenOrderReportView/>
             </TabItem>
             <TabItem Height="50" Width="250" Style="{StaticResource TabItemStyle}">
                 <TabItem.HeaderTemplate>
