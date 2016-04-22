@@ -20,7 +20,7 @@ namespace CPE.Sales.Models
 
         public int CompareTo(DrawingFile other)
         {
-            return CreatedAt.CompareTo(other.CreatedAt);
+            return other.CreatedAt.CompareTo(CreatedAt);
         }
 
         public bool Equals(DrawingFile other)

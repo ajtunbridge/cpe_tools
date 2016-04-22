@@ -18,10 +18,20 @@ namespace CPE.Sales.ViewModel
     public sealed class FindDrawingViewModel : ViewModelBase
     {
         private readonly DrawingFileService _fileService;
+        private DrawingFile _selectedFile;
 
         public ObservableCollection<DrawingFile> FoundDrawingFiles { get; } =
             new ObservableCollection<DrawingFile>();
-         
+
+        public DrawingFile SelectedFile
+        {
+            get { return _selectedFile; }
+            set
+            {
+                _selectedFile = value;
+                RaisePropertyChanged();
+            }
+        }
         public FindDrawingViewModel(DrawingFileService fileService)
         {
             if (IsInDesignMode)
@@ -34,12 +44,11 @@ namespace CPE.Sales.ViewModel
             Messenger.Default.Register<DrawingFileFoundMessage>(this, HandleDrawingFileFoundMessage);
         }
 
-        public async void FindDrawingFilesAsync(string drawingNumber)
+        public async Task FindDrawingFilesAsync(string drawingNumber)
         {
             FoundDrawingFiles.Clear();
 
-            await _fileService.FindDrawingFilesAsync(drawingNumber);
-            
+            await _fileService.FindDrawingFilesAsync(drawingNumber);        
         }
 
         private void HandleDrawingFileFoundMessage(DrawingFileFoundMessage message)

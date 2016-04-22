@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CPE.Sales.Messages;
 using CPE.Sales.Models;
+using GalaSoft.MvvmLight.Messaging;
 using Syncfusion.Windows.PdfViewer;
 
 namespace CPE.Sales.Views
@@ -26,7 +28,7 @@ namespace CPE.Sales.Views
         {
             InitializeComponent();
 
-            if (AlreadyLoaded || IsInDesignMode)
+            if (IsInDesignMode)
             {
                 return;
             }
@@ -49,6 +51,26 @@ namespace CPE.Sales.Views
 
         private void SalesOrderView_OnLoaded(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SalesOrderLinesList.SelectedItem == null)
+            {
+                return;
+            }
+
+            var selectedLine = SalesOrderLinesList.SelectedItem as SalesOrderLine;
+
+            Messenger.Default.Send(new SalesOrderLineSelectedMessage(selectedLine));
+        }
+
+        private void FrameworkElement_OnSourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            if (SalesOrderLinesList.Items.Count > 0)
+            {
+                SalesOrderLinesList.SelectedIndex = 0;
+            }
         }
     }
 }

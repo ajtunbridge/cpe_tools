@@ -11,8 +11,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Loaded="MainWindow_OnLoaded"
-        Icon="/Images/CPE.Sales.ApplicationIcon.ico"
-        ShowIcon="True"
         WindowState="Maximized"
         Title="CPE.Sales" d:DesignHeight="1000" d:DesignWidth="1400">
     <Window.Resources>
@@ -38,7 +36,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Source="Images/CPE.Sales.Logo.png" Height="70" Margin="15"/>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="CPE Sales Manager" FontSize="32" Margin="10"></TextBlock>
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="CPE.Sales" FontSize="32" Margin="10"></TextBlock>
         </Grid>
         <TabControl Grid.Row="1" Margin="10">
             <TabItem Height="50" Width="250" Style="{StaticResource TabItemStyle}">

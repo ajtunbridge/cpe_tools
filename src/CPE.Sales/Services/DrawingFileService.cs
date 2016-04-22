@@ -74,7 +74,7 @@ namespace CPE.Sales.Services
                             var file = new DrawingFile();
                             file.FileName = Path.GetFileNameWithoutExtension(tmp[i]);
                             file.FullPath = tmp[i];
-                            file.CreatedAt = File.GetCreationTime(tmp[i]);
+                            file.CreatedAt = File.GetLastWriteTime(tmp[i]);
                             file.Icon = icon;
                             results.Add(file);
 

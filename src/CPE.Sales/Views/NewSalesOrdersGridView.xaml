@@ -10,6 +10,13 @@
              Loaded="NewSalesOrdersGridView_OnLoaded"
              DataContext="{Binding NewSalesOrdersViewModel, Source={StaticResource ViewModelLocator}}">
     <UserControl.Resources>
+        <Style x:Key="OrderRowCellStyle" TargetType="sf:GridCell">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="LineRowCellStyle" TargetType="sf:GridCell">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
         <SolidColorBrush x:Key="ProgressBarBorderBrush" Color="Transparent" />
         <SolidColorBrush x:Key="ProgressBarBackgroundBrush" Color="White" />
         <SolidColorBrush x:Key="ProgressBarTrackBackgroundBrush" Color="#63D055" />
@@ -61,12 +68,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="OrderRowCellStyle" TargetType="sf:GridCell">
-            <Setter Property="FontSize" Value="16"/>
-        </Style>
-        <Style x:Key="LineRowCellStyle" TargetType="sf:GridCell">
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -97,7 +99,7 @@
                       Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         </Grid>
         <sf:SfDataGrid Grid.Row="1" Margin="10" x:Name="DataGrid" ItemsSource="{Binding FilteredSalesOrders}" AutoGenerateRelations="True" 
-                       RowSelectionBrush="LightGoldenrodYellow" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="60" 
+                       RowSelectionBrush="LightBlue" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="60" 
                        HeaderRowHeight="30" SelectionMode="Single" NavigationMode="Row" SelectionChanged="DataGrid_SelectionChanged">
             <sf:SfDataGrid.HeaderStyle>
                 <Style TargetType="sf:GridHeaderCellControl">
@@ -125,14 +127,14 @@
             <sf:SfDataGrid.DetailsViewDefinition>
                 <sf:GridViewDefinition RelationalColumn="Lines">
                     <sf:GridViewDefinition.DataGrid>
-                        <sf:SfDataGrid ColumnSizer="Star" AutoGenerateColumns="False" RowHeight="110" SelectionMode="None" RowSelectionBrush="LightGoldenrodYellow">
+                        <sf:SfDataGrid ColumnSizer="Star" AutoGenerateColumns="False" RowHeight="110" SelectionMode="None" RowSelectionBrush="LightBlue">
                             <sf:SfDataGrid.HeaderStyle>
                                 <Style TargetType="sf:GridHeaderCellControl">
                                     <Setter Property="FontSize" Value="12"/>
                                     <Setter Property="FontWeight" Value="Bold"/>
                                     <Setter Property="Height" Value="80"/>
                                     <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="Background" Value="DarkRed"/>
+                                    <Setter Property="Background" Value="CornflowerBlue"/>
                                     <Setter Property="Foreground" Value="WhiteSmoke"/>
                                 </Style>
                             </sf:SfDataGrid.HeaderStyle>

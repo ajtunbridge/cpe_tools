@@ -12,32 +12,82 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CPE.Sales.Messages;
+using CPE.Sales.Models;
 using CPE.Sales.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
+using Syncfusion.Windows.PdfViewer;
 
 namespace CPE.Sales.Views.SalesOrder
 {
     /// <summary>
     /// Interaction logic for FindDrawingView.xaml
     /// </summary>
-    public partial class FindDrawingView : UserControl
+    public partial class FindDrawingView : ViewBase
     {
+        private string _searchValue;
+
         public FindDrawingView()
         {
             InitializeComponent();
+
+            if (IsInDesignMode)
+            {
+                return;
+            }
+            
+            var pdfViewer = new PdfViewerControl();
+            pdfViewer.ZoomMode = ZoomMode.FitWidth;
+            pdfViewer.FontSize = 14;
+
+            Binding myBinding = new Binding();
+            myBinding.Source = DataContext;
+            myBinding.Path = new PropertyPath("SelectedFile.FullPath");
+            myBinding.Mode = BindingMode.OneWay;
+            myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            BindingOperations.SetBinding(pdfViewer, PdfViewerControl.ItemSourceProperty, myBinding);
+
+            PdfViewerGroupBox.Content = pdfViewer;
+
+            Messenger.Default.Register<SalesOrderLineSelectedMessage>(this, HandleSalesOrderLineSelectedMessage);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void HandleSalesOrderLineSelectedMessage(SalesOrderLineSelectedMessage message)
         {
-            var searchValue = SearchValue.Text.Trim();
+            _searchValue = message.SelectedSalesOrderLine.DrawingNumber;
+        }
 
-            if (string.IsNullOrEmpty(searchValue))
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_searchValue))
             {
                 return;
             }
 
+            SearchButton.IsEnabled = false;
+            ProgressBar.Visibility = Visibility.Visible;
+
             var model = DataContext as FindDrawingViewModel;
 
-            model.FindDrawingFilesAsync(searchValue);
+            await model.FindDrawingFilesAsync(_searchValue);
+
+            SearchButton.IsEnabled = true;
+            ProgressBar.Visibility = Visibility.Collapsed;
+        }
+
+        private void ResultsList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ResultsList.SelectedItem == null)
+            {
+                return;
+            }
+
+            var selectedDrawingFile = ResultsList.SelectedItem as DrawingFile;
+
+            var model = DataContext as FindDrawingViewModel;
+
+            model.SelectedFile = selectedDrawingFile;
         }
     }
 }

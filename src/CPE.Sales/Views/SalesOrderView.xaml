@@ -22,10 +22,23 @@
         <Border Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Style="{StaticResource HeaderBorderStyle}">
             <TextBlock Text="{Binding HeaderText}" Style="{StaticResource HeaderTextBlockStyle}"/>
         </Border>
-        <ListBox Grid.Column="0" Grid.Row="1" FontSize="14" Margin="10" ItemsSource="{Binding SalesOrderLines}">
+        <ListBox x:Name="SalesOrderLinesList" Grid.Column="0" Grid.Row="1" FontSize="14" Margin="10" ItemsSource="{Binding SalesOrderLines, NotifyOnTargetUpdated=True}"
+                 TargetUpdated="FrameworkElement_OnSourceUpdated" SelectionChanged="Selector_OnSelectionChanged">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True" >
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightBlue"/>
+                    </Style.Resources>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Gray" CornerRadius="3" BorderThickness="1">
+                    <Border BorderBrush="Gray" CornerRadius="3" BorderThickness="1" Margin="3">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

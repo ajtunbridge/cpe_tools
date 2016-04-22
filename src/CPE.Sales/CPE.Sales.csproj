@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\CPE-SRV1\Data\Software\CPE.Sales\</InstallUrl>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -147,6 +147,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ExtensionMethods\ObservableCollectionExtensions.cs" />
     <Compile Include="Messages\DrawingFileFoundMessage.cs" />
+    <Compile Include="Messages\SalesOrderLineSelectedMessage.cs" />
     <Compile Include="Services\DrawingFileService.cs" />
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
