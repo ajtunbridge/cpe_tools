@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CPE.Sales.Models;
+using CPE.Sales.Properties;
 using Excel;
 
 namespace CPE.Sales.Services
@@ -81,7 +82,9 @@ namespace CPE.Sales.Services
             {
                 if (_dataSet == null)
                 {
-                    var lastReport = MSOutlookService.GetMostRecentOpenOrderReport();
+                    var folder = Settings.Default.NewOpenOrderReportsFolderName;
+
+                    var lastReport = MSOutlookService.GetMostRecentOpenOrderReport(folder);
 
                     using (var fs = new FileStream(lastReport.Attachments.First(), FileMode.Open))
                     {

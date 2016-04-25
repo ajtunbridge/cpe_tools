@@ -1,9 +1,10 @@
-﻿using CPE.Domain.Model;
+﻿using System.Threading.Tasks;
+using CPE.Domain.Model;
 
 namespace CPE.Domain.Services
 {
     public interface IPhotoService
     {
-        byte[] GetPhotoByPart(IPart part);
+        Task<byte[]> GetPhotoByPartAsync(IPart part);
     }
 }

@@ -73,7 +73,7 @@ namespace CPE.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Central\\Documents")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Central")]
         public string DrawingFileFolderName {
             get {
                 return ((string)(this["DrawingFileFolderName"]));

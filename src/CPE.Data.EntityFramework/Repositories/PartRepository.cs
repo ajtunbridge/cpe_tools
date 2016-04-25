@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using CPE.Data.EntityFramework.Model;
@@ -13,9 +14,9 @@ namespace CPE.Data.EntityFramework.Repositories
         {
         }
 
-        public IPart GetWhereDrawingNumberEquals(string drawingNumber)
+        public async Task<IPart> GetWhereDrawingNumberEqualsAsync(string drawingNumber)
         {
-            return GetSet().SingleOrDefault(p => p.DrawingNumber == drawingNumber);
+            return await GetSet().SingleOrDefaultAsync(p => p.DrawingNumber == drawingNumber);
         }
 
         public new IPart GetById(int id)

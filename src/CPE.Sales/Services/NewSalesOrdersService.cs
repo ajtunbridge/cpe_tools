@@ -37,11 +37,11 @@ namespace CPE.Sales.Services
             _openOrderParserService = openOrderParserService;
         }
 
-        public async Task<List<SalesOrder>> GetNewSalesOrdersAsync()
+        public async Task<List<SalesOrder>> GetNewSalesOrdersAsync(string folderName)
         {
             var newSalesOrders = new List<SalesOrder>();
 
-            var newMail = await Task.Factory.StartNew(() => MSOutlookService.GetSalesOrderMail());
+            var newMail = await Task.Factory.StartNew(() => MSOutlookService.GetSalesOrderMail(folderName));
 
             foreach (var mail in newMail)
             {
@@ -69,7 +69,7 @@ namespace CPE.Sales.Services
                     var deliveryRegex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
 
                     var dateString = deliveryRegex.Match(text).Value;
-
+                    
                     var rescheduleResult = await
                         _openOrderParserService.CheckIfHasBeenRescheduled(drawingNumber, orderNumber);
 
@@ -77,7 +77,7 @@ namespace CPE.Sales.Services
                     {
                         DrawingNumber = await CleanDrawingNumberAsync(mail, drawingNumber),
                         Name = await _tricorn.GetNameByDrawingNumberAsync(drawingNumber),
-                        OriginalDeliveryDate = DateTime.Parse(dateString),
+                        OriginalDeliveryDate = string.IsNullOrEmpty(dateString) ? DateTime.MinValue : DateTime.Parse(dateString),
                         Photo = await GetPhotoByDrawingNumber(drawingNumber)
                     };
 
@@ -293,25 +293,17 @@ namespace CPE.Sales.Services
                 return (byte[]) _memoryCache[drawingNumber];
             }
 
-            return await Task.Factory.StartNew(() =>
+            var part = await _parts.GetWhereDrawingNumberEqualsAsync(drawingNumber);
+
+            var photoBytes = await _photos.GetPhotoByPartAsync(part);
+
+            if (photoBytes != null)
             {
-                byte[] photoBytes = null;
+                _memoryCache.Add(drawingNumber, photoBytes,
+                    new CacheItemPolicy { SlidingExpiration = new TimeSpan(0, 0, 5, 0) });
+            }
 
-                var part = _parts.GetWhereDrawingNumberEquals(drawingNumber);
-
-                if (part != null)
-                {
-                    photoBytes = _photos.GetPhotoByPart(part);
-
-                    if (photoBytes != null)
-                    {
-                        _memoryCache.Add(drawingNumber, photoBytes,
-                            new CacheItemPolicy {SlidingExpiration = new TimeSpan(0, 0, 5, 0)});
-                    }
-                }
-
-                return photoBytes;
-            });
+            return photoBytes;
         }
     }
 }

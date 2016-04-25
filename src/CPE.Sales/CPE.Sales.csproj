@@ -16,7 +16,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>I:\Software\CPE.Sales\</PublishUrl>
+    <PublishUrl>I:\Software\SalesTest\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,8 +26,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\CPE-SRV1\Data\Software\CPE.Sales\</InstallUrl>
-    <ApplicationRevision>7</ApplicationRevision>
+    <InstallUrl>\\CPE-SRV1\Data\Software\SalesTest\</InstallUrl>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -148,6 +148,9 @@
     <Compile Include="ExtensionMethods\ObservableCollectionExtensions.cs" />
     <Compile Include="Messages\DrawingFileFoundMessage.cs" />
     <Compile Include="Messages\SalesOrderLineSelectedMessage.cs" />
+    <Compile Include="ParserSettingsTestWindow.xaml.cs">
+      <DependentUpon>ParserSettingsTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DrawingFileService.cs" />
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NewSalesOrdersViewModel.cs" />
     <Compile Include="ViewModel\OpenOrderReportViewModel.cs" />
+    <Compile Include="ViewModel\ParserSettingsTestViewModel.cs" />
     <Compile Include="ViewModel\SalesOrderViewModel.cs" />
     <Compile Include="ViewModel\Settings\PathSettingsViewModel.cs" />
     <Compile Include="Views\NewSalesOrdersGridView.xaml.cs">
@@ -218,7 +222,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.Config" />
-    <None Include="CPE.Sales_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -279,6 +282,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ParserSettingsTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

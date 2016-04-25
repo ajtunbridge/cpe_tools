@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CPE.Domain.Services;
+using CPE.Sales;
 using CPE.Sales.Messages;
 using CPE.Sales.Models;
 using CPE.Sales.Services;
@@ -18,6 +19,7 @@ namespace CPE.Sales.ViewModel
         private List<SalesOrder> _allNewSaleOrders = new List<SalesOrder>();
         private bool _showDueThisMonthOnly;
         private SalesOrder _selectedSalesOrder;
+        private decimal _totalValueOfOrdersOnSystem;
 
         public NewSalesOrdersViewModel(NewSalesOrdersService parserService, ITricornService tricornService)
         {
@@ -71,6 +73,16 @@ namespace CPE.Sales.ViewModel
             }
         }
 
+        public decimal TotalValueOfOrdersOnSystem
+        {
+            get { return _totalValueOfOrdersOnSystem; }
+            set
+            {
+                _totalValueOfOrdersOnSystem = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public SalesOrder SelectedSalesOrder
         {
             get { return _selectedSalesOrder; }
@@ -86,8 +98,11 @@ namespace CPE.Sales.ViewModel
             _allNewSaleOrders = new List<SalesOrder>();
             RaisePropertyChanged("FilteredSalesOrders");
 
-            _allNewSaleOrders = await _parserService.GetNewSalesOrdersAsync();
+            var folder = Properties.Settings.Default.NewOrdersFolderName;
 
+            _allNewSaleOrders = await _parserService.GetNewSalesOrdersAsync(folder);
+            TotalValueOfOrdersOnSystem = await _tricorn.GetTotalValueOfJobsForCurrentMonthAsync();
+        
             RaisePropertyChanged("FilteredSalesOrders");
             RaisePropertyChanged("ViewHeader");
         }

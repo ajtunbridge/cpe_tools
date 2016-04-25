@@ -28,6 +28,8 @@ namespace CPE.Sales
             Kernel.Bind<SalesOrderViewModel>().ToSelf();
             Kernel.Bind<FindDrawingViewModel>().ToSelf();
 
+            Kernel.Bind<ParserSettingsTestViewModel>().ToSelf();
+
             Kernel.Bind<ICustomerService>().To<CustomerRepository>();
             Kernel.Bind<IPartService>().To<PartRepository>();
             Kernel.Bind<IPhotoService>().To<PhotoRepository>();
@@ -52,6 +54,9 @@ namespace CPE.Sales
 
         public FindDrawingViewModel FindDrawingViewModel
             => Kernel.Get<FindDrawingViewModel>();
+
+        public ParserSettingsTestViewModel ParserSettingsTestViewModel
+            => Kernel.Get<ParserSettingsTestViewModel>();
 
         public static void Cleanup()
         {

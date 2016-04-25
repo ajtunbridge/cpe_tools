@@ -10,9 +10,6 @@ namespace CPE.Sales.Tests
         [TestMethod]
         public void Can_Get_Emails()
         {
-            var result = MSOutlookService.GetSalesOrderMail();
-
-            Assert.IsTrue(result.Count > 0);
         }
     }
 }

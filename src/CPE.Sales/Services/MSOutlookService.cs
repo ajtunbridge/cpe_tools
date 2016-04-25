@@ -10,18 +10,14 @@ namespace CPE.Sales.Services
 {
     public sealed class MSOutlookService
     {
-        public static List<MSOutlookMailItem> GetSalesOrderMail()
+        public static List<MSOutlookMailItem> GetSalesOrderMail(string folderName)
         {
-            var folder = Settings.Default.NewOrdersFolderName;
-
-            return GetMailItems(folder, ".pdf");
+            return GetMailItems(folderName, ".pdf");
         }
 
-        public static MSOutlookMailItem GetMostRecentOpenOrderReport()
+        public static MSOutlookMailItem GetMostRecentOpenOrderReport(string folderName)
         {
-            var folder = Settings.Default.NewOpenOrderReportsFolderName;
-
-            return GetMailItems(folder, ".xls").OrderByDescending(m => m.ReceivedAt).FirstOrDefault();
+            return GetMailItems(folderName, ".xls").OrderByDescending(m => m.ReceivedAt).FirstOrDefault();
         }
 
         private static List<MSOutlookMailItem> GetMailItems(string folderName, string validFileExtension)

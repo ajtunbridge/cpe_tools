@@ -15,7 +15,7 @@
       <Value Profile="(Default)">OOR - Complete</Value>
     </Setting>
     <Setting Name="DrawingFileFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Central\Documents</Value>
+      <Value Profile="(Default)">C:\Central</Value>
     </Setting>
   </Settings>
 </SettingsFile>

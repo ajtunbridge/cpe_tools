@@ -70,7 +70,9 @@
             <TabItem Header="Drawing finder" Height="50" Width="250">
                 <salesOrder:FindDrawingView Margin="10"/>
             </TabItem>
-            <TabItem Header="Part information" Height="50" Width="250"></TabItem>
+            <TabItem Header="Part information" Height="50" Width="250">
+                
+            </TabItem>
         </TabControl>
     </Grid>
 </local:ViewBase>

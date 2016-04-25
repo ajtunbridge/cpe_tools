@@ -135,6 +135,7 @@
     <Compile Include="Model\PartVersion.cs">
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\PartVersionExt.cs" />
     <Compile Include="Model\Photo.cs">
       <DependentUpon>CPEDataModel.tt</DependentUpon>
     </Compile>
@@ -729,6 +730,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\PartRepository.cs" />
+    <Compile Include="Repositories\PartVersionRepository.cs" />
     <Compile Include="Repositories\PhotoRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\Tricorn\TricornRepository.cs" />

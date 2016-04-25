@@ -1,0 +1,30 @@
+﻿<Window x:Class="CPE.Sales.ParserSettingsTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CPE.Sales"
+        MinHeight="450" MinWidth="600"
+        mc:Ignorable="d"
+        Title="Parser Test" Height="300" Width="400"
+        FontSize="16"
+        DataContext="{Binding ParserSettingsTestViewModel, Source={StaticResource ViewModelLocator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="5">
+            <TextBlock Text="Folder to scan" Margin="3"/>
+            <TextBox x:Name="SalesOrderFolderName" Margin="3" Text="SO - New"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="5">
+            <TextBlock Text="Failed orders directory" Margin="3"/>
+            <TextBox x:Name="OrderFolderName" Text="I:\Software" Margin="3"/>
+        </StackPanel>
+        <Button Grid.Row="2" Margin="8" Height="40" Click="ScanNowButton_OnClick" Content="Scan folder now"></Button>
+        <TextBlock Grid.Row="3" Margin="8" Text="{Binding StatusMessage}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"></TextBlock>
+    </Grid>
+</Window>

@@ -95,8 +95,11 @@
                 </Grid>
             </Border>
             <Button x:Name="RescanButton" FontSize="12" IsEnabled="False" Click="RescanButton_OnClick" Grid.Column="1" Margin="10" Content="Scan Outlook for new orders" Padding="10"></Button>
-            <CheckBox x:Name="CurrentMonthOnly" VerticalContentAlignment="Center" Margin="10" FontSize="16" Grid.Column="2" Content="Only show orders for this month" 
-                      Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                <CheckBox x:Name="CurrentMonthOnly" VerticalContentAlignment="Center" Margin="5" FontSize="16" Grid.Column="2" Content="Only show orders for this month" 
+                      Checked="ToggleButton_OnChecked" Unchecked="CurrentMonthOnly_Unchecked" IsChecked="True" HorizontalAlignment="Right"/>
+                <TextBlock Margin="5" FontSize="16" Text="{Binding TotalValueOfOrdersOnSystem, StringFormat=Orders due this month total {0:C}, ConverterCulture=en-GB}" HorizontalAlignment="Right"/>
+            </StackPanel>
         </Grid>
         <sf:SfDataGrid Grid.Row="1" Margin="10" x:Name="DataGrid" ItemsSource="{Binding FilteredSalesOrders}" AutoGenerateRelations="True" 
                        RowSelectionBrush="LightBlue" AutoGenerateColumns="False" ColumnSizer="Star" RowHeight="60" 

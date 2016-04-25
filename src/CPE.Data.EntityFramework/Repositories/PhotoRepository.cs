@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,21 +16,21 @@ namespace CPE.Data.EntityFramework.Repositories
         {
         }
 
-        public byte[] GetPhotoByPart(IPart part)
+        public async Task<byte[]> GetPhotoByPartAsync(IPart part)
         {
             if (part == null)
             {
                 return null;
             }
 
-            var latestVersion =
+            var latestVersion = await 
                 Entities.PartVersions.Where(pv => pv.PartId == part.Id)
                     .OrderByDescending(pv => pv.VersionNumber)
-                    .First();
+                    .FirstAsync();
 
             var address = $"PartVersion:{latestVersion.Id}";
 
-            var photo = Entities.Photos.SingleOrDefault(p => p.Address == address);
+            var photo = await Entities.Photos.SingleOrDefaultAsync(p => p.Address == address);
 
             return photo?.Data;
         }

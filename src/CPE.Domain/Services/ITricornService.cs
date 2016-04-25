@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using CPE.Domain.Model;
+using CPE.Domain.Model.Tricorn;
 
 namespace CPE.Domain.Services
 {
@@ -7,6 +10,8 @@ namespace CPE.Domain.Services
     {
         Task<string> GetNameByDrawingNumberAsync(string drawingNumber);
 
-        Task<decimal> GetTotalValueOfJobsForPeriodAsync(DateTime startDate, DateTime endDate);
+        Task<decimal> GetTotalValueOfJobsForCurrentMonthAsync();
+
+        Task<WorksOrder> GetWorksOrderByUserReferenceAsync(string userReference);
     }
 }
