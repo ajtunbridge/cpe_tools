@@ -82,7 +82,7 @@ namespace CPE.Sales.Services
             {
                 if (_dataSet == null)
                 {
-                    var folder = Settings.Default.NewOpenOrderReportsFolderName;
+                    var folder = Settings.Default.OpenOrderReportsFolderName;
 
                     var lastReport = MSOutlookService.GetMostRecentOpenOrderReport(folder);
 

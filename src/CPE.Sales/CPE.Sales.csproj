@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\CPE-SRV1\Data\Software\SalesTest\</InstallUrl>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -53,7 +53,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\CPE.Sales.ApplicationIcon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>861FEE502F6D9857C85E1D96FB3F5C30591740B6</ManifestCertificateThumbprint>
@@ -98,6 +99,10 @@
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleLogger.1.0.0\lib\net40\SimpleLogger.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Syncfusion.Compression.Base, Version=14.1460.0.41, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -162,7 +167,6 @@
     <Compile Include="Models\OpenOrderReportLine.cs" />
     <Compile Include="Models\SalesOrder.cs" />
     <Compile Include="Models\OpenOrderReport.cs" />
-    <Compile Include="PhotoCache.cs" />
     <Compile Include="Services\OpenOrderReportParserService.cs" />
     <Compile Include="Models\RescheduleResult.cs" />
     <Compile Include="Models\SalesOrderLine.cs" />
@@ -222,15 +226,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.Config" />
+    <None Include="App.Config.dev" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Content Include="TestOpenOrderReport.xls">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CPE.Data.EntityFramework\CPE.Data.EntityFramework.csproj">
@@ -319,9 +321,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\CPE.Sales.ApplicationIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\ImageUnavailable.png" />
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +338,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Caching\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

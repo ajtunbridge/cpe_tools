@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              xmlns:converters="clr-namespace:CPE.Sales.Converters" 
-             StartupUri="MainWindow.xaml" mc:Ignorable="d">
+             StartupUri="ParserSettingsTestWindow.xaml" mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
             <!-- Converters -->

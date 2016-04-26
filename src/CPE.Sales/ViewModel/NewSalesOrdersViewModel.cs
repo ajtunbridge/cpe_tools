@@ -72,17 +72,7 @@ namespace CPE.Sales.ViewModel
                 return $"Currently showing {FilteredSalesOrders.Count()} sales orders with a total value of {FilteredSalesOrders.Sum(so => so.TotalValue).ToString("C")}";
             }
         }
-
-        public decimal TotalValueOfOrdersOnSystem
-        {
-            get { return _totalValueOfOrdersOnSystem; }
-            set
-            {
-                _totalValueOfOrdersOnSystem = value;
-                RaisePropertyChanged();
-            }
-        }
-
+        
         public SalesOrder SelectedSalesOrder
         {
             get { return _selectedSalesOrder; }
@@ -96,13 +86,13 @@ namespace CPE.Sales.ViewModel
         public async Task GetNewSalesOrdersAsync()
         {
             _allNewSaleOrders = new List<SalesOrder>();
+
             RaisePropertyChanged("FilteredSalesOrders");
 
             var folder = Properties.Settings.Default.NewOrdersFolderName;
 
             _allNewSaleOrders = await _parserService.GetNewSalesOrdersAsync(folder);
-            TotalValueOfOrdersOnSystem = await _tricorn.GetTotalValueOfJobsForCurrentMonthAsync();
-        
+
             RaisePropertyChanged("FilteredSalesOrders");
             RaisePropertyChanged("ViewHeader");
         }

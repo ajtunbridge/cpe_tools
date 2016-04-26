@@ -32,5 +32,19 @@ namespace CPE.Sales
 
             await model.PerformTestAsync(SalesOrderFolderName.Text, OrderFolderName.Text);
         }
+
+        private async void CheckTricornButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var model = DataContext as ParserSettingsTestViewModel;
+
+            await model.CheckTricornConnection();
+        }
+
+        private async void CheckCpeCentralButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var model = DataContext as ParserSettingsTestViewModel;
+
+            await model.CheckCpeCentralConnection();
+        }
     }
 }

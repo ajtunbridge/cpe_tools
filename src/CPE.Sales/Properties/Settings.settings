@@ -8,14 +8,11 @@
     <Setting Name="LaunchedOrdersFolderName" Type="System.String" Scope="User">
       <Value Profile="(Default)">SO - Launched</Value>
     </Setting>
-    <Setting Name="NewOpenOrderReportsFolderName" Type="System.String" Scope="User">
+    <Setting Name="OpenOrderReportsFolderName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Open Order Reports</Value>
     </Setting>
-    <Setting Name="CompleteOpenOrderReportsFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">OOR - Complete</Value>
-    </Setting>
     <Setting Name="DrawingFileFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Central</Value>
+      <Value Profile="(Default)">I:\Drawing Files</Value>
     </Setting>
   </Settings>
 </SettingsFile>

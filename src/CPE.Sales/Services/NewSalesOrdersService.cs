@@ -41,9 +41,31 @@ namespace CPE.Sales.Services
         {
             var newSalesOrders = new List<SalesOrder>();
 
-            var newMail = await Task.Factory.StartNew(() => MSOutlookService.GetSalesOrderMail(folderName));
+            List<MSOutlookMailItem> newMail = new List<MSOutlookMailItem>();
+
+            try
+            {
+                newMail = await Task.Factory.StartNew(() => MSOutlookService.GetSalesOrderMail(folderName));
+            }
+            catch (Exception ex)
+            {
+                SimpleLogger.Logger.Log(ex);
+                return newSalesOrders;
+            }
 
             foreach (var mail in newMail)
+            {
+                var newOrder = await ParseMailAsync(mail);
+
+                newSalesOrders.Add(newOrder);
+            }
+
+            return newSalesOrders;
+        }
+
+        private async Task<SalesOrder> ParseMailAsync(MSOutlookMailItem mail)
+        {
+            try
             {
                 var orderNumber = await GetOrderNumberAsync(mail);
                 var customer = await GetCustomerAsync(mail);
@@ -56,7 +78,8 @@ namespace CPE.Sales.Services
 
                 var text = await ExtractTextAsync(mail);
 
-                var multiLineRegex = new Regex(settings.MultiLineDrawingNumberAndDeliveryExpr, settings.MultiLineDrawingNumberAndDeliveryOptions);
+                var multiLineRegex = new Regex(settings.MultiLineDrawingNumberAndDeliveryExpr,
+                    settings.MultiLineDrawingNumberAndDeliveryOptions);
 
                 var multiLineMatches = multiLineRegex.Matches(text);
 
@@ -69,15 +92,21 @@ namespace CPE.Sales.Services
                     var deliveryRegex = new Regex(settings.DeliveryDateExpr, settings.DeliveryDateOptions);
 
                     var dateString = deliveryRegex.Match(text).Value;
-                    
-                    var rescheduleResult = await
-                        _openOrderParserService.CheckIfHasBeenRescheduled(drawingNumber, orderNumber);
+
+                    if (string.IsNullOrEmpty(dateString))
+                    {
+                        throw new Exception("Unable to parse delivery date");
+                    }
+
+                    // TODO: uncomment open order report parser line
+                    var rescheduleResult = new RescheduleResult { HasBeenRescheduled = false, RescheduledDate = null };
+                    // await _openOrderParserService.CheckIfHasBeenRescheduled(drawingNumber, orderNumber);
 
                     var line = new SalesOrderLine
                     {
                         DrawingNumber = await CleanDrawingNumberAsync(mail, drawingNumber),
                         Name = await _tricorn.GetNameByDrawingNumberAsync(drawingNumber),
-                        OriginalDeliveryDate = string.IsNullOrEmpty(dateString) ? DateTime.MinValue : DateTime.Parse(dateString),
+                        OriginalDeliveryDate = DateTime.Parse(dateString),
                         Photo = await GetPhotoByDrawingNumber(drawingNumber)
                     };
 
@@ -138,7 +167,7 @@ namespace CPE.Sales.Services
                     OrderNumber = orderNumber,
                     EarliestDeliveryDate = DateTime.MaxValue,
                     Lines = lines,
-                    MailItem=  mail,
+                    MailItem = mail,
                     TotalValue = totalValue
                 };
 
@@ -161,10 +190,25 @@ namespace CPE.Sales.Services
                     newOrder.EarliestDeliveryDate = DateTime.MinValue;
                 }
 
-                newSalesOrders.Add(newOrder);
+                return newOrder;
             }
+            catch (Exception ex)
+            {
+                var failedOrder = new SalesOrder
+                {
+                    Buyer = "N/A",
+                    CustomerName = "N/A",
+                    OrderNumber = "N/A",
+                    EarliestDeliveryDate = DateTime.MinValue,
+                    Lines = new List<SalesOrderLine>(),
+                    MailItem = mail,
+                    TotalValue = 0
+                };
 
-            return newSalesOrders;
+                SimpleLogger.Logger.Log($"Failed on {mail.Subject} received at {mail.ReceivedAt}\nException: {ex.Message}");
+
+                return failedOrder;
+            }
         }
 
         private async Task<ICustomer> GetCustomerAsync(MSOutlookMailItem mail)

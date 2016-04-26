@@ -50,30 +50,18 @@ namespace CPE.Sales.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Open Order Reports")]
-        public string NewOpenOrderReportsFolderName {
+        public string OpenOrderReportsFolderName {
             get {
-                return ((string)(this["NewOpenOrderReportsFolderName"]));
+                return ((string)(this["OpenOrderReportsFolderName"]));
             }
             set {
-                this["NewOpenOrderReportsFolderName"] = value;
+                this["OpenOrderReportsFolderName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("OOR - Complete")]
-        public string CompleteOpenOrderReportsFolderName {
-            get {
-                return ((string)(this["CompleteOpenOrderReportsFolderName"]));
-            }
-            set {
-                this["CompleteOpenOrderReportsFolderName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Central")]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Drawing Files")]
         public string DrawingFileFolderName {
             get {
                 return ((string)(this["DrawingFileFolderName"]));

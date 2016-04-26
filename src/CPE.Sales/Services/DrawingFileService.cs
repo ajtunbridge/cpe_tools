@@ -22,6 +22,7 @@ namespace CPE.Sales.Services
         private readonly Dictionary<string, List<DrawingFile>> _searchCache = new Dictionary<string, List<DrawingFile>>();
         private readonly Dictionary<string, BitmapSource> _iconCache = new Dictionary<string, BitmapSource>();
         private readonly string[] _validFileExtensions = {".pdf", ".tif", ".tiff"};
+        private string _lastSearch;
 
         private bool _searchInProgress;
 
@@ -33,6 +34,14 @@ namespace CPE.Sales.Services
             }
 
             _searchInProgress = true;
+
+            // do a full search if the same drawing number is searched twice in a row
+            if (drawingNumber == _lastSearch && _searchCache.ContainsKey(drawingNumber))
+            {
+                _searchCache.Remove(drawingNumber);
+            }
+
+            _lastSearch = drawingNumber;
 
             if (_searchCache.ContainsKey(drawingNumber))
             {
