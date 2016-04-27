@@ -167,7 +167,7 @@ namespace CPE.Sales.Services
                     OrderNumber = orderNumber,
                     EarliestDeliveryDate = DateTime.MaxValue,
                     Lines = lines,
-                    MailItem = mail,
+                    //MailItem = mail,
                     TotalValue = totalValue
                 };
 
@@ -201,7 +201,7 @@ namespace CPE.Sales.Services
                     OrderNumber = "N/A",
                     EarliestDeliveryDate = DateTime.MinValue,
                     Lines = new List<SalesOrderLine>(),
-                    MailItem = mail,
+                    //MailItem = mail,
                     TotalValue = 0
                 };
 

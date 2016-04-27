@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("CPE.Sales")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("CPE Chelmsford Ltd")]
 [assembly: AssemblyProduct("CPE.Sales")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © CPE Chelmsford Ltd 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

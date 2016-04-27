@@ -12,7 +12,7 @@ namespace CPE.Sales.ViewModel
 {
     public sealed class ParserSettingsTestViewModel : ViewModelBase
     {
-        private NewSalesOrdersService _salesOrderService;
+        private SalesOrderParserService _salesOrderService;
         private ICustomerService _customers;
         private ITricornService _tricorn;
 
@@ -28,7 +28,7 @@ namespace CPE.Sales.ViewModel
             }
         }
 
-        public ParserSettingsTestViewModel(NewSalesOrdersService salesOrderService, ICustomerService customers, ITricornService tricorn)
+        public ParserSettingsTestViewModel(SalesOrderParserService salesOrderService, ICustomerService customers, ITricornService tricorn)
         {
             _salesOrderService = salesOrderService;
             _tricorn = tricorn;
@@ -66,15 +66,15 @@ namespace CPE.Sales.ViewModel
                 StatusMessage = ex.Message;
             }
         }
-        public async Task PerformTestAsync(string orderDirectory, string outputDirectory)
+        public async Task PerformTestAsync(string outputDirectory)
         {
             StatusMessage = "Scanning sales order folder....";
 
-            var salesOrders = await _salesOrderService.GetNewSalesOrdersAsync(orderDirectory);
+            var salesOrders = await _salesOrderService.GetSalesOrdersAsync();
 
             if (!salesOrders.Any())
             {
-                StatusMessage = "No orders found in a folder called '" + orderDirectory + "'";
+                StatusMessage = "No orders found!";
                 return;
             }
 
@@ -84,11 +84,14 @@ namespace CPE.Sales.ViewModel
             {
                 foreach (var so in failedOrders)
                 {
-                    var fileName = Path.Combine(outputDirectory, Path.GetFileName(so.MailItem.Attachments[0]));
-
-                    if (!File.Exists(fileName))
+                    foreach (var att in so.Mail.ExtractedAttachments)
                     {
-                        File.Copy(so.MailItem.Attachments[0], fileName);
+                        var fileName = Path.Combine(outputDirectory, Path.GetFileName(att));
+
+                        if (!File.Exists(fileName))
+                        {
+                            File.Copy(so.Mail.ExtractedAttachments[0], fileName);
+                        }
                     }
                 }
 

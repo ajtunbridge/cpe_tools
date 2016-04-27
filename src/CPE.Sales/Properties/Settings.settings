@@ -12,7 +12,10 @@
       <Value Profile="(Default)">Open Order Reports</Value>
     </Setting>
     <Setting Name="DrawingFileFolderName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">I:\Drawing Files</Value>
+      <Value Profile="(Default)">C:\Central</Value>
+    </Setting>
+    <Setting Name="SalesOrderFolderId" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

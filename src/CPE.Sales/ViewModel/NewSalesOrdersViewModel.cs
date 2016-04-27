@@ -14,14 +14,14 @@ namespace CPE.Sales.ViewModel
 {
     public class NewSalesOrdersViewModel : ViewModelBase
     {
-        private readonly NewSalesOrdersService _parserService;
+        private readonly SalesOrderParserService _parserService;
         private readonly ITricornService _tricorn;
         private List<SalesOrder> _allNewSaleOrders = new List<SalesOrder>();
         private bool _showDueThisMonthOnly;
         private SalesOrder _selectedSalesOrder;
         private decimal _totalValueOfOrdersOnSystem;
 
-        public NewSalesOrdersViewModel(NewSalesOrdersService parserService, ITricornService tricornService)
+        public NewSalesOrdersViewModel(SalesOrderParserService parserService, ITricornService tricornService)
         {
             _parserService = parserService;
             _tricorn = tricornService;
@@ -88,10 +88,8 @@ namespace CPE.Sales.ViewModel
             _allNewSaleOrders = new List<SalesOrder>();
 
             RaisePropertyChanged("FilteredSalesOrders");
-
-            var folder = Properties.Settings.Default.NewOrdersFolderName;
-
-            _allNewSaleOrders = await _parserService.GetNewSalesOrdersAsync(folder);
+            
+            _allNewSaleOrders = await _parserService.GetSalesOrdersAsync();
 
             RaisePropertyChanged("FilteredSalesOrders");
             RaisePropertyChanged("ViewHeader");

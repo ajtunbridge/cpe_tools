@@ -61,13 +61,25 @@ namespace CPE.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Drawing Files")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Central")]
         public string DrawingFileFolderName {
             get {
                 return ((string)(this["DrawingFileFolderName"]));
             }
             set {
                 this["DrawingFileFolderName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SalesOrderFolderId {
+            get {
+                return ((string)(this["SalesOrderFolderId"]));
+            }
+            set {
+                this["SalesOrderFolderId"] = value;
             }
         }
     }

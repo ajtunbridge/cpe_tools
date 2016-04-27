@@ -16,6 +16,18 @@ namespace CPE.Data.EntityFramework.Repositories
         {
         }
 
+        public async Task<byte[]> GetPhotoByDrawingNumber(string drawingNumber)
+        {
+            var part = await Entities.Parts.FirstOrDefaultAsync(p => p.DrawingNumber == drawingNumber);
+
+            if (part == null)
+            {
+                return null;
+            }
+
+            return await GetPhotoByPartAsync(part);
+        }
+
         public async Task<byte[]> GetPhotoByPartAsync(IPart part)
         {
             if (part == null)

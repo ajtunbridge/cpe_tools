@@ -28,6 +28,8 @@ namespace CPE.Data.EntityFramework.Model
             return settings;
         }
 
+        public bool HasSalesOrderParserSettings => SalesOrderParserSettings != null;
+
         public void SetSalesOrderParserSettings(SalesOrderParserSettingsBlob settings)
         {
             SalesOrderParserSettings = BlobHandler.Compress(settings);

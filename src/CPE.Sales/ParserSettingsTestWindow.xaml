@@ -4,36 +4,41 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPE.Sales"
-        MinHeight="450" MinWidth="600"
+        MinHeight="450" MinWidth="700"
         mc:Ignorable="d"
-        Title="Parser Test" Height="300" Width="400"
+        Title="Parser Test" Height="450" Width="700"
         FontSize="16"
         DataContext="{Binding ParserSettingsTestViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Margin="5">
-            <TextBlock Text="Folder to scan" Margin="3"/>
-            <TextBox x:Name="SalesOrderFolderName" Margin="3" Text="SO - New"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Margin="5">
-            <TextBlock Text="Failed orders directory" Margin="3"/>
-            <TextBox x:Name="OrderFolderName" Text="I:\Software" Margin="3"/>
-        </StackPanel>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="8" Height="40" Click="CheckTricornButton_OnClick" Content="Check Tricorn"/>
-            <Button Grid.Column="1" Margin="8" Height="40" Click="CheckCpeCentralButton_OnClick" Content="Check CPECentral"/>
-            <Button Grid.Column="2" Margin="8" Height="40" Click="ScanNowButton_OnClick" Content="Scan folder now"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Margin="10" Content="Pick folder" Click="ButtonBase_OnClick"></Button>
+        <Grid Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="5">
+                <TextBlock Text="Failed orders directory" Margin="3"/>
+                <TextBox x:Name="OrderFolderName" Text="C:\Users\ajtun\Desktop\Failed" Margin="3"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="8" Height="40" Click="CheckTricornButton_OnClick" Content="Check Tricorn"/>
+                <Button Grid.Column="1" Margin="8" Height="40" Click="CheckCpeCentralButton_OnClick" Content="Check CPECentral"/>
+                <Button Grid.Column="2" Margin="8" Height="40" Click="ScanNowButton_OnClick" Content="Scan folder now"/>
+            </Grid>
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <TextBlock Margin="8" Text="{Binding StatusMessage}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"></TextBlock>
+            </ScrollViewer>
         </Grid>
-        <TextBlock Grid.Row="3" Margin="8" Text="{Binding StatusMessage}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"></TextBlock>
     </Grid>
 </Window>

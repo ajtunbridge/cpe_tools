@@ -30,5 +30,8 @@ namespace CPE.Domain.Model
         public string DrawingNumberReplacementExpr { get; set; }
         public RegexOptions DrawingNumberReplacementOptions { get; set; }
         public string DrawingNumberReplacementValue { get; set; }
+
+        public string MultiDropExpr { get; set; }
+        public RegexOptions MultiDropOptions { get; set; }
     }
 }

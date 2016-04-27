@@ -10,7 +10,7 @@ namespace CPE.Sales.ViewModel
     {
         private SalesOrder _currentSalesOrder;
 
-        public string SalesOrderFileName => _currentSalesOrder?.MailItem.Attachments[0];
+        public string SalesOrderFileName => _currentSalesOrder?.Mail.ExtractedAttachments[0];
 
         public List<SalesOrderLine> SalesOrderLines => _currentSalesOrder?.Lines;
 

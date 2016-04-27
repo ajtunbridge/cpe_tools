@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C87CA17E-5131-4293-9611-F0F3A8E7516E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{E180AA70-A41E-44C4-B39E-FC5B077234E5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CPE.Domain</RootNamespace>
-    <AssemblyName>CPE.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>TestConsole</RootNamespace>
+    <AssemblyName>TestConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,9 +22,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,35 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods\ByteArrayExtensions.cs" />
-    <Compile Include="ExtensionMethods\EnumExtensions.cs" />
-    <Compile Include="ExtensionMethods\Int64Extensions.cs" />
-    <Compile Include="ExtensionMethods\StringExtensions.cs" />
-    <Compile Include="IO\BlobHandler.cs" />
-    <Compile Include="IO\GZip.cs" />
-    <Compile Include="Model\ICustomer.cs" />
-    <Compile Include="Model\IEntity.cs" />
-    <Compile Include="Model\IPart.cs" />
-    <Compile Include="Model\IPartVersion.cs" />
-    <Compile Include="Model\SalesOrderParserSettingsBlob.cs" />
-    <Compile Include="Model\Tricorn\WorksOrder.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\Credentials\IPasswordService.cs" />
-    <Compile Include="Security\Credentials\PBKDF2PasswordService.cs" />
-    <Compile Include="Security\Credentials\SecuredPassword.cs" />
-    <Compile Include="Security\Cryptography\IHashProvider.cs" />
-    <Compile Include="Security\Cryptography\Murmur3HashProvider.cs" />
-    <Compile Include="Security\Cryptography\SymmetricCryptoAlgorithm.cs" />
-    <Compile Include="Security\Cryptography\SymmetricCryptoProvider.cs" />
-    <Compile Include="Services\ICustomerService.cs" />
-    <Compile Include="Services\IPartService.cs" />
-    <Compile Include="Services\IPartVersionService.cs" />
-    <Compile Include="Services\IPdfParserService.cs" />
-    <Compile Include="Services\IPhotoService.cs" />
-    <Compile Include="Services\IServiceBase.cs" />
-    <Compile Include="Services\ITricornService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSOutlookProvider\MSOutlookProvider.csproj">
+      <Project>{14e4b9bf-7763-4d3b-b822-5b17663a090f}</Project>
+      <Name>MSOutlookProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

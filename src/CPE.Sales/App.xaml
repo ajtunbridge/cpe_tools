@@ -17,7 +17,6 @@
             <!-- Bootstrapper -->
             <local:Bootstrapper x:Key="ViewModelLocator" d:IsDataSource="true" />
             <!-- Styles -->
-
             <Style x:Key="TextBoxStyle" TargetType="TextBox">
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="FontSize" Value="14" />

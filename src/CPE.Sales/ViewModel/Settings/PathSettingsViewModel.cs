@@ -33,15 +33,5 @@ namespace CPE.Sales.ViewModel.Settings
                 Properties.Settings.Default.Save();
             }
         }
-
-        public string CompleteOpenOrderReportFolderName
-        {
-            get { return Properties.Settings.Default.CompleteOpenOrderReportsFolderName; }
-            set
-            {
-                Properties.Settings.Default.CompleteOpenOrderReportsFolderName = value;
-                Properties.Settings.Default.Save();
-            }
-        }
     }
 }

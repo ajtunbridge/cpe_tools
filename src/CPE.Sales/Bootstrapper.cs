@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
-using CPE.Data.EntityFramework.Repositories;
+﻿using CPE.Data.EntityFramework.Repositories;
 using CPE.Data.EntityFramework.Repositories.Tricorn;
 using CPE.Domain.Services;
 using CPE.Sales.Services;
 using CPE.Sales.ViewModel;
 using CPE.Sales.ViewModel.Settings;
 using Ninject;
+using SyncfusionPdfParser;
 
 namespace CPE.Sales
 {
@@ -21,7 +16,7 @@ namespace CPE.Sales
         static Bootstrapper()
         {
             Kernel = new StandardKernel();
-            
+
             Kernel.Bind<CustomerSalesOrderParserSettingsViewModel>().ToSelf();
             Kernel.Bind<PathSettingsViewModel>().ToSelf();
             Kernel.Bind<NewSalesOrdersViewModel>().ToSelf();
@@ -35,11 +30,13 @@ namespace CPE.Sales
             Kernel.Bind<IPhotoService>().To<PhotoRepository>();
             Kernel.Bind<ITricornService>().To<TricornRepository>();
 
-            Kernel.Bind<NewSalesOrdersService>().ToSelf().InSingletonScope();
+            Kernel.Bind<IPdfParserService>().To<SfPdfParser>().InSingletonScope();
+
+            Kernel.Bind<SalesOrderParserService>().ToSelf().InSingletonScope();
             Kernel.Bind<OpenOrderReportParserService>().ToSelf().InSingletonScope();
             Kernel.Bind<DrawingFileService>().ToSelf().InSingletonScope();
         }
-        
+
         public CustomerSalesOrderParserSettingsViewModel ParserSettingsViewModel
             => Kernel.Get<CustomerSalesOrderParserSettingsViewModel>();
 
@@ -60,7 +57,6 @@ namespace CPE.Sales
 
         public static void Cleanup()
         {
-            
         }
     }
 }

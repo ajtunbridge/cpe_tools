@@ -8,6 +8,8 @@
 
         byte[] LogoBlob { get; set; }
 
+        bool HasSalesOrderParserSettings { get; }
+
         void SetSalesOrderParserSettings(SalesOrderParserSettingsBlob settings);
 
         SalesOrderParserSettingsBlob GetSalesOrderParserSettings();

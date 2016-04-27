@@ -29,8 +29,9 @@ namespace CPE.Sales
         private async void ScanNowButton_OnClick(object sender, RoutedEventArgs e)
         {
             var model = DataContext as ParserSettingsTestViewModel;
-
-            await model.PerformTestAsync(SalesOrderFolderName.Text, OrderFolderName.Text);
+            
+                await model.PerformTestAsync(OrderFolderName.Text);
+            
         }
 
         private async void CheckTricornButton_OnClick(object sender, RoutedEventArgs e)
@@ -45,6 +46,11 @@ namespace CPE.Sales
             var model = DataContext as ParserSettingsTestViewModel;
 
             await model.CheckCpeCentralConnection();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            new FirstRunWindow().ShowDialog();
         }
     }
 }

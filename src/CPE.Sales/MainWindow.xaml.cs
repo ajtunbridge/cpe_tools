@@ -22,7 +22,7 @@ namespace CPE.Sales
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-
+            var x = typeof (System.Data.Entity.SqlServer.SqlProviderServices);
         }
 
         private void ExportParseSettings()
