@@ -60,7 +60,7 @@ namespace MSOutlookProvider
                 }
 
                 var mailItem = item as MailItem;
-
+                
                 var mail = new Mail
                 {
                     Id = mailItem.EntryID,

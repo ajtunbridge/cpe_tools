@@ -29,7 +29,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\CPE-SRV1\Data\Software\CPE.Sales\</InstallUrl>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -158,7 +158,6 @@
     <Compile Include="Services\OpenOrderReportParserService.cs" />
     <Compile Include="Models\RescheduleResult.cs" />
     <Compile Include="Models\SalesOrderLine.cs" />
-    <Compile Include="Services\NewSalesOrdersService.cs" />
     <Compile Include="Services\SalesOrderParserService.cs" />
     <Compile Include="ViewModel\FindDrawingViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -196,7 +195,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\MSOutlookMailItem.cs" />
-    <Compile Include="Services\MSOutlookService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -214,8 +212,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.Config" />
-    <None Include="App.Config.Dev" />
+    <None Include="App.Config.Live" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using CPE.Domain.Services;
 using CPE.Sales;
 using CPE.Sales.Messages;
@@ -79,6 +80,7 @@ namespace CPE.Sales.ViewModel
             set
             {
                 _selectedSalesOrder = value;
+                Clipboard.SetText(_selectedSalesOrder.OrderNumber);
                 Messenger.Default.Send(new SalesOrderSelectedMessage(value));
             }
         }

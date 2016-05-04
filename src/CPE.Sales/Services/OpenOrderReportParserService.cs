@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CPE.Sales.Models;
 using CPE.Sales.Properties;
 using Excel;
+using MSOutlookProvider;
 
 namespace CPE.Sales.Services
 {
@@ -82,15 +83,17 @@ namespace CPE.Sales.Services
             {
                 if (_dataSet == null)
                 {
-                    var folder = Settings.Default.OpenOrderReportsFolderName;
+                    var folder = Settings.Default.OpenOrderReportsFolderId;
+                    
+                    
 
-                    var lastReport = MSOutlookService.GetMostRecentOpenOrderReport(folder);
+                    //var lastReport = MSOutlookService.GetMostRecentOpenOrderReport(folder);
 
-                    using (var fs = new FileStream(lastReport.Attachments.First(), FileMode.Open))
-                    {
-                        var reader = ExcelReaderFactory.CreateBinaryReader(fs);
-                        _dataSet = reader.AsDataSet();
-                    }
+                    //using (var fs = new FileStream(lastReport.Attachments.First(), FileMode.Open))
+                    //{
+                    //    var reader = ExcelReaderFactory.CreateBinaryReader(fs);
+                    //    _dataSet = reader.AsDataSet();
+                    //}
                 }
             });
         }

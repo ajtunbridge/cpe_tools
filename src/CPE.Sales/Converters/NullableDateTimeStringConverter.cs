@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace CPE.Sales.Converters
 {
-    [ValueConversion(typeof(DateTime?), typeof(string))]
+    [ValueConversion(typeof (DateTime?), typeof (string))]
     public class NullableDateTimeStringConverter : IValueConverter
     {
         public object Convert(object value, Type targerType, object parameter, CultureInfo culture)

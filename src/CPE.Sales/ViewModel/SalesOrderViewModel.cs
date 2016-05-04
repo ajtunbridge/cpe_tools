@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using CPE.Sales.Messages;
 using CPE.Sales.Models;
 using GalaSoft.MvvmLight;
@@ -10,7 +11,31 @@ namespace CPE.Sales.ViewModel
     {
         private SalesOrder _currentSalesOrder;
 
-        public string SalesOrderFileName => _currentSalesOrder?.Mail.ExtractedAttachments[0];
+        public SalesOrderViewModel()
+        {
+            Messenger.Default.Register<SalesOrderSelectedMessage>(this, HandleSalesOrderSelectedMessage);
+        }
+
+        public string SalesOrderFileName
+        {
+            get
+            {
+                if (_currentSalesOrder == null)
+                {
+                    return null;
+                }
+
+                foreach (var attachment in _currentSalesOrder.Mail.ExtractedAttachments)
+                {
+                    if (File.Exists(attachment) && Path.GetExtension(attachment).ToLower() == ".pdf")
+                    {
+                        return attachment;
+                    }
+                }
+
+                return null;
+            }
+        }
 
         public List<SalesOrderLine> SalesOrderLines => _currentSalesOrder?.Lines;
 
@@ -23,23 +48,22 @@ namespace CPE.Sales.ViewModel
                     return "No sales order currently selected!";
                 }
 
-                return string.Format("Currently viewing order number {0} from {1} at {2}.\nThe earliest delivery date on this order is {3:d}\nThe total value of this order is {4:C}",
-                    _currentSalesOrder.OrderNumber,
-                    _currentSalesOrder.Buyer, 
-                    _currentSalesOrder.CustomerName,
-                    _currentSalesOrder.EarliestDeliveryDate,
-                    _currentSalesOrder.TotalValue);
+                return
+                    string.Format(
+                        "Currently viewing order number {0} from {1} at {2}.\nThe earliest delivery date on this order is {3:d}\nThe total value of this order is {4:C}",
+                        _currentSalesOrder.OrderNumber,
+                        _currentSalesOrder.Buyer,
+                        _currentSalesOrder.CustomerName,
+                        _currentSalesOrder.EarliestDeliveryDate,
+                        _currentSalesOrder.TotalValue);
             }
-        }
-        public SalesOrderViewModel()
-        {
-            Messenger.Default.Register<SalesOrderSelectedMessage>(this, HandleSalesOrderSelectedMessage);
         }
 
         private void HandleSalesOrderSelectedMessage(SalesOrderSelectedMessage message)
         {
             _currentSalesOrder = message.SelectedSalesOrder;
 
+            RaisePropertyChanged("SalesOrderMail");
             RaisePropertyChanged("SalesOrderFileName");
             RaisePropertyChanged("SalesOrderLines");
             RaisePropertyChanged("HeaderText");

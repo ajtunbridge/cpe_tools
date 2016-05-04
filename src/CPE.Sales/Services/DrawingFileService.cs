@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.Caching;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using CPE.Domain.IO;
 using CPE.Sales.Messages;
 using CPE.Sales.Models;
+using CPE.Sales.Properties;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CPE.Sales.Services
 {
     public sealed class DrawingFileService
     {
-        private readonly Dictionary<string, List<DrawingFile>> _searchCache = new Dictionary<string, List<DrawingFile>>();
         private readonly Dictionary<string, BitmapSource> _iconCache = new Dictionary<string, BitmapSource>();
+
+        private readonly Dictionary<string, List<DrawingFile>> _searchCache =
+            new Dictionary<string, List<DrawingFile>>();
+
         private readonly string[] _validFileExtensions = {".pdf", ".tif", ".tiff"};
         private string _lastSearch;
 
@@ -47,19 +46,19 @@ namespace CPE.Sales.Services
             {
                 foreach (var result in _searchCache[drawingNumber])
                 {
-                    Messenger.Default.Send(new DrawingFileFoundMessage(result));   
+                    Messenger.Default.Send(new DrawingFileFoundMessage(result));
                 }
             }
             else
             {
                 await Task.Factory.StartNew(() =>
                 {
-                    var rootFolder = Properties.Settings.Default.DrawingFileFolderName;
+                    var rootFolder = Settings.Default.DrawingFileFolderName;
                     var searchPattern = "*" + drawingNumber + "*";
 
                     var results = new List<DrawingFile>();
 
-                    Queue<string> pending = new Queue<string>();
+                    var pending = new Queue<string>();
                     pending.Enqueue(rootFolder);
                     while (pending.Count > 0)
                     {
@@ -67,7 +66,7 @@ namespace CPE.Sales.Services
 
                         var tmp = Directory.GetFiles(rootFolder, searchPattern);
 
-                        for (int i = 0; i < tmp.Length; i++)
+                        for (var i = 0; i < tmp.Length; i++)
                         {
                             var ext = Path.GetExtension(tmp[i]).ToLower();
 
@@ -92,7 +91,7 @@ namespace CPE.Sales.Services
 
                         tmp = Directory.GetDirectories(rootFolder);
 
-                        for (int i = 0; i < tmp.Length; i++)
+                        for (var i = 0; i < tmp.Length; i++)
                         {
                             pending.Enqueue(tmp[i]);
                         }
@@ -102,11 +101,10 @@ namespace CPE.Sales.Services
                     {
                         _searchCache.Add(drawingNumber, results);
                     }
-                });            
+                });
             }
 
             _searchInProgress = false;
-
         }
 
         private BitmapSource GetIcon(string fileName)
@@ -117,7 +115,7 @@ namespace CPE.Sales.Services
             {
                 return _iconCache[key];
             }
-            
+
             var sysIcon = Icon.ExtractAssociatedIcon(fileName);
 
             var bmpSrc = Imaging.CreateBitmapSourceFromHIcon(

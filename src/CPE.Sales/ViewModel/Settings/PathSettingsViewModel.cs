@@ -26,10 +26,10 @@ namespace CPE.Sales.ViewModel.Settings
 
         public string NewOpenOrderReportFolderName
         {
-            get { return Properties.Settings.Default.OpenOrderReportsFolderName; }
+            get { return Properties.Settings.Default.OpenOrderReportsFolderId; }
             set
             {
-                Properties.Settings.Default.OpenOrderReportsFolderName = value;
+                Properties.Settings.Default.OpenOrderReportsFolderId = value;
                 Properties.Settings.Default.Save();
             }
         }

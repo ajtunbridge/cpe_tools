@@ -49,25 +49,13 @@ namespace CPE.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Open Order Reports")]
-        public string OpenOrderReportsFolderName {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OpenOrderReportsFolderId {
             get {
-                return ((string)(this["OpenOrderReportsFolderName"]));
+                return ((string)(this["OpenOrderReportsFolderId"]));
             }
             set {
-                this["OpenOrderReportsFolderName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Central")]
-        public string DrawingFileFolderName {
-            get {
-                return ((string)(this["DrawingFileFolderName"]));
-            }
-            set {
-                this["DrawingFileFolderName"] = value;
+                this["OpenOrderReportsFolderId"] = value;
             }
         }
         
@@ -80,6 +68,18 @@ namespace CPE.Sales.Properties {
             }
             set {
                 this["SalesOrderFolderId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("I:\\Drawing Files")]
+        public string DrawingFileFolderName {
+            get {
+                return ((string)(this["DrawingFileFolderName"]));
+            }
+            set {
+                this["DrawingFileFolderName"] = value;
             }
         }
     }
